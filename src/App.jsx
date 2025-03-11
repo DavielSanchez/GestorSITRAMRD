@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import PanelOperador from './pages/PanelOperador';
 import Incidencias from './pages/Incidencias';
-import VistaAsignar from './pages/VistaAsignar';
+import VistaAsignar from './pages/VistaAsignar'
 
 function App() {
   return (

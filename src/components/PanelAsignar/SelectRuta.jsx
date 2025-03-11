@@ -30,7 +30,56 @@ function SelectRuta({ theme }) {
   };
 
   return (
-    <div className={`w-[477px] h-[89px] ${useBG(theme)} rounded-[5px] flex flex-col justify-center px-4 relative`}>
+    <div className={`w-[477px] h-[89px] bg-[#eff3fe] rounded-[5px] relative flex items-center px-4`}>
+        <select
+          className={`
+          appearance-none
+          w-full
+          h-full
+          text-[#211f47]
+          text-2xl
+          font-semibold
+          font-['Inter']
+          bg-transparent
+          px-4
+          focus:outline-none
+          cursor-pointer`}
+          value={selectedRuta}
+          onChange={handleChange}
+        >
+          <option value="">Seleccione una ruta</option>
+          {rutas.map((ruta) => (
+            <option key={ruta._id} value={ruta._id}>
+              {ruta.nombreRuta ? ruta.nombreRuta : `Ruta ${ruta._id}`}
+            </option>
+          ))}
+        </select>
+        {/* Ícono de triángulo para el selector */}
+        <div
+        data-svg-wrapper
+        className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none"
+      >
+        <div
+          className="
+            w-0
+            h-0
+            border-l-[11px]
+            border-l-transparent
+            border-r-[11px]
+            border-r-transparent
+            border-t-[19.33px]
+            border-t-[#6a62dc]
+          "
+        />
+      </div>
+    </div>
+    
+  );
+}
+
+export default SelectRuta;
+
+{/* <div className={`w-[477px] h-[89px] ${useBG(theme)} rounded-[5px] flex flex-col justify-center px-4 relative`}>
       <label className={`text-2xl font-semibold font-['Inter'] mb-2 ${useText(theme)}`}>
         Seleccione una ruta
       </label>
@@ -48,20 +97,16 @@ function SelectRuta({ theme }) {
           ))}
         </select>
         {/* Ícono de triángulo para el selector */}
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill={useIconColor(theme, "chevron")}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M7 10l5 5 5-5H7z" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default SelectRuta;
+    //     <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+    //       <svg
+    //         width="16"
+    //         height="16"
+    //         viewBox="0 0 24 24"
+    //         fill={useIconColor(theme, "chevron")}
+    //         xmlns="http://www.w3.org/2000/svg"
+    //       >
+    //         <path d="M7 10l5 5 5-5H7z" />
+    //       </svg>
+    //     </div>
+    //   </div>
+    // </div> */}

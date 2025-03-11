@@ -8,9 +8,10 @@ import { jwtDecode } from "jwt-decode";
 import { useBG, useBGForButtons, useText } from "../ColorClass";
 
 function VistaAsignar() {
-  const token = localStorage.getItem('token');
-  const decodedToken = jwtDecode(token);
-  const theme = decodedToken.theme;
+  // const token = localStorage.getItem('token');
+  // const decodedToken = jwtDecode(token);
+  // const theme = decodedToken.theme;
+  const theme = 'light'
   const bgColor = useBG(theme);
   const ButtonColor = useBGForButtons(theme);
   const textColor = useText(theme);
