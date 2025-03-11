@@ -17,16 +17,15 @@ function Tabla() {
           const incidenciasWithNombre = await Promise.all(
             data.incidencias.map(async (inc) => {
               let nombreUsuario = "N/A";
-              if (inc.idUsuario && typeof inc.idUsuario === "object" && inc.idUsuario._id) {
-                nombreUsuario = inc.idUsuario._id;
+              // Si idUsuario es un objeto y tiene la propiedad nombre, se usa ese valor.
+              if (inc.idUsuario && typeof inc.idUsuario === "object" && inc.idUsuario.nombre) {
+                nombreUsuario = inc.idUsuario.nombre;
               } else if (inc.idUsuario && typeof inc.idUsuario === "string") {
+                // Si idUsuario es un string, se realiza un fetch para obtener el usuario.
                 try {
-                  const userResponse = await fetch(`${API_LINK}/auth/users/id/${inc.idUsuario._id}`);
+                  const userResponse = await fetch(`${API_LINK}/auth/users/id/${inc.idUsuario}`);
                   const userData = await userResponse.json();
-                  console.log("userData", userData);
-                  nombreUsuario = Array.isArray(userData)
-                    ? (userData.length > 0 ? userData[0].nombre : "N/A")
-                    : userData.nombre || "N/A";
+                  nombreUsuario = userData.nombre || "N/A";
                 } catch (err) {
                   console.error("Error fetching nombre for user", inc.idUsuario, err);
                 }

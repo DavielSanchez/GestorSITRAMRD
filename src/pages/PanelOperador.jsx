@@ -28,7 +28,7 @@ function PanelOperador() {
   return (
     <div className={`flex h-screen overflow-hidden ${bgColor}`}>
       {/* Sidebar fijo */}
-      <Sidebar role="administrador" handleButtonClick={handleButtonClick} activeButton={activeButton} />
+      <Sidebar role="operador" handleButtonClick={handleButtonClick} activeButton={activeButton} />
 
       {/* Contenedor principal */}
       <div className="flex flex-col flex-1 overflow-auto ml-[120px] relative">
