@@ -13,13 +13,13 @@ function App() {
         <Routes>
           <Route path="/operador" element={<PanelOperador />} />
           <Route path="/incidencias" element={<Incidencias />} />
-          <Route 
+          {/* <Route 
           path="/" 
           element={
           <ProtectedRoute allowedRoles={['Pasajero', 'Operador', 'Administrador']}>
             <Home />
           </ProtectedRoute>
-          } />
+          } /> */}
         </Routes>
       </Router>
     </>
