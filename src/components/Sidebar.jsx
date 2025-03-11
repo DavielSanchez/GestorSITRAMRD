@@ -6,7 +6,7 @@ const menuConfig = {
   operador: [
     {
       label: "Dashboard",
-      path: "/operador",
+      path: "/",
       onClick: () => handleButtonClick && handleButtonClick("Dashboard"),
       icon: (
         <div className="flex flex-col items-center cursor-pointer">

@@ -58,9 +58,6 @@ export default function BarraSuperior({ title, theme }) {
   );
 }
 
-/* =======================================================
-   ÍCONO DE CORREO (MENSAJES)
-   ======================================================= */
 function AdditionalIcon({ primaryHover, iconColor }) {
   const [showMessages, setShowMessages] = useState(false);
   const messagesRef = useRef(null);
@@ -134,9 +131,6 @@ function MessageItem({ user }) {
   );
 }
 
-/* =======================================================
-   ÍCONO DE NOTIFICACIONES
-   ======================================================= */
 function NotificationBell({ primaryHover, iconColor }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationsRef = useRef(null);
@@ -204,9 +198,6 @@ function NotificationItem() {
   );
 }
 
-/* =======================================================
-   MENÚ DE USUARIO
-   ======================================================= */
 function UserMenu({ theme, primaryColors, primaryHover }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
