@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const ModalEditar = ({ isOpen, onClose, incidencia, onEstadoUpdated, API_LINK }) => {
   const [nuevoEstado, setNuevoEstado] = useState("");
 
-  // Inicializa el valor al abrir el modal
+  // Inicializa el valor al abrir el modal con el estado original
   useEffect(() => {
     if (incidencia) {
       setNuevoEstado(incidencia.estado);
@@ -34,7 +34,7 @@ const ModalEditar = ({ isOpen, onClose, incidencia, onEstadoUpdated, API_LINK })
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      {/* Overlay sutil para no oscurecer completamente la página */}
+      {/* Overlay sutil */}
       <div 
         className="absolute inset-0 bg-gray-100 opacity-70" 
         onClick={onClose}
