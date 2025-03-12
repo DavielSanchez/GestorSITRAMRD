@@ -5,9 +5,10 @@ import TopBar from "../components/TopBar";
 import IncidenciasCard from "../components/PanelOperador/IncidenciasCard";
 import IncidenciasP from "../components/PanelIncidencias/IncidenciasP";
 import IncidenciasR from "../components/PanelIncidencias/IncidenciasR";
-import Tabla from "../components/PanelIncidencias/Tabla";
+// import Tabla from "../components/PanelIncidencias/Tabla";
 import ModalRegistrar from "../components/PanelIncidencias/ModalRegistrar";
 import { useBG, useBGForButtons, useText } from "../ColorClass";
+import EnhancedTable from "/src/components/Table.jsx";
 
 export default function Incidencias() {
   const navigate = useNavigate();
@@ -40,7 +41,8 @@ export default function Incidencias() {
           >
             Registrar incidencia
           </button>
-          <Tabla />
+          {/* <Tabla /> */}
+          <EnhancedTable/>
         </main>
       </div>
       <ModalRegistrar
