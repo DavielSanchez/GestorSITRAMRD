@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 
 const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
-function SelectAutobus() {
+function SelectAutobus({ selectedAutobus, setSelectedAutobus }) {
   const [autobuses, setAutobuses] = useState([]);
-  const [selectedAutobus, setSelectedAutobus] = useState("");
 
   useEffect(() => {
     const fetchAutobuses = async () => {
@@ -24,10 +23,6 @@ function SelectAutobus() {
     fetchAutobuses();
   }, []);
 
-  const handleChange = (event) => {
-    setSelectedAutobus(event.target.value);
-  };
-
   return (
     <div className="w-[477px] h-[89px] bg-[#eff3fe] rounded-[5px] relative flex items-center px-4">
       <select
@@ -45,7 +40,7 @@ function SelectAutobus() {
           cursor-pointer
         "
         value={selectedAutobus}
-        onChange={handleChange}
+        onChange={(e) => setSelectedAutobus(e.target.value)}
       >
         <option value="">Seleccione un autobús</option>
         {autobuses.map((autobus) => (
@@ -54,8 +49,7 @@ function SelectAutobus() {
           </option>
         ))}
       </select>
-
-      {/* Flecha hacia abajo con forma de triángulo */}
+      {/* Flecha hacia abajo */}
       <div
         data-svg-wrapper
         className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none"
@@ -78,5 +72,3 @@ function SelectAutobus() {
 }
 
 export default SelectAutobus;
-
-
