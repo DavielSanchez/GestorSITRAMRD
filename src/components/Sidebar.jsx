@@ -287,7 +287,7 @@ function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
 
 
       {/* Opciones del menú con scroll */}
-      <div className="flex flex-col gap-6 items-center flex-grow overflow-y-auto pb-6 px-2">
+      <div className="flex flex-col gap-6 items-center flex-grow overflow-y-auto scrollbar-hide pb-6 px-2">
         {menuItems.map((item, index) => (
           <Link key={index} to={item.path}>
             <div
