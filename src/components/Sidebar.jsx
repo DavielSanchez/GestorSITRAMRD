@@ -253,7 +253,6 @@ const menuConfig = {
 };
 
 function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
-  // Selecciona las opciones según el rol recibido
   const menuItems = menuConfig[role] || [];
 
   return (
@@ -261,10 +260,10 @@ function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
       {/* Ícono superior (estilo “S”) */}
       <div className="mb-8">
         <svg
-            className="w-16 h-16"
-            viewBox="0 0 85 85"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          className="w-16 h-16"
+          viewBox="0 0 85 85"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <mask
             id="mask0_1143_944"
@@ -287,8 +286,8 @@ function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
       </div>
 
 
-      {/* Opciones del menú según el rol */}
-      <div className="flex flex-col gap-6 items-center">
+      {/* Opciones del menú con scroll */}
+      <div className="flex flex-col gap-6 items-center flex-grow overflow-y-auto pb-6 px-2">
         {menuItems.map((item, index) => (
           <Link key={index} to={item.path}>
             <div
@@ -297,10 +296,10 @@ function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
               }
               className="flex flex-col items-center cursor-pointer"
             >
-              <div className="w-[60px] h-[60px] bg-[#f1f2ff] rounded-[20px] border border-[#6A62DC] flex items-center justify-center">
+              <div className="w-[60px] h-[60px] bg-[#f1f2ff] rounded-[20px] border border-[#6A62DC] flex items-center justify-center hover:bg-[#e0e1ff] transition-colors">
                 {item.icon}
               </div>
-              <div className="text-white text-base font-bold mt-2">
+              <div className="text-white text-base font-bold mt-2 text-center">
                 {item.label}
               </div>
             </div>
