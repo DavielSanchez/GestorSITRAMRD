@@ -250,6 +250,84 @@ const menuConfig = {
       ),
     },
   ],
+  chofer: [
+    {
+      label: "Dashboard",
+      path: "/",
+      onClick: () => handleButtonClick && handleButtonClick("Dashboard"),
+      icon: (
+        <div className="flex flex-col items-center cursor-pointer">
+          <div className="w-[60px] h-[60px] bg-[#f1f2ff] rounded-[20px] border border-[#6A62DC] flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="89"
+              height="87"
+              viewBox="0 0 89 87"
+              fill="none"
+            >
+              <rect
+                x="0.5"
+                y="0.5"
+                width="88"
+                height="86"
+                rx="19.5"
+                fill="#F1F2FF"
+                stroke="#6A62DC"
+              />
+              <path
+                d="M39.3462 29.5693H35.9099C34.9986 29.5693 34.1245 29.9886 33.4801 30.7351C32.8357 31.4816 32.4736 32.494 32.4736 33.5497V57.432C32.4736 58.4877 32.8357 59.5001 33.4801 60.2466C34.1245 60.993 34.9986 61.4124 35.9099 61.4124H53.0914C54.0028 61.4124 54.8768 60.993 55.5212 60.2466C56.1656 59.5001 56.5277 58.4877 56.5277 57.432V33.5497C56.5277 32.494 56.1656 31.4816 55.5212 30.7351C54.8768 29.9886 54.0028 29.5693 53.0914 29.5693H49.6551M39.3462 29.5693C39.3462 28.5136 39.7083 27.5012 40.3527 26.7547C40.9971 26.0082 41.8712 25.5889 42.7825 25.5889H46.2188C47.1302 25.5889 48.0042 26.0082 48.6486 26.7547C49.2931 27.5012 49.6551 28.5136 49.6551 29.5693M39.3462 29.5693C39.3462 30.6249 39.7083 31.6374 40.3527 32.3838C40.9971 33.1303 41.8712 33.5497 42.7825 33.5497H46.2188C47.1302 33.5497 48.0042 33.1303 48.6486 32.3838C49.2931 31.6374 49.6551 30.6249 49.6551 29.5693M39.3462 53.4516V43.5006M44.5007 53.4516V51.4614M49.6551 53.4516V47.481"
+                stroke="#6A62DC"
+                stroke-width="5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      ),
+    },
+    {
+      label: "Chat",
+      path: "/chat",
+      onClick: () => handleButtonClick && handleButtonClick("Chat"),
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="38"
+          height="34"
+          viewBox="0 0 38 34"
+          fill="none"
+        >
+          <path
+            d="M2 32.0395L4.4375 24.727C2.33083 21.6113 1.56874 17.9215 2.29291 14.3438C3.01708 10.7661 5.17824 7.5439 8.37456 5.27628C11.5709 3.00866 15.5849 1.84995 19.6702 2.01559C23.7555 2.18123 27.6341 3.65996 30.5849 6.17682C33.5357 8.69368 35.3579 12.0774 35.7126 15.6989C36.0674 19.3203 34.9305 22.9331 32.5135 25.8654C30.0965 28.7977 26.5637 30.85 22.5721 31.6408C18.5805 32.4316 14.4016 31.907 10.8125 30.1645L2 32.0395Z"
+            stroke="#6A62DC"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      label: "Modo Viaje",
+      path: "/modo-viaje",
+      onClick: () => handleButtonClick && handleButtonClick("Modo Viaje"),
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="41"
+          viewBox="0 0 35 41"
+          fill="none"
+        >
+          <path
+            d="M0 30.2105C0 32.1095 0.853125 33.8142 2.1875 35.0011V38.8421C2.1875 40.0289 3.17188 41 4.375 41H6.5625C7.76562 41 8.75 40.0289 8.75 38.8421V36.6842H26.25V38.8421C26.25 40.0289 27.2344 41 28.4375 41H30.625C31.8281 41 32.8125 40.0289 32.8125 38.8421V35.0011C34.1469 33.8142 35 32.1095 35 30.2105V8.63158C35 1.07895 27.1688 0 17.5 0C7.83125 0 0 1.07895 0 8.63158V30.2105ZM7.65625 32.3684C5.84062 32.3684 4.375 30.9226 4.375 29.1316C4.375 27.3405 5.84062 25.8947 7.65625 25.8947C9.47188 25.8947 10.9375 27.3405 10.9375 29.1316C10.9375 30.9226 9.47188 32.3684 7.65625 32.3684ZM27.3438 32.3684C25.5281 32.3684 24.0625 30.9226 24.0625 29.1316C24.0625 27.3405 25.5281 25.8947 27.3438 25.8947C29.1594 25.8947 30.625 27.3405 30.625 29.1316C30.625 30.9226 29.1594 32.3684 27.3438 32.3684ZM30.625 19.4211H4.375V8.63158H30.625V19.4211Z"
+            fill="#6A62DC"
+          />
+        </svg>
+      ),
+    },
+  ],
 };
 
 function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
@@ -261,10 +339,10 @@ function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
       {/* Ícono superior (estilo “S”) */}
       <div className="mb-8">
         <svg
-            className="w-16 h-16"
-            viewBox="0 0 85 85"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          className="w-16 h-16"
+          viewBox="0 0 85 85"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <mask
             id="mask0_1143_944"
@@ -275,7 +353,10 @@ function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
             width="83"
             height="69"
           >
-            <path d="M1.49023 8.26367H83.2299V76.1456H1.49023V8.26367Z" fill="white" />
+            <path
+              d="M1.49023 8.26367H83.2299V76.1456H1.49023V8.26367Z"
+              fill="white"
+            />
           </mask>
           <g mask="url(#mask0_1143_944)">
             <path
@@ -285,7 +366,6 @@ function Sidebar({ role = "operador", handleButtonClick, activeButton }) {
           </g>
         </svg>
       </div>
-
 
       {/* Opciones del menú según el rol */}
       <div className="flex flex-col gap-6 items-center">

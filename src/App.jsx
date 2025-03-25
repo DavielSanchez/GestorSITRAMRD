@@ -3,6 +3,9 @@ import { ToastContainer } from "react-toastify";
 import PanelOperador from './pages/PanelOperador';
 import Incidencias from './pages/Incidencias';
 import VistaAsignar from './pages/VistaAsignar'
+import ChoferesView from './pages/ChoferesView';
+import ModoViaje from './pages/ModoViaje';
+
 
 function App() {
   return (
@@ -12,6 +15,8 @@ function App() {
         <Routes>
           <Route path="/incidencias" element={<Incidencias />} />
           <Route path="/asignar" element={<VistaAsignar />} />
+          <Route path="/choferes" element={<ChoferesView />} />
+          <Route path="/modo-viaje" element={<ModoViaje />} />
           <Route 
             path="/" 
             element={
