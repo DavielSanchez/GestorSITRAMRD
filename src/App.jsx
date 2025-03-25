@@ -3,6 +3,8 @@ import { ToastContainer } from "react-toastify";
 import PanelOperador from './pages/PanelOperador';
 import Incidencias from './pages/Incidencias';
 import VistaAsignar from './pages/VistaAsignar'
+import RegistrarRuta from './pages/RegistrarRuta'
+
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Routes>
           <Route path="/incidencias" element={<Incidencias />} />
           <Route path="/asignar" element={<VistaAsignar />} />
+          <Route path='/registrar' element={<RegistrarRuta />} />
+        
           <Route 
             path="/" 
             element={
