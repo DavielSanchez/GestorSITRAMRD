@@ -24,7 +24,7 @@ function SelectAutobus({ selectedAutobus, setSelectedAutobus }) {
   }, []);
 
   return (
-    <div className="w-[477px] h-[89px] bg-[#eff3fe] rounded-[5px] relative flex items-center px-4">
+    <div className="w-[477px] h-[60px] bg-[#eff3fe] rounded-[5px]  relative flex items-center px-4">
       <select
         className="
           appearance-none

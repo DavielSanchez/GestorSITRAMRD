@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import TopBar from "../components/TopBar";
+import TopBar from "../components/TopBar/TopBar";
 import IncidenciasCard from "../components/PanelOperador/IncidenciasCard";
 import ReporteCard from "../components/PanelOperador/ReporteCard";
 import AutobusACard from "../components/PanelOperador/AutobusACard";

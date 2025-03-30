@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import TopBar from "../components/TopBar";
+import TopBar from "../components/TopBar/TopBar";
 import SelectAutobus from "../components/PanelAsignar/SelectAutobus";
 import SelectRuta from "../components/PanelAsignar/SelectRuta";
 import Tabla from "../components/PanelAsignar/Tabla";
 import { useBG, useBGForButtons, useText } from "../ColorClass";
+import TableAsignar from "../components/tableAsignar";
 
 const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
@@ -62,8 +63,9 @@ function VistaAsignar() {
         <TopBar title="Vista Asignar" />
 
         <main className="flex-1 p-4 md:p-8 mt-[122px]">
-          <div className="flex flex-col gap-6 items-center">
+          <div className=" flex-col gap-6 items-center">
             {/* Se pasan los estados y setters a los componentes de selección */}
+            <div className="container flex gap-5">
             <SelectAutobus
               selectedAutobus={selectedAutobus}
               setSelectedAutobus={setSelectedAutobus}
@@ -72,15 +74,18 @@ function VistaAsignar() {
               selectedRuta={selectedRuta}
               setSelectedRuta={setSelectedRuta}
             />
+            </div>
             <button
               onClick={handleAsignar}
-              className={`${ButtonColor} text-white font-semibold px-4 py-2 rounded-md w-48 hover:opacity-90 transition-colors`}
+              className={`${ButtonColor} text-white font-semibold px-4 py-2 my-5 rounded-md w-48 hover:opacity-90 transition-colors`}
             >
               Asignar
             </button>
+
           </div>
           {/* La propiedad refresh se utiliza para actualizar la tabla */}
-          <Tabla refresh={refreshTable} />
+          {/* <Tabla refresh={refreshTable} /> */}
+          <TableAsignar/>
         </main>
       </div>
     </div>
