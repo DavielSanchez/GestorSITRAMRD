@@ -35,7 +35,7 @@ function PanelOperador() {
       </div>
       {/* Sidebar fijo */}
       <Sidebar
-        role="operador"
+        role="Conductor"
         handleButtonClick={handleButtonClick}
         activeButton={activeButton}
       />

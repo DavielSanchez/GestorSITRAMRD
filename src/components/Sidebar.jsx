@@ -153,6 +153,26 @@ const menuConfig = {
       icon: <FlagIcon />,
     },
   ],
+  Conductor: [
+    {
+      label: "Dashboard",
+      path: "/",
+      onClick: () => handleButtonClick && handleButtonClick("Dashboard"),
+      icon: <DashboardIcon />,
+    },
+    {
+      label: "Modo viaje",
+      path: "/Chat",
+      onClick: "Chat",
+      icon: <Message />,
+    },
+    {
+      label: "Modo viaje",
+      path: "/ModoViaje",
+      onClick: "ModoViaje",
+      icon: <CommuteIcon />,
+    },
+  ],
 };
 
 function Sidebar({ handleButtonClick, activeButton }) {
