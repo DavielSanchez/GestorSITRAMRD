@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   useBG,
@@ -26,6 +26,7 @@ import FlagIcon from "@mui/icons-material/Flag";
 import CommuteIcon from "@mui/icons-material/Commute";
 import { SitramIcon } from "../assets/SitramIcon";
 import MenuIcon from "@mui/icons-material/Menu";
+import { fontGrid } from "@mui/material/styles/cssUtils";
 
 const menuConfig = {
   Operador: [
@@ -72,69 +73,19 @@ const menuConfig = {
       ),
     },
     {
-      label: "AutoBus",
-      path: "/autobus",
-      // label: "Modificar",
-      // path: "/modificar",
-      onClick: "Modificar",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          viewBox="0 0 30 33"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M6.64226 8.92041H5.09484C4.27404 8.92041 3.48685 9.28497 2.90646 9.93389C2.32606 10.5828 2 11.4629 2 12.3806V27.9516C2 28.8693 2.32606 29.7494 2.90646 30.3983C3.48685 31.0472 4.27404 31.4118 5.09484 31.4118H19.0216C19.8424 31.4118 20.6296 31.0472 21.21 30.3983C21.7904 29.7494 22.1165 28.8693 22.1165 27.9516V26.2215M20.569 5.46021L25.2113 10.6505M27.3545 8.20261C27.9639 7.52121 28.3063 6.59704 28.3063 5.6334C28.3063 4.66976 27.9639 3.74559 27.3545 3.0642C26.745 2.3828 25.9184 2 25.0566 2C24.1947 2 23.3681 2.3828 22.7586 3.0642L9.7371 17.5711V22.7614H14.3794L27.3545 8.20261Z"
-            stroke="#fff"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
-    },
-    {
-      label: "Registrar",
-      path: "/registrar",
-      onClick: "Registrar",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          viewBox="0 0 24 35"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7.63707 5.43137H4.81853C4.07101 5.43137 3.35411 5.79289 2.82553 6.4364C2.29695 7.07991 2 7.95269 2 8.86275V29.451C2 30.361 2.29695 31.2338 2.82553 31.8773C3.35411 32.5208 4.07101 32.8824 4.81853 32.8824H18.9112C19.6587 32.8824 20.3756 32.5208 20.9042 31.8773C21.4328 31.2338 21.7297 30.361 21.7297 29.451V8.86275C21.7297 7.95269 21.4328 7.07991 20.9042 6.4364C20.3756 5.79289 19.6587 5.43137 18.9112 5.43137H16.0927M7.63707 5.43137C7.63707 4.52132 7.93402 3.64853 8.4626 3.00503C8.99117 2.36152 9.70808 2 10.4556 2H13.2741C14.0217 2 14.7386 2.36152 15.2671 3.00503C15.7957 3.64853 16.0927 4.52132 16.0927 5.43137M7.63707 5.43137C7.63707 6.34143 7.93402 7.21421 8.4626 7.85772C8.99117 8.50123 9.70808 8.86275 10.4556 8.86275H13.2741C14.0217 8.86275 14.7386 8.50123 15.2671 7.85772C15.7957 7.21421 16.0927 6.34143 16.0927 5.43137M9.04633 20.8725H14.6834M11.8649 17.4412V24.3039"
-            stroke="#fff"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
-    },
-    {
       label: "Incidencias",
       path: "/incidencias",
       onClick: "Incidencias",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          viewBox="0 0 32 31"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M4.76216 25.3193C4.76216 26.3501 5.05317 27.3387 5.57118 28.0675C6.08919 28.7964 6.79175 29 7.52432 29C8.2569 29 8.95946 28.7964 9.47747 28.0675C9.99547 27.3387 10.2865 26.3501 10.2865 25.3193M4.76216 25.3193C4.76216 24.2885 5.05317 23.3 5.57118 22.5711C6.08919 21.8422 6.79175 21.4328 7.52432 21.4328C8.2569 21.4328 8.95946 21.8422 9.47747 22.5711C9.99547 23.3 10.2865 24.2885 10.2865 25.3193M4.76216 25.3193H2V3.94328C2 3.42789 2.14551 2.93361 2.40451 2.56917C2.66351 2.20474 3.0148 2 3.38108 2H22.7162C24.5476 2 26.3041 3.43316 27.5991 5.98421C28.8941 8.53526 29.6216 11.9952 29.6216 15.6029M10.2865 25.3193H21.3351M21.3351 25.3193C21.3351 26.3501 21.6261 27.3387 22.1442 28.0675C22.6622 28.7964 23.3647 29 24.0973 29C24.8299 29 25.5324 28.7964 26.0504 28.0675C26.5684 27.3387 26.8595 26.3501 26.8595 25.3193M21.3351 25.3193C21.3351 24.2885 21.6261 23.3 22.1442 22.5711C22.6622 21.8422 23.3647 21.4328 24.0973 21.4328C24.8299 21.4328 25.5324 21.8422 26.0504 22.5711C26.5684 23.3 26.8595 24.2885 26.8595 25.3193M26.8595 25.3193H29.6216V15.6029M29.6216 15.6029H23.4068L21.3351 2"
-            stroke="#fff"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
+      icon: <FlagIcon />,
+    },
+    {
+      label: "Comunicacion  ",
+      icon: <ConnectWithoutContact />,
+      title: "Comunicaciones",
+      subMenu: [
+        { label: "Chat", icon: <Message />, path: "/Chat" },
+        { label: "Alertas", icon: <WarningAmber />, path: "/Alertas" },
+      ],
     },
     {
       label: "Reportes",
@@ -181,8 +132,8 @@ const menuConfig = {
       icon: <ConnectWithoutContact />,
       title: "Comunicaciones",
       subMenu: [
-        { label: "Chat", icon: <Message />, path: "" },
-        { label: "Alertas", icon: <WarningAmber />, path: "" },
+        { label: "Chat", icon: <Message />, path: "/Chat" },
+        { label: "Alertas", icon: <WarningAmber />, path: "/Alertas" },
       ],
     },
     {
@@ -222,6 +173,22 @@ function Sidebar({ handleButtonClick, activeButton }) {
   console.log(menuItems);
   const [openMenu, setOpenMenu] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sideRef = useRef(null)
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+        if (sideRef.current && !sideRef.current.contains(event.target)) {
+          setIsSidebarOpen(false);
+        }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, []);
+  
+  
 
   const toggleMenu = (index) => {
     setOpenMenu(openMenu === index ? null : index);
@@ -234,25 +201,34 @@ function Sidebar({ handleButtonClick, activeButton }) {
         className="fixed top-9 left-4 z-50 p-2 rounded-lg  lg:hidden"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
-        {isSidebarOpen ? <CloseIcon  className={`${PrimaryColor}`} /> : <MenuIcon sx={{fontSize:35}} className={`${PrimaryColor} text-4xl`} />}
+        {isSidebarOpen ? (
+          <CloseIcon className={`${PrimaryColor}`} />
+        ) : (
+          <MenuIcon
+            sx={{ fontSize: 35 }}
+            className={`${PrimaryColor} text-4xl`}
+          />
+        )}
       </button>
 
-      <div
+      <div ref={sideRef}
         className={`box-border ${primaryColorBG} w-30 h-screen flex flex-col items-center py-6 fixed top-0 left-0 z-50 transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
         {/* Botón de cerrar dentro del sidebar en móviles */}
         <div className="w-full flex justify-end lg:hidden pr-4">
-          <button onClick={() => setIsSidebarOpen(false)} className="cursor-pointer">
-            <CloseIcon className="text-white text-3xl" />
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="cursor-pointer"
+          >
+            
           </button>
         </div>
 
         <div className="mb-8">
           <SitramIcon />
         </div>
-
         <div className="flex flex-col gap-6 items-center">
           {menuItems.map((item, index) => (
             <div key={index} className="relative">
@@ -266,12 +242,14 @@ function Sidebar({ handleButtonClick, activeButton }) {
                   >
                     {item.icon}
                   </div>
-                  <div className="text-white font-semibold mt-2">{item.label}</div>
+                  <div className="text-white font-semibold mt-2">
+                    {item.label}
+                  </div>
                 </div>
               </Link>
               {openMenu === index && item.subMenu && (
                 <div
-                  className={`w-30 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-20`}
+                  className={`w-50 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-20`}
                 >
                   <div className="flex justify-end">
                     <button
@@ -281,10 +259,11 @@ function Sidebar({ handleButtonClick, activeButton }) {
                       <CloseIcon />
                     </button>
                   </div>
-                  <div className="w-29 break-words text-balance text-2xl font-semibold text-white mb-5">
+                  <div className="text-center text-2xl font-semibold text-white mb-5">
                     {item.title}
                   </div>
-                  <div className="grid grid-cols-1">
+                  <div 
+                   className="grid grid-cols-2">
                     {item.subMenu.map((sub, subIndex) => (
                       <Link
                         key={subIndex}
@@ -295,7 +274,9 @@ function Sidebar({ handleButtonClick, activeButton }) {
                         <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
                           <span className={`${PrimaryColor}`}>{sub.icon}</span>
                         </div>
-                        <div className="text-center font-semibold">{sub.label}</div>
+                        <div className="text-center font-semibold">
+                          {sub.label}
+                        </div>
                       </Link>
                     ))}
                   </div>

@@ -56,11 +56,11 @@ function VistaAsignar() {
   return (
     <div className={`flex h-screen overflow-hidden ${bgColor}`}>
       {/* Sidebar fijo */}
+      <TopBar title="Vista Asignar" />
       <Sidebar />
 
       <div className="flex flex-col flex-1 overflow-auto ml-[120px]">
         {/* Barra Superior */}
-        <TopBar title="Vista Asignar" />
 
         <main className="flex-1 p-4 md:p-8 mt-[122px]">
           <div className=" flex-col gap-6 items-center">

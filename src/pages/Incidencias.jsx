@@ -33,7 +33,7 @@ export default function Incidencias() {
       <TopBar theme={theme} title="Panel Incidencias" />
       <Sidebar handleButtonClick={handleButtonClick} activeButton={activeButton}  />
       </div>
-      <div className="flex flex-col flex-1 overflow-auto ml-[120px]">
+      <div className="flex flex-col flex-1 overflow-auto lg:ml-[120px]">
         <main className="flex-1 p-4 md:p-8 mt-[122px] transition-all duration-300">
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <IncidenciasCard />

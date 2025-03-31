@@ -41,9 +41,9 @@ function PanelOperador() {
       />
 
       {/* Contenedor principal */}
-      <div className="flex flex-col flex-1 overflow-auto ml-[120px] relative">
+      <div className="flex flex-col flex-1 overflow-auto lg:ml-[120px] relative">
         {/* Contenido principal: se le aplica mt-[122px] para que no quede tapado por la barra superior */}
-        <main className="flex-1 p-4 md:p-8 mt-[122px] transition-all duration-300">
+        <main className="flex-1 justify-center p-4 md:p-8 mt-[122px] transition-all duration-300">
           {/* Sección de tarjetas de estadísticas (cada card maneja su propia API) */}
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <IncidenciasCard />
