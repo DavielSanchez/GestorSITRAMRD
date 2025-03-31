@@ -21,7 +21,7 @@ export default function AdditionalIcon({ primaryHover, iconColor }) {
           className={`flex items-center cursor-pointer p-2 ${primaryHover} rounded-full`}
           onClick={toggleMessages}
         >
-          <Email className={iconColor} fontSize="large" />
+          <Email  className={iconColor} sx={{fontSize:23}} />
         </div>
   
         {/* Contenedor de mensajes */}

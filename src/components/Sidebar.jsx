@@ -1,14 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useBG, useBGForButtons,usePrimaryColorsBG,useText,useColorWandB, useColors,useIconColor,usePrimaryColors
+import {
+  useBG,
+  useBGForButtons,
+  usePrimaryColorsBG,
+  useText,
+  useColorWandB,
+  useColors,
+  useIconColor,
+  usePrimaryColors,
 } from "../ColorClass";
 import { jwtDecode } from "jwt-decode";
-import {WarningAmber, Message, Preview, ContentPasteGo,ContentPaste,SupervisorAccount,ConnectWithoutContact,
+import {
+  WarningAmber,
+  Message,
+  Preview,
+  ContentPasteGo,
+  ContentPaste,
+  SupervisorAccount,
+  ConnectWithoutContact,
 } from "@mui/icons-material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CloseIcon from "@mui/icons-material/Close";
 import FlagIcon from "@mui/icons-material/Flag";
-import CommuteIcon from '@mui/icons-material/Commute';
+import CommuteIcon from "@mui/icons-material/Commute";
+import { SitramIcon } from "../assets/SitramIcon";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const menuConfig = {
   Operador: [
@@ -199,75 +216,96 @@ function Sidebar({ handleButtonClick, activeButton }) {
   const iconColor = useIconColor(theme);
   const colorWandB = useColorWandB(theme);
   const colors = useColors(theme);
-  const PrimaryColor = usePrimaryColors(theme)
+  const PrimaryColor = usePrimaryColors(theme);
 
   const menuItems = menuConfig[userRole] || [];
   console.log(menuItems);
   const [openMenu, setOpenMenu] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleMenu = (index) => {
     setOpenMenu(openMenu === index ? null : index);
   };
 
   return (
-    <div
-      className={`box-border ${primaryColorBG} w-[120px] h-screen flex flex-col items-center py-6 fixed top-0 left-0 z-50`}
-    >
-      <div className="mb-8"></div>
-      <div className="flex flex-col gap-6 items-center">
-        {menuItems.map((item, index) => (
-          <div key={index} className="relative">
-            <Link to={item.path}>
-              <div
-                onClick={() => toggleMenu(index)}
-                className="flex flex-col items-center cursor-pointer"
-              >
+    <>
+      {/* Botón de hamburguesa (solo visible en móviles) */}
+      <button
+        className="fixed top-9 left-4 z-50 p-2 rounded-lg  lg:hidden"
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      >
+        {isSidebarOpen ? <CloseIcon  className={`${PrimaryColor}`} /> : <MenuIcon sx={{fontSize:35}} className={`${PrimaryColor} text-4xl`} />}
+      </button>
+
+      <div
+        className={`box-border ${primaryColorBG} w-30 h-screen flex flex-col items-center py-6 fixed top-0 left-0 z-50 transition-transform duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0`}
+      >
+        {/* Botón de cerrar dentro del sidebar en móviles */}
+        <div className="w-full flex justify-end lg:hidden pr-4">
+          <button onClick={() => setIsSidebarOpen(false)} className="cursor-pointer">
+            <CloseIcon className="text-white text-3xl" />
+          </button>
+        </div>
+
+        <div className="mb-8">
+          <SitramIcon />
+        </div>
+
+        <div className="flex flex-col gap-6 items-center">
+          {menuItems.map((item, index) => (
+            <div key={index} className="relative">
+              <Link to={item.path} onClick={() => setIsSidebarOpen(true)}>
                 <div
-                  className={`w-16 h-16 bg-[#f1f2ff] ${PrimaryColor} rounded-2xl border flex items-center justify-center`}
+                  onClick={() => toggleMenu(index)}
+                  className="flex flex-col items-center cursor-pointer"
                 >
-                  {item.icon}
-                </div>
-                <div className="text-white font-semibold mt-2">
-                  {item.label}
-                </div>
-              </div>
-            </Link>
-            {openMenu === index && item.subMenu && (
-              <div
-                className={`w-86 h-screen fixed left-30 top-0 ${primaryColorBG} text-white shadow-md  p-2`}
-              >
-                <div className="flex justify-end">
-                  <button
-                    onClick={() => setOpenMenu(null)}
-                    className="cursor-pointer"
+                  <div
+                    className={`w-16 h-16 bg-[#f1f2ff] ${PrimaryColor} rounded-2xl border flex items-center justify-center`}
                   >
-                    <CloseIcon />
-                  </button>
+                    {item.icon}
+                  </div>
+                  <div className="text-white font-semibold mt-2">{item.label}</div>
                 </div>
-                <div className="text-center text-3xl font-semibold text-white mb-5">
-                  {item.title}
-                </div>
-                <div className="grid grid-cols-3">
-                  {item.subMenu.map((sub, subIndex) => (
-                    <Link
-                      key={subIndex}
-                      to={sub.path}
-                      className="flex flex-col p-3 items-center gap-2"
-                      onClick={() => setOpenMenu(index)}
+              </Link>
+              {openMenu === index && item.subMenu && (
+                <div
+                  className={`w-30 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-20`}
+                >
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => setOpenMenu(null)}
+                      className="cursor-pointer"
                     >
-                      <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
-                        <span className={`${PrimaryColor}`}>{sub.icon}</span>
-                      </div>
-                      <div className="text-center">{sub.label}</div>
-                    </Link>
-                  ))}
+                      <CloseIcon />
+                    </button>
+                  </div>
+                  <div className="w-29 break-words text-balance text-2xl font-semibold text-white mb-5">
+                    {item.title}
+                  </div>
+                  <div className="grid grid-cols-1">
+                    {item.subMenu.map((sub, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        to={sub.path}
+                        className="flex flex-col p-3 items-center gap-2"
+                        onClick={() => setOpenMenu(index)}
+                      >
+                        <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
+                          <span className={`${PrimaryColor}`}>{sub.icon}</span>
+                        </div>
+                        <div className="text-center font-semibold">{sub.label}</div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Sidebar;

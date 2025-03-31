@@ -13,7 +13,7 @@ export default function UserMenu({ theme, primaryColors, primaryHover }) {
       <div className={`relative flex items-center cursor-pointer p-2 rounded-full ${primaryHover}`}>
         <button
           onClick={toggleDropdown}
-          className={`w-10 h-10 rounded-full overflow-hidden border-2 ${primaryColors} focus:outline-none`}
+          className={`w-7 h-7 rounded-full overflow-hidden border-2 ${primaryColors} focus:outline-none`}
         >
           <img
             src="https://placehold.co/45x45"

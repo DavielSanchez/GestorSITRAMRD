@@ -30,7 +30,7 @@ export default function Incidencias() {
   return (
     <div className={`flex h-screen overflow-hidden ${bgColor}`}>
       <div>
-      <TopBar theme={theme} title="Panel de Incidencias" />
+      <TopBar theme={theme} title="Panel Incidencias" />
       <Sidebar handleButtonClick={handleButtonClick} activeButton={activeButton}  />
       </div>
       <div className="flex flex-col flex-1 overflow-auto ml-[120px]">

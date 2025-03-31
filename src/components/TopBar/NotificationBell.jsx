@@ -21,7 +21,7 @@ export default function NotificationBell({ primaryHover, iconColor }) {
           className={`flex items-center cursor-pointer p-2 ${primaryHover} rounded-full`}
           onClick={toggleNotifications}
         >
-          <Notifications className={iconColor} fontSize="large" />
+          <Notifications className={iconColor} sx={{fontSize:23}}/>
         </div>
   
         {/* Contenedor de notificaciones */}

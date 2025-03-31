@@ -30,17 +30,17 @@ export default function BarraSuperior({ title, theme }) {
 
   return (
     <header
-      className={`fixed top-0 left-[120px] w-[calc(100%-120px)] h-[122px] ${bgColor} shadow flex justify-between items-center px-[68px] py-4 z-50`}
+    className={`fixed top-0 left-0 w-full h-[122px] ${bgColor} shadow flex justify-between items-center px-4 sm:px-6 md:px-8 text-balance lg:px-[68px] py-4 z-50`}
     >
       {/* Título en morado */}
-      <div className={`${primaryColors} text-[40px] font-semibold font-['Inter']`}>
+      <div className={`${primaryColors} text-[25px] ml-20 font-semibold `}>
         {title}
       </div>
 
       {/* Íconos a la derecha */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center  md:mr-6 lg:mr-8">
         {/* Ícono de correo + panel de mensajes */}
-        <AdditionalIcon primaryHover={primaryHover} iconColor={iconColor} />
+        <AdditionalIcon  primaryHover={primaryHover} iconColor={iconColor} />
 
         {/* Ícono de notificaciones + panel de notificaciones */}
         <NotificationBell primaryHover={primaryHover} iconColor={iconColor} />
