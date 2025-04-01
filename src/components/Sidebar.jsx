@@ -153,6 +153,26 @@ const menuConfig = {
       icon: <FlagIcon />,
     },
   ],
+  Conductor: [
+    {
+      label: "Dashboard",
+      path: "/",
+      onClick: () => handleButtonClick && handleButtonClick("Dashboard"),
+      icon: <DashboardIcon />,
+    },
+    {
+      label: "Chat",
+      icon: <Message />,
+      title: "Chat",
+      path: "/chat",
+    },
+    {
+      label: "Modo viaje",
+      icon: <CommuteIcon />,
+      title: "Modo viaje",
+      path: "/viaje",
+    },
+  ],
 };
 
 function Sidebar({ handleButtonClick, activeButton }) {
@@ -173,22 +193,20 @@ function Sidebar({ handleButtonClick, activeButton }) {
   console.log(menuItems);
   const [openMenu, setOpenMenu] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const sideRef = useRef(null)
+  const sideRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
-        if (sideRef.current && !sideRef.current.contains(event.target)) {
-          setIsSidebarOpen(false);
-        }
+      if (sideRef.current && !sideRef.current.contains(event.target)) {
+        setIsSidebarOpen(false);
+      }
     }
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-}, []);
-  
-  
+  }, []);
 
   const toggleMenu = (index) => {
     setOpenMenu(openMenu === index ? null : index);
@@ -211,7 +229,8 @@ function Sidebar({ handleButtonClick, activeButton }) {
         )}
       </button>
 
-      <div ref={sideRef}
+      <div
+        ref={sideRef}
         className={`box-border ${primaryColorBG} w-30 h-screen flex flex-col items-center py-6 fixed top-0 left-0 z-50 transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
@@ -221,9 +240,7 @@ function Sidebar({ handleButtonClick, activeButton }) {
           <button
             onClick={() => setIsSidebarOpen(false)}
             className="cursor-pointer"
-          >
-            
-          </button>
+          ></button>
         </div>
 
         <div className="mb-8">
@@ -262,8 +279,7 @@ function Sidebar({ handleButtonClick, activeButton }) {
                   <div className="text-center text-2xl font-semibold text-white mb-5">
                     {item.title}
                   </div>
-                  <div 
-                   className="grid grid-cols-2">
+                  <div className="grid grid-cols-2">
                     {item.subMenu.map((sub, subIndex) => (
                       <Link
                         key={subIndex}
