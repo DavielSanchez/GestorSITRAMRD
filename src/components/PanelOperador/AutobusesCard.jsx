@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 function AutobusesCard() {
   const [autobuses, setAutobuses] = useState([]);
-  // Configuración de API propio para los autobuses
   const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
   useEffect(() => {
@@ -10,7 +9,10 @@ function AutobusesCard() {
       try {
         const response = await fetch(`${API_LINK}/autobus/all`);
         const data = await response.json();
-        if (data.autobuses) {
+        // Si data es un arreglo, lo usamos directamente, de lo contrario revisamos si tiene la propiedad "autobuses"
+        if (Array.isArray(data)) {
+          setAutobuses(data);
+        } else if (data.autobuses) {
           setAutobuses(data.autobuses);
         }
       } catch (error) {
@@ -46,12 +48,8 @@ function AutobusesCard() {
         <AutobusesIcon />
       </div>
       <div className="flex flex-col">
-        <span className="text-[#6A62DC] font-semibold text-sm">
-          Autobuses:
-        </span>
-        <span className="text-red-500 text-2xl font-bold">
-          {autobuses.length}
-        </span>
+        <span className="text-[#6A62DC] font-semibold text-sm">Autobuses:</span>
+        <span className="text-red-500 text-2xl font-bold">{autobuses.length}</span>
       </div>
     </div>
   );
