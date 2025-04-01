@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import TopBar from "../components/TopBar";
+import TopBar from "../components/TopBar/TopBar";
 import IncidenciasCard from "../components/PanelOperador/IncidenciasCard";
 import IncidenciasP from "../components/PanelIncidencias/IncidenciasP";
 import IncidenciasR from "../components/PanelIncidencias/IncidenciasR";
-import Tabla from "../components/PanelIncidencias/Tabla";
+// import Tabla from "../components/PanelIncidencias/Tabla";
 import ModalRegistrar from "../components/PanelIncidencias/ModalRegistrar";
 import { useBG, useBGForButtons, useText } from "../ColorClass";
+import EnhancedTable from "/src/components/Table.jsx";
+import { jwtDecode } from "jwt-decode";
 
 export default function Incidencias() {
   const navigate = useNavigate();
@@ -15,7 +17,9 @@ export default function Incidencias() {
   const [showModal, setShowModal] = useState(false);
 
   const token = localStorage.getItem('token');
-  const theme = token ? JSON.parse(atob(token.split(".")[1])).theme : "light";
+  const decodedToken = jwtDecode(token);
+  const theme = decodedToken.theme;
+  console.log(theme)
   const bgColor = useBG(theme);
   const buttonColor = useBGForButtons(theme);
   const textColor = useText(theme);
@@ -25,9 +29,11 @@ export default function Incidencias() {
 
   return (
     <div className={`flex h-screen overflow-hidden ${bgColor}`}>
-      <Sidebar handleButtonClick={handleButtonClick} activeButton={activeButton} />
-      <div className="flex flex-col flex-1 overflow-auto ml-[120px]">
-        <TopBar title="Panel de Incidencias" />
+      <div>
+      <TopBar theme={theme} title="Panel Incidencias" />
+      <Sidebar handleButtonClick={handleButtonClick} activeButton={activeButton}  />
+      </div>
+      <div className="flex flex-col flex-1 overflow-auto lg:ml-[120px]">
         <main className="flex-1 p-4 md:p-8 mt-[122px] transition-all duration-300">
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <IncidenciasCard />
@@ -36,11 +42,12 @@ export default function Incidencias() {
           </section>
           <button
             onClick={() => setShowModal(true)}
-            className={`${buttonColor} text-white font-semibold px-4 py-2 rounded-md w-48 hover:opacity-90 transition-colors`}
+            className={`${buttonColor} text-white font-semibold mb-6 px-4 py-2 rounded-md w-48 hover:opacity-90 transition-colors`}
           >
             Registrar incidencia
           </button>
-          <Tabla />
+          {/* <Tabla /> */}
+          <EnhancedTable/>
         </main>
       </div>
       <ModalRegistrar
@@ -48,7 +55,7 @@ export default function Incidencias() {
         onClose={() => setShowModal(false)}
         onIncidenciaAdded={refreshTable}
       />
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#6A62DC] flex justify-around py-3 px-4 rounded-t-lg z-20"></div>
+      {/* <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#6A62DC] flex justify-around py-3 px-4 rounded-t-lg z-20"></div> */}
     </div>
   );
 }

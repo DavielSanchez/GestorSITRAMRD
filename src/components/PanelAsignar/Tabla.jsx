@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Tabla() {
+function Tabla({ refresh }) {
   const [rutas, setRutas] = useState([]);
   const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
@@ -19,7 +19,7 @@ function Tabla() {
     };
 
     fetchRutas();
-  }, [API_LINK]);
+  }, [API_LINK, refresh]);
 
   return (
     <div className="overflow-x-auto mt-6">
@@ -45,8 +45,8 @@ function Tabla() {
                   {index + 1}
                 </td>
                 <td className="px-4 py-2 text-center">
-                  {/* Conectar la API de autobuses cuando esté disponible */}
-                  {"Autobús no disponible"}
+                  {/* Aquí podrías mostrar la info del autobús asignado */}
+                  {ruta.autobus ? ruta.autobus.placa : "Autobús no disponible"}
                 </td>
                 <td className="px-4 py-2 text-center">
                   {ruta.nombre || "N/A"}

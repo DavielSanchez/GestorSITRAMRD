@@ -53,7 +53,7 @@ function ChoferesView() {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:w-[120px] z-50`}
       >
-        <Sidebar role="chofer" handleButtonClick={handleButtonClick} activeButton={activeButton} />
+        <Sidebar role="Chofer" handleButtonClick={handleButtonClick} activeButton={activeButton} />
       </div>
 
       {/* Contenedor principal */}
