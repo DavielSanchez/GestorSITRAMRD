@@ -54,41 +54,30 @@ function VistaAsignar() {
   };
 
   return (
-    <div className={`flex h-screen overflow-hidden ${bgColor}`}>
-      {/* Sidebar fijo */}
-      <TopBar title="Vista Asignar" />
-      <Sidebar />
-
-      <div className="flex flex-col flex-1 overflow-auto ml-[120px]">
-        {/* Barra Superior */}
-
-        <main className="flex-1 p-4 md:p-8 mt-[122px]">
-          <div className=" flex-col gap-6 items-center">
-            {/* Se pasan los estados y setters a los componentes de selección */}
-            <div className="container flex gap-5">
-            <SelectAutobus
-              selectedAutobus={selectedAutobus}
-              setSelectedAutobus={setSelectedAutobus}
-            />
-            <SelectRuta
-              selectedRuta={selectedRuta}
-              setSelectedRuta={setSelectedRuta}
-            />
-            </div>
-            <button
-              onClick={handleAsignar}
-              className={`${ButtonColor} text-white font-semibold px-4 py-2 my-5 rounded-md w-48 hover:opacity-90 transition-colors`}
-            >
-              Asignar
-            </button>
-
-          </div>
-          {/* La propiedad refresh se utiliza para actualizar la tabla */}
-          {/* <Tabla refresh={refreshTable} /> */}
-          <TableAsignar/>
-        </main>
+    <main className="flex-1 p-4 md:p-8">
+      <div className=" flex-col gap-6 items-center">
+        {/* Se pasan los estados y setters a los componentes de selección */}
+        <div className="grid md:grid-cols-2 grid-cols-1 flex gap-4">
+          <SelectAutobus
+            selectedAutobus={selectedAutobus}
+            setSelectedAutobus={setSelectedAutobus}
+          />
+          <SelectRuta
+            selectedRuta={selectedRuta}
+            setSelectedRuta={setSelectedRuta}
+          />
+        </div>
+        <button
+          onClick={handleAsignar}
+          className={`${ButtonColor} text-white font-semibold px-4 py-2 my-5 rounded-md w-48 hover:opacity-90 transition-colors`}
+        >
+          Asignar
+        </button>
       </div>
-    </div>
+      {/* La propiedad refresh se utiliza para actualizar la tabla */}
+      {/* <Tabla refresh={refreshTable} /> */}
+      <TableAsignar />
+    </main>
   );
 }
 
