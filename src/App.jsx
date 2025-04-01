@@ -7,6 +7,8 @@ import AutobusView from './pages/AutobusView';
 import Unauthorized from './pages/Autenticacion/Unauthorized';
 import Auth from './pages/Autenticacion/Auth';
 import RegisterAuth from './pages/Autenticacion/RegisterAuth';
+import ChoferesView from './pages/ChoferesView';
+import ModoViaje from './pages/ModoViaje';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/asignar" element={<VistaAsignar />} />
           <Route path="/" element={<PanelOperador />} />
           <Route path="/autobus" element={<AutobusView />} />
+          <Route path="/choferes" element={<ChoferesView />} />
+          <Route path="/modo-viaje" element={<ModoViaje />} />
         </Routes>
       </Router>
     </>
