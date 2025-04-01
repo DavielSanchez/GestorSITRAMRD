@@ -60,7 +60,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
     }
     
     try {
-      const response = await fetch(`${API_LINK}/incidencia/add`, {
+      const response = await fetch(`${API_LINK}/autobus/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
