@@ -9,9 +9,11 @@ import Auth from './pages/Autenticacion/Auth';
 import RegisterAuth from './pages/Autenticacion/RegisterAuth';
 import ChoferesView from './pages/ChoferesView';
 import ModoViaje from './pages/ModoViaje';
-import RegistroBuses from './pages/RegistroBuses'
 
 function App() {
+  const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode(token);
+  const userRol = decodedToken.userRol;
   return (
     <>
       <Router>
@@ -23,10 +25,19 @@ function App() {
           <Route path="/incidencias" element={<Incidencias />} />
           <Route path="/asignar" element={<VistaAsignar />} />
           <Route path="/" element={<PanelOperador />} />
-          <Route path="/RegistrarBuses" element={<RegistroBuses/>}/>
           <Route path="/autobus" element={<AutobusView />} />
           <Route path="/choferes" element={<ChoferesView />} />
-          <Route path="/modo-viaje" element={<ModoViaje />} />
+
+          <Route
+            path="/modo-viaje"
+            element={
+              <ProtectedRoute allowedRoles={["Conductor"]}>
+                <Layout title="Modo viaje">
+                  <ModoViaje />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </>
