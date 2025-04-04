@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import TopBar from "../components/TopBar";
+import TopBar from "../components/TopBar/TopBar";
 import TablaAutobuses from "../components/PanelBuses/TablaBus";
 import RegistrarBuses from "../components/PanelBuses/RegistrarBus";
 import { useBG, useBGForButtons, useText } from "../ColorClass";
 import { RoutesProvider } from "../components/RoutesContext";
+import { BusesInactivos } from "../components/PanelBuses/BusInactivos";
+import { BusesRegistrados } from "../components/PanelBuses/Buses";
 
 function RegistroBuses() {
   const navigate = useNavigate();
@@ -23,18 +25,23 @@ function RegistroBuses() {
 
   return (
     <div className={`flex h-screen overflow-hidden ${bgColor}`}>
+      
+      <TopBar title="Panel de Buses Administrador" />
       <Sidebar
         handleButtonClick={handleButtonClick}
-        role="administrador"
+        role="Administrador"
         activeButton={activeButton}
       />
-      <div className="flex flex-col flex-1 overflow-auto ml-[120px]">
-        <TopBar title="Panel de Rutas Administrador" />
+      <div className="flex flex-col flex-1 overflow-auto lg:ml-[120px]">
         <main className="flex-1 p-4 md:p-8 mt-[122px] transition-all duration-300">
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"></section>
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <BusesRegistrados/>
+          <BusesInactivos/>
+          </section>
+          
           <button
             onClick={() => setShowModal(true)}
-            className={`${buttonColor} text-white font-semibold px-4 py-2 rounded-md w-48 hover:opacity-90 transition-colors`}
+            className={`${buttonColor} text-white font-semibold px-4 py-2 mb-5 rounded-md w-48 hover:opacity-90 transition-colors`}
           >
             Registrar Buses
           </button>

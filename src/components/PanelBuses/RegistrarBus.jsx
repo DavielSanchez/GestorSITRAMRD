@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import { toast } from 'react-toastify'
 
 function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
-  const [Placa, SetPlaca] = useState("");
-  const [Modelo, SetModelo] = useState("");
-  const [Capacidad, SetCapacidad] = useState("");
-  const [Estado, SetEstado] = useState("");
+  const [placa, SetPlaca] = useState("");
+  const [modelo, SetModelo] = useState("");
+  const [capacidad, SetCapacidad] = useState("");
+  const [estado, SetEstado] = useState("");
+
+  
 
   // Endpoint de la API
   const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
-  // Función para manejar el submit del formulario
+  // Función para manejar el submit del formulario, con validaciones
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!Placa.trim().length) {
+    if (!placa.trim().length) {
       toast.error(`El campo de placa está vacío`, {
         position: "bottom-center",
         autoClose: 3000,
@@ -25,7 +27,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         theme: "colored",
       });
     }
-    if (!Modelo.trim().length) {
+    if (!modelo.trim().length) {
       toast.error(`El campo de modelo está vacío`, {
         position: "bottom-center",
         autoClose: 3000,
@@ -36,7 +38,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         theme: "colored",
       });
     }
-    if (!Capacidad.trim().length) {
+    if (!capacidad.trim().length) {
       toast.error(`El campo de capacidad está vacío`, {
         position: "bottom-center",
         autoClose: 3000,
@@ -47,7 +49,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         theme: "colored",
       });
     }
-    if (!Estado.trim().length) {
+    if (!estado.trim().length) {
       toast.error(`El campo de estado está vacío`, {
         position: "bottom-center",
         autoClose: 3000,
@@ -64,10 +66,12 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          Placa,
-          Modelo,
-          capacidad: parseInt(Capacidad, 30),
-          Estado,
+          placa,
+          modelo,
+          capacidad: parseInt(capacidad),
+          estado,
+          ubicacionActual: "", 
+          idRuta: null,    
         }),
       });
 
@@ -94,7 +98,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
   if (!isOpen) return null;
 
   return (
-    <div
+    <div 
       className="
         fixed inset-0 
         flex items-center justify-center 
@@ -103,34 +107,35 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
       "
     >
       {/* Contenedor del contenido del modal */}
-      <div className="bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm">
+      <div  className="bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm">
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Campos para registrar autobuses */}
           <input
             type="text"
             placeholder="Placa"
-            value={Placa}
+            value={placa}
             onChange={(e) => SetPlaca(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] px-2 text-black"
+            className="w-full h-12 bg-[#eff3fe] rounded-[5px] px-2 font-semibold text-[#6a62dc]"
           />
           <input
             placeholder="Modelo"
-            value={Modelo}
+            value={modelo}
             onChange={(e) => SetModelo(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 text-black"
+            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
           />
           <input
+          type="number"
             placeholder="Capacidad"
-            value={Capacidad}
+            value={capacidad}
             onChange={(e) => SetCapacidad(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 text-black"
+            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
           />
           <input
             placeholder="Estado"
-            value={Estado}
+            value={estado}
             onChange={(e) => SetEstado(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 text-black"
+            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
           />
 
           {/* Botón Registrar */}

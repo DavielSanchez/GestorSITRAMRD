@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated }) {
+function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated, API_LINK }) {
   const [placa, setPlaca] = useState(autobus?.placa || "");
   const [modelo, setModelo] = useState(autobus?.modelo || "");
   const [capacidad, setCapacidad] = useState(autobus?.capacidad || "");
@@ -17,19 +17,19 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated }) {
     }
   }, [autobus]);
 
-  const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
+  // const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_LINK}/update/${autobus._id}`, {
+      const response = await fetch(`${API_LINK}/autobus/update/${autobus._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           placa,
           modelo,
-          capacidad: parseInt(capacidad, 10),
+          capacidad: parseInt(capacidad),
           estado,
           idRuta: idRuta || null,
         }),
@@ -44,8 +44,7 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated }) {
     } catch (error) {
       console.error("Error en la petición:", error);
     }
-  };
-
+    };
   if (!isOpen) return null;
 
   return (
