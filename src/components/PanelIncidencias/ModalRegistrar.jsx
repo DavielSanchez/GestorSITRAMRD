@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import React, { useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 function ModalRegistrar({ isOpen, onClose, onIncidenciaAdded }) {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.id;
   console.log(userId);
 
-  const [autobus, setAutobus] = useState("");
-  const [descripcion, setDescripcion] = useState("");
+  const [autobus, setAutobus] = useState('');
+  const [descripcion, setDescripcion] = useState('');
 
-  const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
+  const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await fetch(`${API_LINK}/incidencia/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           idAutoBus: autobus,
           descripcion,
@@ -31,16 +31,16 @@ function ModalRegistrar({ isOpen, onClose, onIncidenciaAdded }) {
         if (onIncidenciaAdded) onIncidenciaAdded();
 
         // Limpia los campos
-        setAutobus("");
-        setDescripcion("");
+        setAutobus('');
+        setDescripcion('');
 
         // Cierra el modal
         onClose();
       } else {
-        console.error("Error al registrar la incidencia");
+        console.error('Error al registrar la incidencia');
       }
     } catch (error) {
-      console.error("Error en la petición:", error);
+      console.error('Error en la petición:', error);
     }
   };
 
@@ -49,13 +49,8 @@ function ModalRegistrar({ isOpen, onClose, onIncidenciaAdded }) {
 
   return (
     <div
-      className="
-    fixed inset-0 
-    flex items-center justify-center 
-    z-50
-    bg-black/30 backdrop-blur-sm
-  "
-    >
+      className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm
+  ">
       <div className="bg-white rounded-md p-8 shadow-lg min-w-[300px] max-w-sm animate-modal">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
@@ -73,16 +68,14 @@ function ModalRegistrar({ isOpen, onClose, onIncidenciaAdded }) {
           />
           <button
             type="submit"
-            className="bg-[#6a62dc] cursor-pointer text-white rounded-md py-2 mt-2"
-          >
+            className="bg-[#6a62dc] cursor-pointer text-white rounded-md py-2 mt-2">
             Registrar
           </button>
         </form>
         <button
           type="submit"
           onClick={onClose}
-          className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2"
-        >
+          className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2">
           Cerrar
         </button>
       </div>

@@ -107,7 +107,7 @@ const menuConfig = {
       icon: <SupervisorAccount />,
       title: 'Operaciones',
       subMenu: [
-        { label: 'Visualizar', icon: <Preview />, path: '' },
+        { label: 'Visualizar', icon: <Preview />, path: '/autobus' },
         { label: 'Asignar', icon: <ContentPaste />, path: '' },
         { label: 'Registrar', icon: <ContentPasteGo />, path: '' },
       ],
@@ -133,7 +133,7 @@ const menuConfig = {
     },
     {
       label: 'Incidencias',
-      path: '/incidencias',
+      path: '/incidenciasAdmin',
       onClick: 'Incidencias',
       icon: <FlagIcon />,
     },
