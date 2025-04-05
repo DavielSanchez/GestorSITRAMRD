@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function IncidenciasR() {
-  const [resueltas, setResueltas] = useState([]);
+function PersonalesCard() {
+  const [pendientes, setPendientes] = useState([]);
   const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
   const fetchIncidencias = async () => {
@@ -9,21 +9,23 @@ function IncidenciasR() {
     //   const response = await fetch(`${API_LINK}/incidencia/all`);
     //   const data = await response.json();
     //   if (data.incidencias) {
-    //     const resueltasIncidencias = data.incidencias.filter(
-    //       (inc) => inc.estado && inc.estado.toLowerCase() === 'resuelto',
+    //     const pendientesIncidencias = data.incidencias.filter(
+    //       (inc) =>
+    //         inc.estado &&
+    //         (inc.estado.toLowerCase() === 'pendiente' || inc.estado.toLowerCase() === 'en proceso'),
     //     );
-    //     setResueltas(resueltasIncidencias);
+    //     setPendientes(pendientesIncidencias);
     //   }
     // } catch (error) {
     //   console.error('Error fetching incidencias:', error);
     // }
   };
 
-  // useEffect(() => {
-  //   fetchIncidencias();
-  //   const interval = setInterval(fetchIncidencias, 5000);
-  //   return () => clearInterval(interval);
-  // }, [API_LINK]);
+  useEffect(() => {
+    fetchIncidencias();
+    const interval = setInterval(fetchIncidencias, 5000);
+    return () => clearInterval(interval);
+  }, [API_LINK]);
 
   const BusIcon = () => (
     <div data-svg-wrapper>
@@ -48,10 +50,10 @@ function IncidenciasR() {
     <div className="bg-[#f1f1ff] shadow-md rounded-lg p-4 flex flex-row items-center gap-3">
       <BusIcon />
       <span className="text-[#6a62dc] text-xl font-bold">
-        Incidencias resueltas ({resueltas.length})
+        Alertas Personales ({pendientes.length})
       </span>
     </div>
   );
 }
 
-export default IncidenciasR;
+export default PersonalesCard;
