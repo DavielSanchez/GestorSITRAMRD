@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import { toast } from 'react-toastify'
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
-  const [placa, SetPlaca] = useState("");
-  const [modelo, SetModelo] = useState("");
-  const [capacidad, SetCapacidad] = useState("");
-  const [estado, SetEstado] = useState("");
-
-  
+  const [placa, SetPlaca] = useState('');
+  const [modelo, SetModelo] = useState('');
+  const [capacidad, SetCapacidad] = useState('');
+  const [estado, SetEstado] = useState('');
 
   // Endpoint de la API
-  const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
+  const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
   // Función para manejar el submit del formulario, con validaciones
   const handleSubmit = async (e) => {
@@ -18,60 +16,60 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
 
     if (!placa.trim().length) {
       toast.error(`El campo de placa está vacío`, {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        theme: "colored",
+        theme: 'colored',
       });
     }
     if (!modelo.trim().length) {
       toast.error(`El campo de modelo está vacío`, {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        theme: "colored",
+        theme: 'colored',
       });
     }
     if (!capacidad.trim().length) {
       toast.error(`El campo de capacidad está vacío`, {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        theme: "colored",
+        theme: 'colored',
       });
     }
     if (!estado.trim().length) {
       toast.error(`El campo de estado está vacío`, {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        theme: "colored",
+        theme: 'colored',
       });
     }
-    
+
     try {
       const response = await fetch(`${API_LINK}/autobus/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           placa,
           modelo,
           capacidad: parseInt(capacidad),
           estado,
-          ubicacionActual: "", 
-          idRuta: null,    
+          ubicacionActual: '',
+          idRuta: null,
         }),
       });
 
@@ -79,18 +77,18 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         // Notifica al padre para refrescar la tabla, si así lo deseas
         if (onBusesAdded) onBusesAdded();
 
-        SetPlaca("");
-        SetModelo("");
-        SetCapacidad("");
-        SetEstado("");
+        SetPlaca('');
+        SetModelo('');
+        SetCapacidad('');
+        SetEstado('');
 
         // Cierra el modal
         onClose();
       } else {
-        console.error("Error al registrar la incidencia");
+        console.error('Error al registrar la incidencia');
       }
     } catch (error) {
-      console.error("Error en la petición:", error);
+      console.error('Error en la petición:', error);
     }
   };
 
@@ -98,16 +96,10 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="
-        fixed inset-0 
-        flex items-center justify-center 
-        z-50
-        bg-transparent
-      "
-    >
+    <div
+      className="fixed inset-0  flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
       {/* Contenedor del contenido del modal */}
-      <div  className="bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm">
+      <div className="bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal">
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Campos para registrar autobuses */}
@@ -125,7 +117,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
             className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
           />
           <input
-          type="number"
+            type="number"
             placeholder="Capacidad"
             value={capacidad}
             onChange={(e) => SetCapacidad(e.target.value)}
@@ -139,10 +131,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
           />
 
           {/* Botón Registrar */}
-          <button
-            type="submit"
-            className="bg-[#6a62dc] text-white rounded-md py-2 mt-2"
-          >
+          <button type="submit" className="bg-[#6a62dc] text-white rounded-md py-2 mt-2">
             Registrar Bus
           </button>
         </form>
@@ -150,8 +139,7 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         {/* Opcional: Botón para cerrar manualmente */}
         <button
           onClick={onClose}
-          className="mt-2 cursor-pointer text-sm text-gray-500 hover:underline"
-        >
+          className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2">
           Cerrar
         </button>
       </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 
-export function BusesRegistrados() {
+export function BusesTotal() {
   const [buses, setBuses] = useState([]);
 
   // Endpoint de la API
@@ -25,7 +25,7 @@ export function BusesRegistrados() {
     <div className="bg-[#f1f1ff] text-[#6a62dc] shadow-md rounded-lg p-4 flex flex-row items-center gap-3">
       <DirectionsBusIcon/>
       <div className="text-[#6a62dc] text-xl font-bold">
-        Buses: {buses.length}
+        Buses Totales: {buses.length}
       </div>
     </div>
   );
