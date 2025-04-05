@@ -118,7 +118,7 @@ const menuConfig = {
       title: 'Comunicaciones',
       subMenu: [
         { label: 'Chat', icon: <Message />, path: '/Chat' },
-        { label: 'Alertas', icon: <WarningAmber />, path: '/Alertas' },
+        { label: 'Alertas', icon: <WarningAmber />, path: '/alertas' },
       ],
     },
     {

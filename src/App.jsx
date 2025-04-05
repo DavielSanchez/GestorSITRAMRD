@@ -1,21 +1,23 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import PanelOperador from "./pages/PanelOperador";
-import PanelAdministrador from "./pages/PanelAdministrador";
-import Incidencias from "./pages/Incidencias";
-import VistaAsignar from "./pages/VistaAsignar";
-import AutobusView from "./pages/AutobusView";
-import Unauthorized from "./pages/Autenticacion/Unauthorized";
-import Auth from "./pages/Autenticacion/Auth";
-import RegisterAuth from "./pages/Autenticacion/RegisterAuth";
-import ChoferesView from "./pages/ChoferesView";
-import ModoViaje from "./pages/ModoViaje";
-import Layout from "./Layout";
-import ProtectedRoute from "./components/ProtectedRoute";
-import { jwtDecode } from "jwt-decode";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import PanelOperador from './pages/PanelOperador';
+import PanelAdministrador from './pages/PanelAdministrador';
+import Incidencias from './pages/Incidencias';
+import VistaAsignar from './pages/VistaAsignar';
+import AutobusView from './pages/AutobusView';
+import Unauthorized from './pages/Autenticacion/Unauthorized';
+import Auth from './pages/Autenticacion/Auth';
+import RegisterAuth from './pages/Autenticacion/RegisterAuth';
+import ChoferesView from './pages/ChoferesView';
+import ModoViaje from './pages/ModoViaje';
+import Layout from './Layout';
+import ProtectedRoute from './components/ProtectedRoute';
+import { jwtDecode } from 'jwt-decode';
+import Alertas from './pages/AlertasGestor';
+// import Alertas from './pages/AlertasGestor';
 
 function App() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
   const userRol = decodedToken.userRol;
   return (
@@ -29,18 +31,16 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute
-                allowedRoles={["Conductor", "Operador", "Administrador"]}
-              >
-                {userRol === "Conductor" ? (
+              <ProtectedRoute allowedRoles={['Conductor', 'Operador', 'Administrador']}>
+                {userRol === 'Conductor' ? (
                   <Layout title="Panel de conductor">
                     <ChoferesView />
                   </Layout>
-                ) : userRol === "Operador" ? (
+                ) : userRol === 'Operador' ? (
                   <Layout title="Panel de operador">
                     <PanelOperador />
                   </Layout>
-                ) : userRol === "Adminstrador" ? (
+                ) : userRol === 'Adminstrador' ? (
                   <Layout title="Panel de Administrador">
                     <PanelAdministrador />
                   </Layout>
@@ -51,7 +51,7 @@ function App() {
           <Route
             path="/incidencias"
             element={
-              <ProtectedRoute allowedRoles={["Operador"]}>
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Incidencias">
                   <Incidencias />
                 </Layout>
@@ -59,9 +59,19 @@ function App() {
             }
           />
           <Route
+            path="/alertas"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
+                <Layout title="Alertas">
+                  <Alertas />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/asignar"
             element={
-              <ProtectedRoute allowedRoles={["Operador"]}>
+              <ProtectedRoute allowedRoles={['Operador']}>
                 <Layout title="Asignaciones">
                   <VistaAsignar />
                 </Layout>
@@ -74,7 +84,7 @@ function App() {
           <Route
             path="/modo-viaje"
             element={
-              <ProtectedRoute allowedRoles={["Conductor"]}>
+              <ProtectedRoute allowedRoles={['Conductor']}>
                 <Layout title="Modo viaje">
                   <ModoViaje />
                 </Layout>

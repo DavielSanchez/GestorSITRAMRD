@@ -35,21 +35,12 @@ function ChoferesView() {
   return (
     <>
       <main className="flex-1 p-4 md:p-8 transition-all duration-300">
-        {/* Sección de tarjetas */}
-        {/* <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <TotalChoferesCard />
-          <ChoferesEnRutaCard />
-          <ChoferesDisponiblesCard />
-        </section> */}
-
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           {/* <IncidenciasCard /> */}
           <IncidenciasP />
           <IncidenciasP />
           <IncidenciasR />
         </section>
-
-        {/* Botón "Registrar incidencia" y tabla */}
         <section>
           <button
             onClick={() => setShowModal(true)}
@@ -60,8 +51,6 @@ function ChoferesView() {
           <EnhancedTable />
         </section>
       </main>
-
-      {/* Modal para registrar incidencia */}
       <ModalRegistrar
         isOpen={showModal}
         onClose={() => setShowModal(false)}
