@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
-import { useBG, useBGForButtons, useText } from '../ColorClass';
-import TopBar from '../components/TopBar';
-import TotalChoferesCard from '../components/PanelChoferes/TotalChoferesCard';
-import ChoferesEnRutaCard from '../components/PanelChoferes/ChoferesRutasCard';
-import ChoferesDisponiblesCard from '../components/PanelChoferes/ChoferesDispCard';
-import ChoferesDisponiblesTable from '../components/PanelChoferes/Tabla';
-import ModalRegistrar from '../components/PanelIncidencias/ModalRegistrar';
+import { useBG, useBGForButtons, useText } from '../../ColorClass';
+import TopBar from '../../components/TopBar';
+import TotalChoferesCard from '../../components/PanelChoferes/TotalChoferesCard';
+import ChoferesEnRutaCard from '../../components/PanelChoferes/ChoferesRutasCard';
+import ChoferesDisponiblesCard from '../../components/PanelChoferes/ChoferesDispCard';
+import ChoferesDisponiblesTable from '../../components/PanelChoferes/Tabla';
+import ModalRegistrar from '../../components/PanelIncidencias/ModalRegistrar';
 import MenuIcon from '@mui/icons-material/Menu'; // Icono de menú
-import IncidenciasP from '../components/PanelIncidencias/IncidenciasP';
-import IncidenciasR from '../components/PanelIncidencias/IncidenciasR';
-import EnhancedTable from '../components/Table';
+import IncidenciasP from '../../components/PanelIncidencias/IncidenciasP';
+import IncidenciasR from '../../components/PanelIncidencias/IncidenciasR';
+import EnhancedTable from '../../components/Table';
 
 function ChoferesView() {
   const navigate = useNavigate();

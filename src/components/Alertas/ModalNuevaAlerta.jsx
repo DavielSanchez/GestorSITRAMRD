@@ -44,6 +44,7 @@ function ModalNuevaAlerta({ isOpen, onClose, onIncidenciaAdded }) {
       });
 
       if (response.ok) {
+        socket.emit("nueva-alerta", alerta);
         if (onIncidenciaAdded) onIncidenciaAdded();
         setAlerta({
           titulo: '',

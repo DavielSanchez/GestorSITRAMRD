@@ -2,11 +2,19 @@ import { Notifications } from '@mui/icons-material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from "react-router-dom";
 
 export default function UserCard({ theme }) {
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
   const userImage = decodedToken.userImage;
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    
+        localStorage.removeItem("token");
+        navigate("/login");
+  };
 
   return (
     <div className=" w-[180px] bg-white rounded-2xl border border-[#6a62dc] p-4 z-50">
@@ -46,7 +54,7 @@ export default function UserCard({ theme }) {
           <div data-svg-wrapper className="flex-shrink-0">
             <LogoutIcon className="text-[#6A62DC]" fontSize="medium" />
           </div>
-          <div className="text-[#6a62dc] text-xl font-normal font-['Inter']">Cerrar sesión</div>
+          <div className="text-[#6a62dc] text-xl font-normal font-['Inter']" onClick={handleLogOut}>Cerrar sesión</div>
         </div>
       </div>
     </div>

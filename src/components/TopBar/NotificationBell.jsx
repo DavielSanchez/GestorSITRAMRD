@@ -2,8 +2,12 @@ import { Notifications } from "@mui/icons-material";
 import { useRef, useState } from "react";
 import NotificationItem from "./NotificationItem";
 import {useOutsideClick} from './TopBar'
+import { useSelector } from "react-redux";
+import { Badge } from "@mui/material";
 
 export default function NotificationBell({ primaryHover, iconColor }) {
+
+  const alertasNoLeidasCount = useSelector(state => state.alertas.noLeidas);
     const [showNotifications, setShowNotifications] = useState(false);
     const notificationsRef = useRef(null);
   
@@ -16,15 +20,17 @@ export default function NotificationBell({ primaryHover, iconColor }) {
   
     return (
       <div className="relative">
-        {/* Ícono de la campana */}
         <div
           className={`flex items-center cursor-pointer p-2 ${primaryHover} rounded-full`}
           onClick={toggleNotifications}
         >
-          <Notifications className={iconColor} sx={{fontSize:23}}/>
+          {alertasNoLeidasCount > -1 && (
+            <Badge badgeContent={alertasNoLeidasCount} color="primary">
+              <Notifications className={iconColor} sx={{fontSize:23}}/>
+          </Badge>
+          )}
         </div>
   
-        {/* Contenedor de notificaciones */}
         {showNotifications && (
           <div
             ref={notificationsRef}
