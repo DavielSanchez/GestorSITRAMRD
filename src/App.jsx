@@ -61,7 +61,7 @@ function App() {
           <Route
             path="/asignar"
             element={
-              <ProtectedRoute allowedRoles={['Operador']}>
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Asignaciones">
                   <VistaAsignar />
                 </Layout>
