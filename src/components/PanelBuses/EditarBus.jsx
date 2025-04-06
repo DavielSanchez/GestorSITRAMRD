@@ -17,8 +17,6 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated, API_LINK }) {
     }
   }, [autobus]);
 
-  // const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,12 +42,13 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated, API_LINK }) {
     } catch (error) {
       console.error("Error en la petición:", error);
     }
-    };
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent">
-      <div className="bg-white rounded-md p-8 shadow-lg min-w-[400px] max-w-sm">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
+      <div className="bg-white rounded-md p-8 shadow-lg min-w-[400px] max-w-sm animate-modal">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
@@ -72,13 +71,18 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated, API_LINK }) {
             onChange={(e) => setCapacidad(e.target.value)}
             className="w-full h-[40px] bg-[#eff3fe] rounded-[5px] px-2 text-black"
           />
-          <input
-            type="text"
-            placeholder="Estado"
+
+          {/* Dropdown para estado */}
+          <select
             value={estado}
             onChange={(e) => setEstado(e.target.value)}
             className="w-full h-[40px] bg-[#eff3fe] rounded-[5px] px-2 text-black"
-          />
+          >
+            <option value="">Selecciona un estado</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+
           <input
             type="text"
             placeholder="ID Ruta (Opcional)"
@@ -90,7 +94,10 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated, API_LINK }) {
             Guardar Cambios
           </button>
         </form>
-        <button onClick={onClose} className="mt-2 text-sm text-gray-500 hover:underline">
+        <button
+          onClick={onClose}
+          className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2"
+        >
           Cerrar
         </button>
       </div>

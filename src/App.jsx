@@ -11,6 +11,7 @@ import RegisterAuth from './pages/Autenticacion/RegisterAuth';
 import ChoferesView from './pages/ChoferesView';
 import ModoViaje from './pages/ModoViaje';
 import RegistroBuses from './pages/RegistroBuses';
+import Rutas from './pages/Rutas';
 import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { jwtDecode } from 'jwt-decode';
@@ -73,6 +74,16 @@ function App() {
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Layout title="AutoBuses">
                   <RegistroBuses />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rutas"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Rutas">
+                  <Rutas />
                 </Layout>
               </ProtectedRoute>
             }
