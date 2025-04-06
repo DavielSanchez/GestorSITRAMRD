@@ -10,14 +10,16 @@ import Auth from './pages/Autenticacion/Auth';
 import RegisterAuth from './pages/Autenticacion/RegisterAuth';
 import ChoferesView from './pages/Conductores/ChoferesView';
 import ModoViaje from './pages/Conductores/ModoViaje';
+import RegistroBuses from './pages/RegistroBuses';
+import Rutas from './pages/Rutas';
 import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { jwtDecode } from 'jwt-decode';
 import Alertas from './pages/AlertasGestor';
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import socket from "./socket";
-// import { addAlert, updateAlertCount } from "./redux/actions";
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { Socket } from 'socket.io-client';
+// import Alertas from './pages/AlertasGestor';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -39,7 +41,7 @@ if (token) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    socket.emit("join-alert-room", { userId });
+    Socket.emit("join-alert-room", { userId });
 
     socket.on("alerta-recibida", (alerta) => {
       dispatch(addAlert(alerta));
@@ -86,6 +88,7 @@ if (token) {
           <Route
             path="/incidencias"
             element={
+
               <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Incidencias">
                   <Incidencias />
@@ -113,7 +116,36 @@ if (token) {
               </ProtectedRoute>
             }
           />
-          <Route path="/autobus" element={<AutobusView />} />
+          <Route
+            path="/autobus"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="AutoBuses">
+                  <RegistroBuses />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rutas"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Rutas">
+                  <Rutas />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/incidenciasAdmin"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Incidencias">
+                  <Incidencias />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
           <Route path="/choferes" element={<ChoferesView />} />
 
           <Route

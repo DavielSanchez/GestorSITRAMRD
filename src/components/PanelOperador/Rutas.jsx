@@ -8,11 +8,9 @@ function Rutas() {
   useEffect(() => {
     const fetchRutas = async () => {
       try {
-        const response = await fetch(`${API_LINK}/ruta/autobuses/`);
+        const response = await fetch(`${API_LINK}/ruta/all`);
         const data = await response.json();
-        if (data.rutas) {
-          setRutas(data.rutas);
-        }
+          setRutas(data);
       } catch (error) {
         console.error("Error fetching rutas:", error);
       }
