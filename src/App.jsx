@@ -52,7 +52,6 @@ function App() {
           <Route
             path="/incidencias"
             element={
-              <ProtectedRoute allowedRoles={['Operador']}>
 
               <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Incidencias">
