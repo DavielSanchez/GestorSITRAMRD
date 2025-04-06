@@ -15,6 +15,7 @@ import Rutas from './pages/Rutas';
 import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { jwtDecode } from 'jwt-decode';
+import Alertas from './pages/AlertasGestor';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -52,8 +53,20 @@ function App() {
             path="/incidencias"
             element={
               <ProtectedRoute allowedRoles={['Operador']}>
+
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Incidencias">
                   <Incidencias />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/alertas"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
+                <Layout title="Alertas">
+                  <Alertas />
                 </Layout>
               </ProtectedRoute>
             }
