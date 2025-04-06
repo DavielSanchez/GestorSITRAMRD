@@ -10,11 +10,12 @@ import Auth from './pages/Autenticacion/Auth';
 import RegisterAuth from './pages/Autenticacion/RegisterAuth';
 import ChoferesView from './pages/ChoferesView';
 import ModoViaje from './pages/ModoViaje';
+import RegistroBuses from './pages/RegistroBuses';
+import Rutas from './pages/Rutas';
 import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { jwtDecode } from 'jwt-decode';
 import Alertas from './pages/AlertasGestor';
-// import Alertas from './pages/AlertasGestor';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -51,6 +52,8 @@ function App() {
           <Route
             path="/incidencias"
             element={
+              <ProtectedRoute allowedRoles={['Operador']}>
+
               <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Incidencias">
                   <Incidencias />
@@ -78,7 +81,36 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/autobus" element={<AutobusView />} />
+          <Route
+            path="/autobus"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="AutoBuses">
+                  <RegistroBuses />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rutas"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Rutas">
+                  <Rutas />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/incidenciasAdmin"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Incidencias">
+                  <Incidencias />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
           <Route path="/choferes" element={<ChoferesView />} />
 
           <Route
