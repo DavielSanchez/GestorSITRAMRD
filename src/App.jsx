@@ -11,7 +11,7 @@ import RegisterAuth from './pages/Autenticacion/RegisterAuth';
 import ChoferesView from './pages/ChoferesView';
 import ModoViaje from './pages/ModoViaje';
 import RegistroBuses from './pages/RegistroBuses';
-import Rutas from './pages/Rutas';
+//import Rutas from './pages/Rutas';
 import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { jwtDecode } from 'jwt-decode';
@@ -27,32 +27,31 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/login" element={<Auth />} />
+         <Route path="/login" element={<Auth />} />
           <Route path="/register" element={<RegisterAuth />} />
           <Route
-            path="/"
-            element={
-              <ProtectedRoute allowedRoles={['Conductor', 'Operador', 'Administrador']}>
-                {userRol === 'Conductor' ? (
-                  <Layout title="Panel de conductor">
-                    <ChoferesView />
-                  </Layout>
-                ) : userRol === 'Operador' ? (
-                  <Layout title="Panel de operador">
-                    <PanelOperador />
-                  </Layout>
-                ) : userRol === 'Adminstrador' ? (
-                  <Layout title="Panel de Administrador">
-                    <PanelAdministrador />
-                  </Layout>
-                ) : null}
-              </ProtectedRoute>
-            }
-          />
+  path="/"
+  element={
+    <ProtectedRoute allowedRoles={['Conductor', 'Operador', 'Administrador']}>
+      {userRol === 'Conductor' ? (
+        <Layout title="Panel de conductor">
+          <ChoferesView />
+        </Layout>
+      ) : userRol === 'Operador' ? (
+        <Layout title="Panel de operador">
+          <PanelOperador />
+        </Layout>
+      ) : userRol === 'Administrador' ? ( // <-- AQUÍ ESTÁ LA CORRECCIÓN
+        <Layout title="Panel de Administrador">
+          <PanelAdministrador />
+        </Layout>
+      ) : null}
+    </ProtectedRoute>
+  }
+/>
           <Route
             path="/incidencias"
             element={
-              <ProtectedRoute allowedRoles={['Operador']}>
 
               <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Incidencias">
@@ -91,7 +90,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/rutas"
             element={
               <ProtectedRoute allowedRoles={['Administrador']}>
@@ -100,7 +99,7 @@ function App() {
                 </Layout>
               </ProtectedRoute>
             }
-          />
+          /> */}
           <Route
             path="/incidenciasAdmin"
             element={
