@@ -38,24 +38,24 @@ if (token) {
   }
 }
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    Socket.emit("join-alert-room", { userId });
+  // useEffect(() => {
+  //   Socket.emit("join-alert-room", { userId });
 
-    socket.on("alerta-recibida", (alerta) => {
-      dispatch(addAlert(alerta));
-      dispatch(updateAlertCount(1));
-    });
+  //   Socket.on("alerta-recibida", (alerta) => {
+  //     dispatch(addAlert(alerta));
+  //     dispatch(updateAlertCount(1));
+  //   });
 
-    socket.on("contador-alertas-no-leidas", (count) => {
-      dispatch(updateAlertCount(count)); 
-    });
-    return () => {
-      socket.off("alerta-recibida");
-      socket.off("contador-alertas-no-leidas");
-    };
-  }, [dispatch]);
+  //   Socket.on("contador-alertas-no-leidas", (count) => {
+  //     dispatch(updateAlertCount(count)); 
+  //   });
+  //   return () => {
+  //     Socket.off("alerta-recibida");
+  //     Socket.off("contador-alertas-no-leidas");
+  //   };
+  // }, [dispatch]);
 
   return (
     <>

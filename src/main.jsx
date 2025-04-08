@@ -5,6 +5,8 @@ import App from './App.jsx'
 import { registerSW } from 'virtual:pwa-register';
 import { Provider } from "react-redux";
 import store from "./store";
+import 'leaflet/dist/leaflet.css';
+
 
 const updateSW = registerSW({
   onNeedRefresh() {
