@@ -20,7 +20,7 @@ export default function EnhancedTable() {
 
   const columns = [
     { id: "Order", label: "#", minWidth: 50, align: "center" },
-    { id: "Nombre", label: "Nombre", minWidth: 100, align: "center" },
+    { id: "NombreRuta", label: "Nombre", minWidth: 100, align: "center" },
     { id: "Tarifa", label: "Tarifa", minWidth: 170, align: "center" },
     { id: "Paradas", label: "Paradas", minWidth: 170, align: "center" },
   ];
@@ -59,7 +59,7 @@ export default function EnhancedTable() {
           index + 1,
             ruta._id,
             ruta.nombreRuta || "N/A",
-            ruta.tarifa || "N/A",
+            ruta.Tarifa || "N/A",
             ruta.paradas || "N/A",
             ruta.fechaCreacion ? new Date(ruta.fechaCreacion).toLocaleString() : "N/A",
           ruta
@@ -122,9 +122,9 @@ export default function EnhancedTable() {
 
   return (
     <>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <Paper sx={{ width: "100%", overflow: "hidden", }}>
         <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
+          <Table>
             <TableHead>
               <TableRow>
                 {columns.map((column) => (

@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
+import {useBG,usePrimaryColors} from '../../ColorClass'
 
 function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
   const [placa, SetPlaca] = useState('');
   const [modelo, SetModelo] = useState('');
   const [capacidad, SetCapacidad] = useState('');
   const [estado, SetEstado] = useState('');
+  const token = localStorage.getItem('token');
+  const decodedToken = jwtDecode(token);
+  const theme = decodedToken.theme;
+  const textColor = usePrimaryColors(theme);
+  const bgColor = useBG(theme);
 
   const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
@@ -92,34 +99,34 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
-      <div className="bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal">
+      <div className={ `${bgColor} rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Placa"
             value={placa}
             onChange={(e) => SetPlaca(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] px-2 font-semibold text-[#6a62dc]"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
           />
           <input
             placeholder="Modelo"
             value={modelo}
             onChange={(e) => SetModelo(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
           />
           <input
             type="number"
             placeholder="Capacidad"
             value={capacidad}
             onChange={(e) => SetCapacidad(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
           />
 
           {/* Dropdown para estado */}
           <select
             value={estado}
             onChange={(e) => SetEstado(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]">
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}>
             <option value="">Selecciona un estado</option>
             <option value="Activo">Activo</option>
             <option value="Inactivo">Inactivo</option>

@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
+import {useBG,usePrimaryColors} from '../../ColorClass'
 
 function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
   const [nombreRuta, SetNombreRuta] = useState('');
   const [coordenadas, SetCoordenadas] = useState('');
   const [tarifa, SetTarifa] = useState('');
   const [paradas, SetParadas] = useState('');
+  const token = localStorage.getItem('token');
+  const decodedToken = jwtDecode(token);
+  const theme = decodedToken.theme;
+  const textColor = usePrimaryColors(theme);
+  const bgColor = useBG(theme);
 
   // Endpoint de la API
   const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
@@ -97,7 +104,7 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
     <div
       className="fixed inset-0  flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
       {/* Contenedor del contenido del modal */}
-      <div className="bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal">
+      <div className={ `${bgColor} rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Campos para registrar autobuses */}
@@ -106,26 +113,26 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
             placeholder="Nombre Ruta"
             value={nombreRuta}
             onChange={(e) => SetNombreRuta(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] px-2 font-semibold text-[#6a62dc]"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
           />
           <input
             placeholder="Coordenadas"
             value={coordenadas}
             onChange={(e) => SetCoordenadas(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
           />
           <input
             type="number"
             placeholder="Tarifa"
             value={tarifa}
             onChange={(e) => SetTarifa(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
           />
           <input
             placeholder="Paradas"
             value={paradas}
             onChange={(e) => SetParadas(e.target.value)}
-            className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
           />
 
           {/* Botón Registrar */}

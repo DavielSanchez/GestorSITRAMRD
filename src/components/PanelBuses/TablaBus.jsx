@@ -113,8 +113,8 @@ export default function EnhancedTable() {
   return (
     <>
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
+        <TableContainer sx={{ overflowY: 'hidden' }}>
+          <Table>
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
