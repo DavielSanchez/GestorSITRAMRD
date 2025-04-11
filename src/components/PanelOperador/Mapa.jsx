@@ -47,7 +47,7 @@ function Mapa() {
   return (
     <div className="md:col-span-4 bg-[#f1f1ff] shadow rounded-lg p-3">
       <h3 className="text-2xl font-semibold text-[#6A62DC] mb-1">Rutas</h3>
-      <div className="w-full" style={{ height: '400px' }}>
+      <div className="w-full" style={{ height: '500px' }}>
         {posicionUsuario ? (
           <MapContainer
             center={posicionUsuario}
@@ -60,11 +60,6 @@ function Mapa() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <Marker position={posicionUsuario}>
-              <Popup>
-                Aquí estoy 📍
-              </Popup>
-            </Marker>
-            <Marker position={[18.4861, -69.9312]}>
               <Popup>
                 Aquí estoy 📍
               </Popup>

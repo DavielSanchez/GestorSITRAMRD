@@ -1,20 +1,19 @@
+import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from "react";
 
 function AutobusesCard() {
   const [autobuses, setAutobuses] = useState([]);
+  const token = localStorage.getItem("token");
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken.id;
   const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
   useEffect(() => {
     const fetchAutobuses = async () => {
       try {
-        const response = await fetch(`${API_LINK}/autobus/all`);
+        const response = await fetch(`${API_LINK}/autobus/count/${userId}`);
         const data = await response.json();
-        // Si data es un arreglo, lo usamos directamente, de lo contrario revisamos si tiene la propiedad "autobuses"
-        if (Array.isArray(data)) {
-          setAutobuses(data);
-        } else if (data.autobuses) {
-          setAutobuses(data.autobuses);
-        }
+          setAutobuses(data.cantidadAutobuses);
       } catch (error) {
         console.error("Error fetching autobuses:", error);
       }
@@ -49,7 +48,7 @@ function AutobusesCard() {
       </div>
       <div className="flex flex-col">
         <span className="text-[#6A62DC] font-semibold text-sm">Autobuses:</span>
-        <span className="text-red-500 text-2xl font-bold">{autobuses.length}</span>
+        <span className="text-red-500 text-2xl font-bold">{autobuses}</span>
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useBG, usePrimaryColors, useText } from "../ColorClass";
+import { jwtDecode } from 'jwt-decode';
 
 const API_URL = import.meta.env.VITE_API_LINK || "http://localhost:3001";// Reemplaza con la URL real
 
@@ -116,17 +117,15 @@ export default function TableAsignar() {
       .then((data) => setRoutes(data))
       .catch((err) => console.error("Error cargando rutas:", err));
 
-    // Obtener autobuses
     fetch(`${API_URL}/autobus/all`)
       .then((res) => res.json())
       .then((data) => setBuses(data))
       .catch((err) => console.error("Error cargando autobuses:", err));
   }, []);
 
-  // Relacionar autobuses con sus rutas
   const enhancedRoutes = routes.map((route) => ({
     ...route,
-    buses: buses.filter((bus) => bus.IdRuta === route.IdRuta)
+    buses: buses.filter((bus) => bus.rutaAsignada === route._id)
   }));
 
   return (

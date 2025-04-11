@@ -16,6 +16,10 @@ export default function UserCard({ theme }) {
         navigate("/login");
   };
 
+  const goToAccount = async () => {
+    navigate('/account')
+  }
+
   return (
     <div className=" w-[180px] bg-white rounded-2xl border border-[#6a62dc] p-4 z-50">
       <div className="flex flex-col gap-4">
@@ -31,7 +35,7 @@ export default function UserCard({ theme }) {
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="text-[#6a62dc] text-xl font-normal font-['Inter']">Mi cuenta</div>
+          <div className="text-[#6a62dc] text-xl font-normal font-['Inter']" onClick={goToAccount}>Mi cuenta</div>
         </div>
         {/* <div className="flex items-center gap-2">
           <div data-svg-wrapper className="flex-shrink-0">

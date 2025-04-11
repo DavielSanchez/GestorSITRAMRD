@@ -1,16 +1,19 @@
+import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from "react";
 
 function Rutas() {
   const [rutas, setRutas] = useState([]);
-  // Configuración de API propio para las rutas asignadas
+  const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode(token);
+  const userId = decodedToken.id;
   const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
   useEffect(() => {
     const fetchRutas = async () => {
       try {
-        const response = await fetch(`${API_LINK}/ruta/all`);
+        const response = await fetch(`${API_LINK}/ruta/get/asignadas/${userId}`);
         const data = await response.json();
-          setRutas(data);
+          setRutas(data.rutasAsignadas);
       } catch (error) {
         console.error("Error fetching rutas:", error);
       }

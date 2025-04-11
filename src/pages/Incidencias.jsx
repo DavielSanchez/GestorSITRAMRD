@@ -18,6 +18,7 @@ export default function Incidencias() {
 
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
+  const userRol = decodedToken.userRol;
   const theme = 'light';
   const bgColor = useBG(theme);
   const buttonColor = useBGForButtons(theme);
@@ -36,11 +37,13 @@ export default function Incidencias() {
             <IncidenciasP />
             <IncidenciasR />
           </section>
-          <button
+          {
+            userRol === 'Conductor' ? <button
             onClick={() => setShowModal(true)}
             className={`${buttonColor} text-white font-semibold mb-6 px-4 py-2 rounded-md w-48 hover:opacity-90 transition-colors`}>
             Registrar incidencia
-          </button>
+          </button> : null
+          }
           {/* <Tabla /> */}
           <EnhancedTable />
         </main>

@@ -61,7 +61,6 @@ export default function EnhancedTable() {
         throw new Error('Error al obtener los datos');
       }
       const data = await response.json();
-      console.log('Respuesta de la API:', data);
 
       let incidenciasArray = [];
       if (Array.isArray(data)) {

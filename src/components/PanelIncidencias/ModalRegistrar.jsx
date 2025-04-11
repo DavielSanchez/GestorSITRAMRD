@@ -5,7 +5,6 @@ function ModalRegistrar({ isOpen, onClose, onIncidenciaAdded }) {
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.id;
-  console.log(userId);
 
   const [autobus, setAutobus] = useState('');
   const [descripcion, setDescripcion] = useState('');
