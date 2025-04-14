@@ -18,13 +18,18 @@ function Layout({ children, title }) {
   return (
     <>
       <div className={`flex h-screen overflow-hidden ${bgColor}`}>
+        {/* Sidebar */}
         <Sidebar
           handleButtonClick={handleButtonClick}
           activeButton={activeButton}
         />
-        <div className="flex flex-col flex-1 overflow-auto lg:ml-[120px]">
+
+        <div className="flex flex-col flex-1 overflow-hidden lg:ml-[120px] relative z-0">
+          {/* TopBar */}
           <TopBar theme={theme} title={title} />
-          <main className="flex-1 p-4 md:p-8 mt-30 md:mt-20 transition-all duration-300">
+
+          {/* Contenedor para el contenido con scroll */}
+          <main className="flex-1 p-4 md:p-8 mt-30 md:mt-20 transition-all duration-300 overflow-y-auto relative z-0">
             {children}
           </main>
         </div>

@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Email, Notifications } from '@mui/icons-material';
 import { useBG, usePrimaryColors, useColorsWithHover, useIconColor } from '../ColorClass';
+import { Link, Navigate } from 'react-router-dom';
 
 /**
  * Hook para detectar clics fuera de un contenedor
@@ -175,6 +176,9 @@ function NotificationItem() {
     </div>
   );
 }
+const goToAccount = async () => {
+  Navigate
+}
 
 function UserMenu({ theme, primaryColors, primaryHover }) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -218,7 +222,11 @@ function UserCard({ theme }) {
               />
             </svg>
           </div>
-          <div className="text-[#6a62dc] text-xl font-normal font-['Inter']">Mi cuenta</div>
+          <Link to="/account">
+            <div className="text-[#6a62dc] text-xl font-normal font-['Inter'] cursor-pointer">
+              Mi cuenta
+            </div>
+          </Link>
         </div>
 
         {/* Opción: Notificaciones */}

@@ -17,7 +17,6 @@ import {
   Preview,
   ContentPasteGo,
   ContentPaste,
-  SupervisorAccount,
   ConnectWithoutContact,
 } from '@mui/icons-material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -27,6 +26,13 @@ import CommuteIcon from '@mui/icons-material/Commute';
 import { SitramIcon } from '../assets/SitramIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import { fontGrid } from '@mui/material/styles/cssUtils';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import PersonIcon from '@mui/icons-material/Person';
+import DevicesIcon from '@mui/icons-material/Devices';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 
 const menuConfig = {
   Operador: [
@@ -103,18 +109,19 @@ const menuConfig = {
       icon: <DashboardIcon />,
     },
     {
-      label: 'Administrador',
-      icon: <SupervisorAccount />,
-      title: 'Operaciones',
+      label: 'Usuarios',
+      icon: <ManageAccountsIcon  />,
+      title: 'Gestor Usuarios',
       subMenu: [
-        { label: 'Visualizar', icon: <Preview />, path: '/autobus' },
-        { label: 'Asignar', icon: <ContentPaste />, path: '' },
-        { label: 'Registrar', icon: <ContentPasteGo />, path: '' },
+        { label: 'Pasajeros', icon: <PersonIcon />, path: '/autobus' },
+        { label: 'Conductores', icon: <PersonIcon />, path: '' },
+        { label: 'Operadores', icon: <DevicesIcon />, path: '' },
+        { label: 'Admin', icon: <ManageAccountsIcon />, path: '' },
       ],
     },
     {
       label: 'Comunicacion  ',
-      icon: <ConnectWithoutContact />,
+      icon: <SupportAgentIcon />,
       title: 'Comunicaciones',
       subMenu: [
         { label: 'Chat', icon: <Message />, path: '/Chat' },
@@ -122,20 +129,31 @@ const menuConfig = {
       ],
     },
     {
-      label: 'Choferes',
-      icon: <ConnectWithoutContact />,
-      title: 'Panel Choferes',
-      subMenu: [
-        { label: 'Dashbord', icon: <DashboardIcon />, path: '' },
-        { label: 'Chat', icon: <Message />, path: '' },
-        { label: 'Modo viaje', icon: <CommuteIcon />, path: '' },
-      ],
-    },
-    {
       label: 'Incidencias',
       path: '/incidenciasAdmin',
       onClick: 'Incidencias',
-      icon: <FlagIcon />,
+      icon: <BorderColorIcon />,
+    },
+    {
+      label: 'Rutas',
+      icon: <BorderColorIcon />,
+      title: 'Gestor de rutas',
+      subMenu: [
+        { label: 'Visualizar', icon: <BorderColorIcon />, path: '/autobus' },
+        { label: 'Registrar', icon: <ContentPasteIcon />, path: '' },
+        { label: 'Asignar', icon: <ContentPasteGoIcon />, path: '' },
+      ],
+    },
+    {
+      label: 'Autobuses',
+      icon: <BorderColorIcon />,
+      title: 'Gestor de Autobuses',
+      subMenu: [
+        { label: 'Visualizar', icon: <BorderColorIcon />, path: '/autobus' },
+        { label: 'Registrar', icon: <ContentPasteIcon />, path: '' },
+        { label: 'Asignar', icon: <ContentPasteGoIcon />, path: '' },
+        { label: 'Admin', icon: <ManageAccountsIcon />, path: '' },
+      ],
     },
   ],
 
