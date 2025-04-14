@@ -16,6 +16,7 @@ import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { jwtDecode } from 'jwt-decode';
 import Alertas from './pages/AlertasGestor';
+import AccountView from './pages/AccountView';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -27,32 +28,41 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/unauthorized" element={<Unauthorized />} />
-         <Route path="/login" element={<Auth />} />
+          <Route path="/login" element={<Auth />} />
           <Route path="/register" element={<RegisterAuth />} />
           <Route
-  path="/"
-  element={
-    <ProtectedRoute allowedRoles={['Conductor', 'Operador', 'Administrador']}>
-      {userRol === 'Conductor' ? (
-        <Layout title="Panel de conductor">
-          <ChoferesView />
-        </Layout>
-      ) : userRol === 'Operador' ? (
-        <Layout title="Panel de operador">
-          <PanelOperador />
-        </Layout>
-      ) : userRol === 'Administrador' ? ( // <-- AQUÍ ESTÁ LA CORRECCIÓN
-        <Layout title="Panel de Administrador">
-          <PanelAdministrador />
-        </Layout>
-      ) : null}
-    </ProtectedRoute>
-  }
-/>
+            path="/account"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador', 'Conductor']}>
+                <Layout title="Mi cuenta">
+                  <AccountView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute allowedRoles={['Conductor', 'Operador', 'Administrador']}>
+                {userRol === 'Conductor' ? (
+                  <Layout title="Panel de conductor">
+                    <ChoferesView />
+                  </Layout>
+                ) : userRol === 'Operador' ? (
+                  <Layout title="Panel de operador">
+                    <PanelOperador />
+                  </Layout>
+                ) : userRol === 'Administrador' ? ( // <-- AQUÍ ESTÁ LA CORRECCIÓN
+                  <Layout title="Panel de Administrador">
+                    <PanelAdministrador />
+                  </Layout>
+                ) : null}
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/incidencias"
             element={
-
               <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Incidencias">
                   <Incidencias />
@@ -111,7 +121,6 @@ function App() {
             }
           />
           <Route path="/choferes" element={<ChoferesView />} />
-
           <Route
             path="/modo-viaje"
             element={

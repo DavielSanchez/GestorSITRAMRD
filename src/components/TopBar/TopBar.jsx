@@ -30,7 +30,7 @@ export default function BarraSuperior({ title, theme }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full h-[122px] ${bgColor} shadow flex justify-between items-center px-4 sm:px-6 md:px-8 text-balance lg:px-[68px] py-4 `}
+      className={`fixed top-0 left-0 w-full h-[122px] ${bgColor} shadow flex justify-between items-center px-4 sm:px-6 md:px-8 text-balance lg:px-[68px] py-4 z-10`}
     >
       <div
         className={`${primaryColors} text-2xl md:text-3xl ml-20 font-semibold `}
@@ -43,10 +43,12 @@ export default function BarraSuperior({ title, theme }) {
 
         <NotificationBell primaryHover={primaryHover} iconColor={iconColor} />
 
+        {/* Aquí agregamos z-index en el UserMenu */}
         <UserMenu
           theme={theme}
           primaryColors={primaryColors}
           primaryHover={primaryHover}
+          className="z-20"  // Asegúrate de que UserMenu tenga un z-index más alto
         />
       </div>
     </header>
