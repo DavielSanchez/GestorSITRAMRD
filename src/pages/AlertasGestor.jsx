@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AlertasPersonales from '../components/Alertas/alertasPersonales';
 import PersonalesCard from '../components/Alertas/PersonalesCard';
 import GeneralesCard from '../components/Alertas/GeneralesCard copy';
@@ -8,6 +8,13 @@ import AlertasGenerales from '../components/Alertas/alertasGenerales';
 import AlertasDeRuta from '../components/Alertas/alertasDeRuta';
 
 function Alertas() {
+
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleNewAlert = () => {
+    setRefreshKey(prevKey => prevKey + 1);
+  };
+
   return (
     <>
       <main className="lg:mt-8 text-black">
@@ -16,10 +23,10 @@ function Alertas() {
           <GeneralesCard />
           <RutasCard />
         </section>
-        <NewAlerta />
-        <AlertasPersonales />
-        <AlertasGenerales />
-        <AlertasDeRuta />
+        <NewAlerta onNewAlert={handleNewAlert} />
+        <AlertasPersonales refreshKey={refreshKey} />
+        <AlertasGenerales refreshKey={refreshKey} />
+        <AlertasDeRuta refreshKey={refreshKey} />
       </main>
     </>
   );

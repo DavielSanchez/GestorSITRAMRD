@@ -4,7 +4,7 @@ import { Warning, Traffic, CloudQueue, Delete } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { jwtDecode } from 'jwt-decode';
 
-function AlertasDeRuta() {
+function AlertasDeRuta({refreshKey}) {
   const token = localStorage.getItem('token');
     const decodedToken = jwtDecode(token);
     const userId = decodedToken.id;
@@ -21,7 +21,7 @@ function AlertasDeRuta() {
     useEffect(() => {
         const fetchAlertas = async () => {
           try {
-            const response = await fetch(`${API_LINK}/alerta/mis-alertas/generales`, {
+            const response = await fetch(`${API_LINK}/alerta/mis-alertas/ruta`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function AlertasDeRuta() {
         };
     
         fetchAlertas();
-      }, []);
+      }, [refreshKey]);
 
   return (
     <>

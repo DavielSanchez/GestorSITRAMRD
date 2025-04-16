@@ -6,6 +6,7 @@ function GeneralesCard() {
   const token = localStorage.getItem('token');
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.id;
+      const userRol = decodedToken.userRol
   
     const [alertas, setAlertas] = useState([]);
     const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
@@ -17,7 +18,7 @@ function GeneralesCard() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ userId }),
+          body: JSON.stringify({ userId, userRol }),
         });
   
         if (!response.ok) {

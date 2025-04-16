@@ -89,10 +89,9 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function TableAsignar() {
+export default function TableAsignar({ refresh }) {
   const [routes, setRoutes] = React.useState([]);
   const [buses, setBuses] = React.useState([]);
-
   const token = localStorage.getItem("token");
     let userId = null;
     let theme = 'light'
@@ -112,21 +111,29 @@ export default function TableAsignar() {
 
   React.useEffect(() => {
     // Obtener rutas
-    fetch(`${API_URL}/ruta/all`)
+    fetch(`${API_URL}/ruta/get/asignadas/${userId}`)
       .then((res) => res.json())
-      .then((data) => setRoutes(data))
+      .then((data) => {
+        console.log("Rutas:", data);
+        setRoutes(data.rutasAsignadas)})
       .catch((err) => console.error("Error cargando rutas:", err));
 
     fetch(`${API_URL}/autobus/all`)
       .then((res) => res.json())
-      .then((data) => setBuses(data))
+      .then((data) => {
+        console.log("Buses:", data);
+        setBuses(data)})
       .catch((err) => console.error("Error cargando autobuses:", err));
-  }, []);
+  }, [refresh]);
 
-  const enhancedRoutes = routes.map((route) => ({
-    ...route,
-    buses: buses.filter((bus) => bus.rutaAsignada === route._id)
-  }));
+  const enhancedRoutes = React.useMemo(() => {
+    if (!routes.length || !buses.length) return [];
+    
+    return routes.map((route) => ({
+      ...route,
+      buses: buses.filter((bus) => bus.rutaAsignada === route._id)
+    }));
+  }, [routes, buses]);
 
   return (
     <TableContainer component={Paper}>

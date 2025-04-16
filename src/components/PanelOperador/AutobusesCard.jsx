@@ -13,6 +13,7 @@ function AutobusesCard() {
       try {
         const response = await fetch(`${API_LINK}/autobus/count/${userId}`);
         const data = await response.json();
+        console.log(data)
           setAutobuses(data.cantidadAutobuses);
       } catch (error) {
         console.error("Error fetching autobuses:", error);

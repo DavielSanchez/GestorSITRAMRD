@@ -6,12 +6,12 @@ function Rutas() {
   const token = localStorage.getItem("token");
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.id;
-  const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
+  const API_LINK = `${import.meta.env.VITE_API_LINK}/ruta/get/asignadas/${userId}`;
 
   useEffect(() => {
     const fetchRutas = async () => {
       try {
-        const response = await fetch(`${API_LINK}/ruta/get/asignadas/${userId}`);
+        const response = await fetch(`${API_LINK}`);
         const data = await response.json();
           setRutas(data.rutasAsignadas);
       } catch (error) {
