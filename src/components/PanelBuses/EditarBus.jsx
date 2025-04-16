@@ -55,35 +55,35 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated, API_LINK }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
-      <div className={`${bgColor} rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
+      <div className={`bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Placa"
             value={placa}
             onChange={(e) => setPlaca(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
           <input
             type="text"
             placeholder="Modelo"
             value={modelo}
             onChange={(e) => setModelo(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
           <input
             type="number"
             placeholder="Capacidad"
             value={capacidad}
             onChange={(e) => setCapacidad(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
 
           {/* Dropdown para estado */}
           <select
             value={estado}
             onChange={(e) => setEstado(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}>
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}>
             <option value="">Selecciona un estado</option>
             <option value="Activo">Activo</option>
             <option value="Inactivo">Inactivo</option>
@@ -94,7 +94,7 @@ function EditarBus({ isOpen, onClose, autobus, onAutobusUpdated, API_LINK }) {
             placeholder="ID Ruta (Opcional)"
             value={idRuta}
             onChange={(e) => setIdRuta(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold ${textColor}`}
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
           <button type="submit" className="bg-[#6a62dc] text-white rounded-md py-2 mt-2">
             Guardar Cambios

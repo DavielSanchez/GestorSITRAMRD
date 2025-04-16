@@ -29,9 +29,9 @@ export function BusesInactivos() {
   }, [API_LINK]);
 
   return (
-    <div className={`bg-[#f1f1ff] ${textColor} shadow-md rounded-lg p-4 flex flex-row items-center gap-3`}>
+    <div className={`bg-[#f1f1ff] text-[#6a62dc] shadow-md rounded-lg p-4 flex flex-row items-center gap-3`}>
       <DirectionsBusIcon />
-      <div className={`${textColor} text-xl font-bold`}>Buses Activos: {BActivo}</div>
+      <div className={`text-[#6a62dc] text-xl font-bold`}>Buses Activos: {BActivo}</div>
     </div>
   );
 }

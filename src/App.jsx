@@ -11,6 +11,10 @@ import RegisterAuth from './pages/Autenticacion/RegisterAuth';
 import ChoferesView from './pages/ChoferesView';
 import ModoViaje from './pages/ModoViaje';
 import RegistroBuses from './pages/RegistroBuses';
+import UserView from './pages/userView';
+import ChoferUser from './pages/ChoferUser';
+import GestorOperador from './pages/GestorOperador';
+import GestorAdmin from './pages/GestorAdmin';
 import Rutas from './pages/Rutas';
 import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -106,6 +110,46 @@ function App() {
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Layout title="Incidencias">
                   <Incidencias />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/usuarios"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios">
+                  <UserView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/conductoresAdmin"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios - Conductores">
+                  <ChoferUser />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/operadores"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios - Operadores">
+                  <GestorOperador />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/administradores"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios - Administradores">
+                  <GestorAdmin />
                 </Layout>
               </ProtectedRoute>
             }

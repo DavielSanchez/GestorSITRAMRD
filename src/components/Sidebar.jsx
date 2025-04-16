@@ -109,23 +109,13 @@ const menuConfig = {
       onClick: () => handleButtonClick && handleButtonClick('Dashboard'),
       icon: <DashboardIcon />,
     },
-    // {
-    //   label: 'Choferes',
-    //   icon: <ConnectWithoutContact />,
-    //   title: 'Panel Choferes',
-    //   subMenu: [
-    //     { label: 'Dashbord', icon: <DashboardIcon />, path: '' },
-    //     { label: 'Chat', icon: <Message />, path: '' },
-    //     { label: 'Modo viaje', icon: <CommuteIcon />, path: '' },
-    //   ],
-    // },
     {
       label: 'Usuarios',
       icon: <PersonIcon/>,
       title: 'Gestor usuarios',
       subMenu: [
-        { label: 'Pasajeros', icon: <PersonIcon />, path: '/pasajeros' },
-        { label: 'Conductores', icon: <AirlineSeatReclineNormalIcon />, path: '/usuarios' },
+        { label: 'Pasajeros', icon: <PersonIcon />, path: '/usuarios' },
+        { label: 'Conductores', icon: <AirlineSeatReclineNormalIcon />, path: '/conductoresAdmin' },
         { label: 'operadores', icon: <Person4Icon />, path: '/operadores' },
         { label: 'Admin', icon: <EngineeringIcon />, path: '/administradores' },
       ],
@@ -139,21 +129,29 @@ const menuConfig = {
         { label: 'Alertas', icon: <WarningAmber />, path: '/alertas' },
       ],
     },
+    // {
+    //   label: 'Choferes',
+    //   icon: <ConnectWithoutContact />,
+    //   title: 'Panel Choferes',
+    //   subMenu: [
+    //     { label: 'Dashbord', icon: <DashboardIcon />, path: '' },
+    //     { label: 'Chat', icon: <Message />, path: '' },
+    //   ],
+    // },
+    {
+      label: 'Admin',
+      icon: <ConnectWithoutContact />,
+      title: 'Comunicaciones',
+      subMenu: [
+        { label: 'Autobus', icon: <DirectionsBusIcon />, path: '/autobus' },
+        { label: 'Rutas', icon: <SignpostIcon />, path: '/rutas' },
+      ],
+    },
     {
       label: 'Incidencias',
       path: '/incidenciasAdmin',
       onClick: 'Incidencias',
       icon: <FlagIcon />,
-    },
-    {
-      label: 'Autouses',
-      icon: <DirectionsBusIcon />,
-      path: '/autobus',
-    },
-    {
-      label: 'Rutas',
-      icon: <SignpostIcon />,
-      path: '/rutas',
     },
   ],
 

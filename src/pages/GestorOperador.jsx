@@ -1,45 +1,43 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TablaRuta from '../components/PanelRutas/TablaRuta';
-import RegistrarRutas from '../components/PanelRutas/RegistrarRutas';
+import TableOperador from '../components/PanelGestorOperador/TableOperador'
+import RegistrarOperador from '../components/PanelGestorOperador/RegistrarOperador';
 import { useBG, useBGForButtons, useText } from '../ColorClass';
 import { RoutesProvider } from '../components/RoutesContext';
-import { BusesInactivos } from '../components/PanelBuses/BusInactivos';
-import Rutas from '../components/PanelOperador/Rutas';
+import { Operadores } from '../components/PanelGestorOperador/Operadores';
+import { OperadorInactivo } from '../components/PanelGestorOperador/OperadoresInactivos';
 
-function RegistroRuta() {
+function GestorOperador() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('Dashboard');
   const [showModal, setShowModal] = useState(false);
 
   const token = localStorage.getItem('token');
   const theme = token ? JSON.parse(atob(token.split('.')[1])).theme : 'light';
-  const bgColor = useBG(theme);
-  const buttonColor = useBGForButtons(theme);
-  const textColor = useText(theme);
+  
 
   const refreshTable = () => {};
 
   return (
-    <main className="bg-white flex-1 p-4 md:p-8 transition-all duration-300">
+    <main className=" bg-white flex-1 p-4 md:p-8 transition-all duration-300">
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <Rutas />
+      <Operadores/>
+      <OperadorInactivo/>
       </section>
+
       <button
         onClick={() => setShowModal(true)}
         className={`bg-[#6a62dc] text-white font-semibold px-4 py-2 mb-5 rounded-md w-48 hover:opacity-90 transition-colors`}>
-        Registrar Rutas
+        Registrar Operador
       </button>
-      <TablaRuta />
-      <RoutesProvider>
-        <RegistrarRutas
+      <TableOperador />
+        <RegistrarOperador
           isOpen={showModal}
           onClose={() => setShowModal(false)}
           onBusesAdded={refreshTable}
         />
-      </RoutesProvider>
     </main>
   );
 }
 
-export default RegistroRuta;
+export default GestorOperador;
