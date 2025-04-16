@@ -12,7 +12,7 @@ import ChoferesView from './pages/ChoferesView';
 import ModoViaje from './pages/ModoViaje';
 import RegistroBuses from './pages/RegistroBuses';
 import UserView from './pages/userView';
-import ChoferUser from './pages/ChoferUser';
+import GestorChoferes from './pages/GestorChoferes'
 import GestorOperador from './pages/GestorOperador';
 import GestorAdmin from './pages/GestorAdmin';
 import Rutas from './pages/Rutas';
@@ -129,7 +129,7 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Layout title="Usuarios - Conductores">
-                  <ChoferUser />
+                  <GestorChoferes />
                 </Layout>
               </ProtectedRoute>
             }
