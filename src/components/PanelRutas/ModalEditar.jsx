@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { useBG, usePrimaryColors } from '../../ColorClass';
 
 function EditarRuta({ isOpen, onClose, ruta, onRutaUpdated, API_LINK }) {
   const [nombreRuta, setNombreRuta] = useState(ruta?.nombreRuta || '');
   const [coordenadas, setCoordenadas] = useState(ruta?.coordenadas || '');
   const [tarifa, setTarifa] = useState(ruta?.tarifa || '');
   const [paradas, setParadas] = useState(ruta?.paradas || '');
+  const token = localStorage.getItem('token');
+  const decodedToken = jwtDecode(token);
+  const theme = decodedToken.theme;
+  const textColor = usePrimaryColors(theme);
+  const bgColor = useBG(theme);
 
   useEffect(() => {
     if (ruta) {
@@ -45,41 +52,44 @@ function EditarRuta({ isOpen, onClose, ruta, onRutaUpdated, API_LINK }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm a">
-      <div className="bg-white rounded-md p-8 shadow-lg min-w-[400px] max-w-sm animate-modal">
+      <div className={ `bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Nombre de la Ruta"
             value={nombreRuta}
             onChange={(e) => setNombreRuta(e.target.value)}
-            className="w-full h-[40px] bg-[#eff3fe] rounded-[5px] px-2 text-black"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
           <input
             type="text"
             placeholder="Coordenadas"
             value={coordenadas}
             onChange={(e) => setCoordenadas(e.target.value)}
-            className="w-full h-[40px] bg-[#eff3fe] rounded-[5px] px-2 text-black"
-          />
-          <input
-            type="text"
-            placeholder="Paradas"
-            value={paradas}
-            onChange={(e) => setParadas(e.target.value)}
-            className="w-full h-[40px] bg-[#eff3fe] rounded-[5px] px-2 text-black"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
           <input
             type="number"
             placeholder="Tarifa"
             value={tarifa}
             onChange={(e) => setTarifa(e.target.value)}
-            className="w-full h-[40px] bg-[#eff3fe] rounded-[5px] px-2 text-black"
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
+          <input
+            type="text"
+            placeholder="Paradas"
+            value={paradas}
+            onChange={(e) => setParadas(e.target.value)}
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
+          />
+          
           <button type="submit" className="bg-[#6a62dc] text-white rounded-md py-2 mt-2">
             Guardar Cambios
           </button>
         </form>
-        <button onClick={onClose} className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2">
+        <button
+          onClick={onClose}
+          className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2">
           Cerrar
         </button>
       </div>

@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import ModalEditar from './EditarBus';
+// import ModalEditar from './EditarBus';
 
 export default function EnhancedTable() {
   const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
@@ -20,11 +20,12 @@ export default function EnhancedTable() {
 
   const columns = [
     { id: 'Order', label: '#', minWidth: 50, align: 'center' },
-    { id: 'Placa', label: 'Placa', minWidth: 100, align: 'center' },
-    { id: 'Modelo', label: 'Modelo', minWidth: 170, align: 'center' },
-    { id: 'Fecha', label: 'Fecha', minWidth: 170, align: 'center' },
-    { id: 'Capacidad', label: 'Capacidad', minWidth: 170, align: 'center' },
-    { id: 'Estado', label: 'Estado', minWidth: 170, align: 'center' },
+    { id: 'nombre', label: 'Nombre', minWidth: 100, align: 'center' },
+    { id: 'correo', label: 'Correo', minWidth: 170, align: 'center' },
+    { id: 'userRol', label: 'Rol', minWidth: 170, align: 'center' },
+    { id: 'estadoUsuario', label: 'Estado', minWidth: 170, align: 'center' },
+    { id: 'fechaCreacion', label: 'Fecha de creacion', minWidth: 170, align: 'center' },
+    { id: 'lastLogin', label: 'Ultimo inicio de sesion', minWidth: 170, align: 'center' },
   ];
 
   const handleChangePage = (event, newPage) => setPage(newPage);
@@ -34,29 +35,40 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  const createData = (Order, id, Placa, Modelo, Fecha, Capacidad, Estado, data) => {
-    return { Order, id, Placa, Modelo, Fecha, Capacidad, Estado, data };
+  const createData = (
+    Order,
+    id,
+    nombre,
+    correo,
+    userRol,
+    estadoUsuario,
+    fechaCreacion,
+    lastLogin,
+    data,
+  ) => {
+    return { Order, id, nombre, correo, userRol, estadoUsuario, fechaCreacion, lastLogin, data };
   };
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_LINK}/autobus/all`);
+      const response = await fetch(`${API_LINK}/auth/users`);
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
       }
       const data = await response.json();
 
-      let autobusesArray = Array.isArray(data) ? data : [];
-      const rowsData = autobusesArray.map((bus, index) =>
+      let userArray = Array.isArray(data) ? data : [];
+      userArray = userArray.filter((u) => u.userRol == 'Pasajero');
+      const rowsData = userArray.map((user, index) =>
         createData(
           index + 1,
-          bus._id,
-          bus.placa || 'N/A',
-          bus.modelo || 'N/A',
-          bus.fechaCreacion ? new Date(bus.fechaCreacion).toLocaleString() : 'N/A',
-          bus.capacidad || 'N/A',
-          bus.estado || 'N/A',
-          bus,
+          user._id,
+          user.nombre || 'N/A',
+          user.correo || 'N/A',
+          user.userRol || 'N/A',
+          user.estadoUsuario || 'N/A', 
+          user.fechaCreacion ? new Date(user.fechaCreacion).toLocaleString() : 'N/A',
+          user.lastLogin ? new Date(user.lastLogin).toLocaleString() : 'N/A',
         ),
       );
 
@@ -72,7 +84,7 @@ export default function EnhancedTable() {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: '¿Desea eliminar este vehículo?',
+      title: '¿Desea eliminar este usuario?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí',
@@ -81,20 +93,20 @@ export default function EnhancedTable() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`${API_LINK}/autobus/delete/${id}`, {
+          const response = await fetch(`${API_LINK}/auth/users/delete/${id}`, {
             method: 'DELETE',
           });
           const responseData = await response.json();
 
           if (response.ok) {
             setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-            Swal.fire('Eliminado', 'El vehículo ha sido eliminado', 'success');
+            Swal.fire('Eliminado', 'El usuario ha sido eliminado', 'success');
           } else {
-            Swal.fire('Error', responseData.message || 'Error al eliminar el vehículo', 'error');
+            Swal.fire('Error', responseData.message || 'Error al eliminar el usuario', 'error');
           }
         } catch (error) {
-          console.error('Error al eliminar vehículo:', error);
-          Swal.fire('Error', 'Error al eliminar el vehículo', 'error');
+          console.error('Error al eliminar usuario:', error);
+          Swal.fire('Error', 'Error al eliminar el usuario', 'error');
         }
       }
     });
@@ -123,10 +135,9 @@ export default function EnhancedTable() {
                     align={column.align}
                     style={{ minWidth: column.minWidth, color: 'white' }}>
                     {column.label}
-
                   </TableCell>
                 ))}
-                <TableCell key="acciones" align="center" style={{ minWidth: 100, color:'white' }}>
+                <TableCell key="acciones" align="center" style={{ minWidth: 100, color: 'white' }}>
                   Acciones
                 </TableCell>
               </TableRow>
@@ -179,17 +190,17 @@ export default function EnhancedTable() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           sx={{
-            backgroundColor:`#6a62dc`,
+            backgroundColor: `#6a62dc`,
             color: 'white',
           }}
         />
       </Paper>
-      <ModalEditar
+      {/* <ModalEditar
         isOpen={isModalOpen}
         onClose={handleModalClose}
         autobus={selectedAutoBus}
         API_LINK={API_LINK}
-      />
+      /> */}
     </>
   );
 }

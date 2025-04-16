@@ -215,5 +215,4 @@ function TablaRuta() {
     </>
     );
 }
-
 export default TablaRuta

@@ -22,11 +22,18 @@ import {
 } from '@mui/icons-material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CloseIcon from '@mui/icons-material/Close';
+import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import Person4Icon from '@mui/icons-material/Person4';
 import FlagIcon from '@mui/icons-material/Flag';
 import CommuteIcon from '@mui/icons-material/Commute';
 import { SitramIcon } from '../assets/SitramIcon';
 import MenuIcon from '@mui/icons-material/Menu';
+import PersonIcon from '@mui/icons-material/Person';
+import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
+import SignpostIcon from '@mui/icons-material/Signpost';
 import { fontGrid } from '@mui/material/styles/cssUtils';
+import { icon } from 'leaflet';
 
 const menuConfig = {
   Operador: [
@@ -103,13 +110,14 @@ const menuConfig = {
       icon: <DashboardIcon />,
     },
     {
-      label: 'Administrador',
-      icon: <SupervisorAccount />,
-      title: 'Operaciones',
+      label: 'Usuarios',
+      icon: <PersonIcon/>,
+      title: 'Gestor usuarios',
       subMenu: [
-        { label: 'Visualizar', icon: <Preview />, path: '/autobus' },
-        { label: 'Asignar', icon: <ContentPaste />, path: '' },
-        { label: 'Registrar', icon: <ContentPasteGo />, path: '' },
+        { label: 'Pasajeros', icon: <PersonIcon />, path: '/usuarios' },
+        { label: 'Conductores', icon: <AirlineSeatReclineNormalIcon />, path: '/conductoresAdmin' },
+        { label: 'operadores', icon: <Person4Icon />, path: '/operadores' },
+        { label: 'Admin', icon: <EngineeringIcon />, path: '/administradores' },
       ],
     },
     {
@@ -121,14 +129,22 @@ const menuConfig = {
         { label: 'Alertas', icon: <WarningAmber />, path: '/alertas' },
       ],
     },
+    // {
+    //   label: 'Choferes',
+    //   icon: <ConnectWithoutContact />,
+    //   title: 'Panel Choferes',
+    //   subMenu: [
+    //     { label: 'Dashbord', icon: <DashboardIcon />, path: '' },
+    //     { label: 'Chat', icon: <Message />, path: '' },
+    //   ],
+    // },
     {
-      label: 'Choferes',
+      label: 'Admin',
       icon: <ConnectWithoutContact />,
-      title: 'Panel Choferes',
+      title: 'Comunicaciones',
       subMenu: [
-        { label: 'Dashbord', icon: <DashboardIcon />, path: '' },
-        { label: 'Chat', icon: <Message />, path: '' },
-        { label: 'Modo viaje', icon: <CommuteIcon />, path: '' },
+        { label: 'Autobus', icon: <DirectionsBusIcon />, path: '/autobus' },
+        { label: 'Rutas', icon: <SignpostIcon />, path: '/rutas' },
       ],
     },
     {
@@ -225,7 +241,7 @@ function Sidebar({ handleButtonClick, activeButton }) {
         <div className="mb-8">
           <SitramIcon />
         </div>
-        <div className="flex flex-col gap-6 items-center">
+        <div className="flex flex-col gap-6 items-center overflow-auto scrollbar-hide">
           {menuItems.map((item, index) => (
             <div key={index} className="relative">
               <Link to={item.path} onClick={() => setIsSidebarOpen(true)}>
