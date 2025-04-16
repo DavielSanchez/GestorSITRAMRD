@@ -1,38 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Warning, Traffic, CloudQueue, Delete } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
+import { jwtDecode } from 'jwt-decode';
 
-function AlertasDeRuta() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [expandedAlert, setExpandedAlert] = useState(null);
-
-  const toggleAlertas = () => setIsOpen(!isOpen);
-  const toggleExpand = (id) => setExpandedAlert(expandedAlert === id ? null : id);
-
-  const alertas = [
-    {
-      id: 1,
-      titulo: 'Accidente en la Ruta 5',
-      tipo: 'emergencia',
-      descripcion: 'Colisión múltiple en la intersección principal.',
-      fecha: '2025-04-03',
-    },
-    {
-      id: 2,
-      titulo: 'Tráfico denso en la Av. Central',
-      tipo: 'trafico',
-      descripcion: 'Retraso de al menos 30 minutos por congestión.',
-      fecha: '2025-04-02',
-    },
-    {
-      id: 3,
-      titulo: 'Lluvias intensas, maneje con precaución',
-      tipo: 'clima',
-      descripcion: 'Tormenta fuerte con visibilidad reducida.',
-      fecha: '2025-04-01',
-    },
-  ];
+function AlertasDeRuta({refreshKey}) {
+  const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken.id;
+  
+    const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
+  
+    const [isOpen, setIsOpen] = useState(false);
+    const [expandedAlert, setExpandedAlert] = useState(null);
+    const [alertas, setAlertas] = useState([]);
+  
+    const toggleAlertas = () => setIsOpen(!isOpen);
+    const toggleExpand = (id) => setExpandedAlert(expandedAlert === id ? null : id);
+  
+    useEffect(() => {
+        const fetchAlertas = async () => {
+          try {
+            const response = await fetch(`${API_LINK}/alerta/mis-alertas/ruta`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ userId }),
+            });
+    
+            if (!response.ok) {
+              throw new Error('Error al obtener las alertas');
+            }
+    
+            const data = await response.json();
+            console.log(data);
+            setAlertas(data); // Asegúrate de que el backend devuelve un array
+          } catch (error) {
+            console.error('Error cargando alertas:', error);
+          }
+        };
+    
+        fetchAlertas();
+      }, [refreshKey]);
 
   return (
     <>

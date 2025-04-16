@@ -4,12 +4,12 @@ import PanelOperador from './pages/PanelOperador';
 import PanelAdministrador from './pages/PanelAdministrador';
 import Incidencias from './pages/Incidencias';
 import VistaAsignar from './pages/VistaAsignar';
-import AutobusView from './pages/AutobusView';
+import AutobusView from './pages/Conductores/AutobusView';
 import Unauthorized from './pages/Autenticacion/Unauthorized';
 import Auth from './pages/Autenticacion/Auth';
 import RegisterAuth from './pages/Autenticacion/RegisterAuth';
-import ChoferesView from './pages/ChoferesView';
-import ModoViaje from './pages/ModoViaje';
+import ChoferesView from './pages/Conductores/ChoferesView';
+import ModoViaje from './pages/Conductores/ModoViaje';
 import RegistroBuses from './pages/RegistroBuses';
 import UserView from './pages/userView';
 import GestorChoferes from './pages/GestorChoferes'
@@ -20,11 +20,47 @@ import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { jwtDecode } from 'jwt-decode';
 import Alertas from './pages/AlertasGestor';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { Socket } from 'socket.io-client';
+// import Alertas from './pages/AlertasGestor';
 
 function App() {
   const token = localStorage.getItem('token');
-  const decodedToken = jwtDecode(token);
-  const userRol = decodedToken.userRol;
+let userRol = null;
+let userId = null;
+
+if (token) {
+  try {
+    const decodedToken = jwtDecode(token);
+    userRol = decodedToken.userRol;
+    userId = decodedToken.id;
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    // Podrías redirigir al login o limpiar el token
+    localStorage.removeItem('token');
+  }
+}
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   Socket.emit("join-alert-room", { userId });
+
+  //   Socket.on("alerta-recibida", (alerta) => {
+  //     dispatch(addAlert(alerta));
+  //     dispatch(updateAlertCount(1));
+  //   });
+
+  //   Socket.on("contador-alertas-no-leidas", (count) => {
+  //     dispatch(updateAlertCount(count)); 
+  //   });
+  //   return () => {
+  //     Socket.off("alerta-recibida");
+  //     Socket.off("contador-alertas-no-leidas");
+  //   };
+  // }, [dispatch]);
+
   return (
     <>
       <Router>

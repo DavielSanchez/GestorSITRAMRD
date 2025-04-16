@@ -1,20 +1,36 @@
+import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from "react";
 
 const API_LINK = import.meta.env.VITE_API_LINK || "http://localhost:3001";
 
 function SelectRuta({ selectedRuta, setSelectedRuta }) {
+
+  const token = localStorage.getItem("token");
+      let userId = null;
+      let theme = 'light'
+      try {
+          if (token) {
+              const decodedToken = jwtDecode(token);
+              userId = decodedToken?.id;
+              theme = decodedToken?.theme;
+          }
+      } catch (error) {
+          console.error("Error al decodificar el token:", error);
+      }
+
   const [rutas, setRutas] = useState([]);
 
   useEffect(() => {
     const fetchRutas = async () => {
       try {
-        const response = await fetch(`${API_LINK}/ruta/all`);
+        const response = await fetch(`${API_LINK}/ruta/get/asignadas/${userId}`);
         if (!response.ok) {
           console.error("Error al obtener las rutas:", response.statusText);
           return;
         }
         const data = await response.json();
-        setRutas(data);
+        console.log(data)
+        setRutas(data.rutasAsignadas);
       } catch (error) {
         console.error("Error al conectar con la API:", error);
       }
@@ -31,9 +47,8 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
           w-full
           h-full
           text-[#211f47]
-          text-2xl
+          text-xl
           font-semibold
-          font-['Inter']
           bg-transparent
           px-4
           focus:outline-none

@@ -5,30 +5,30 @@ function IncidenciasP() {
   const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
   const fetchIncidencias = async () => {
-    // try {
-    //   const response = await fetch(`${API_LINK}/incidencia/all`);
-    //   const data = await response.json();
-    //   if (data.incidencias) {
-    //     const pendientesIncidencias = data.incidencias.filter(
-    //       (inc) =>
-    //         inc.estado &&
-    //         (inc.estado.toLowerCase() === "pendiente" ||
-    //           inc.estado.toLowerCase() === "en proceso")
-    //     );
-    //     setPendientes(pendientesIncidencias);
-    //   }
-    // } catch (error) {
-    //   console.error("Error fetching incidencias:", error);
-    // }
+     try {
+       const response = await fetch(`${API_LINK}/incidencia/all`);
+       const data = await response.json();
+       if (data.incidencias) {
+         const pendientesIncidencias = data.incidencias.filter(
+           (inc) =>
+             inc.estado &&
+             (inc.estado.toLowerCase() === "pendiente" ||
+               inc.estado.toLowerCase() === "en proceso")
+         );
+         setPendientes(pendientesIncidencias);
+       }
+     } catch (error) {
+       console.error("Error fetching incidencias:", error);
+     }
   };
 
-  // useEffect(() => {
-  //   // Se carga la información inicialmente
-  //   fetchIncidencias();
-  //   // Se actualiza cada 5 segundos (5000 ms)
-  //   const interval = setInterval(fetchIncidencias, 5000);
-  //   return () => clearInterval(interval);
-  // }, [API_LINK]);
+   useEffect(() => {
+     // Se carga la información inicialmente
+     fetchIncidencias();
+     // Se actualiza cada 5 segundos (5000 ms)
+     const interval = setInterval(fetchIncidencias, 5000);
+     return () => clearInterval(interval);
+   }, [API_LINK]);
 
   const BusIcon = () => (
     <div data-svg-wrapper>

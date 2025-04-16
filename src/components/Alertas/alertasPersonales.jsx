@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CloudQueue, Delete, Traffic, Warning } from '@mui/icons-material';
+import { CloudQueue, Delete, Done, DoneAll, Traffic, Warning } from '@mui/icons-material';
 import { jwtDecode } from 'jwt-decode';
 
-function AlertasPersonales() {
+function AlertasPersonales({refreshKey}) {
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.id;
@@ -14,6 +14,7 @@ function AlertasPersonales() {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedAlert, setExpandedAlert] = useState(null);
   const [alertas, setAlertas] = useState([]);
+  const [update, setUpdate] = useState(false);
 
   const toggleAlertas = () => setIsOpen(!isOpen);
   const toggleExpand = (id) => setExpandedAlert(expandedAlert === id ? null : id);
@@ -37,6 +38,7 @@ function AlertasPersonales() {
 
       const data = await response.json();
       console.log('✅ Alerta marcada como leída:', data);
+      setUpdate(!update)
     } catch (error) {
       console.error('❌ Error marcando la alerta como leída:', error);
     }
@@ -66,7 +68,7 @@ function AlertasPersonales() {
     };
 
     fetchAlertas();
-  }, []);
+  }, [refreshKey, update]);
 
   return (
     <>
@@ -121,10 +123,11 @@ function AlertasPersonales() {
                     <p className="text-lg">{alerta.titulo}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Delete
-                      className="cursor-pointer text-white hover:text-gray-300 transition"
-                      onClick={() => markSeen(alerta._id)}
-                    />
+                    {
+                                          alerta.leidaPor.includes(userId) ? 
+                                          <DoneAll className="cursor-pointer text-white hover:text-gray-300 transition"/> :
+                                          <Done className="cursor-pointer text-white hover:text-gray-300 transition" onClick={() => markSeen(alerta._id)} />
+                                        }
                   </div>
                 </div>
 

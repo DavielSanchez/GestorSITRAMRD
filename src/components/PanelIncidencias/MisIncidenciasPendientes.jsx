@@ -1,41 +1,27 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useState, useEffect } from 'react';
 
-function RutasCard() {
-  const token = localStorage.getItem('token');
-        const decodedToken = jwtDecode(token);
-        const userId = decodedToken.id;
-    
-      const [alertas, setAlertas] = useState([]);
-      const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
+function MisIncidenciasPendientes() {
+  const [pendientes, setPendientes] = useState([]);
+  const token = localStorage.getItem("token");
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken.id;
+  const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
-  const fetchAlertas = async () => {
-    try {
-      const response = await fetch(`${API_LINK}/alerta/mis-alertas/ruta`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al obtener las alertas');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setAlertas(data); // Asegúrate de que el backend devuelve un array
-    } catch (error) {
-      console.error('Error cargando alertas:', error);
-    }
+  const fetchIncidencias = async () => {
+     try {
+       const response = await fetch(`${API_LINK}/incidencia/pendientes/${userId}`);
+       const data = await response.json();
+         setPendientes(data);
+       }
+     catch (error) {
+       console.error("Error fetching incidencias:", error);
+     }
   };
 
    useEffect(() => {
-        fetchAlertas();
-        //  const interval = setInterval(fetchAlertas, 5000);
-        //  return () => clearInterval(interval);
-       }, [API_LINK]);
+     fetchIncidencias();
+   }, [API_LINK]);
 
   const BusIcon = () => (
     <div data-svg-wrapper>
@@ -60,10 +46,10 @@ function RutasCard() {
     <div className="bg-[#f1f1ff] shadow-md rounded-lg p-4 flex flex-row items-center gap-3">
       <BusIcon />
       <span className="text-[#6a62dc] text-xl font-bold">
-        Alertas de Ruta ({alertas.length})
+        Incidencias pendientes ({pendientes.cantidad})
       </span>
     </div>
   );
 }
 
-export default RutasCard;
+export default MisIncidenciasPendientes;

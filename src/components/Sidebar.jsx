@@ -191,7 +191,6 @@ function Sidebar({ handleButtonClick, activeButton }) {
   const PrimaryColor = usePrimaryColors(theme);
 
   const menuItems = menuConfig[userRole] || [];
-  console.log(menuItems);
   const [openMenu, setOpenMenu] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sideRef = useRef(null);
