@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
-import {useBG,usePrimaryColors} from '../../ColorClass'
+import { useBG, usePrimaryColors } from '../../ColorClass';
 
-function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
-  const [placa, SetPlaca] = useState('');
-  const [modelo, SetModelo] = useState('');
-  const [capacidad, SetCapacidad] = useState('');
+function RegistrarOperador({ isOpen, onClose, onBusesAdded }) {
+  const [nombre, SetNombre] = useState('');
+  const [correo, SetCorreo] = useState('');
+  const [contraseña, SetContraseña] = useState('');
   const [estado, SetEstado] = useState('');
+  const DefaultRol = 'Operador';
+
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
   const theme = decodedToken.theme;
@@ -19,8 +21,8 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!placa.trim().length) {
-      toast.error('El campo de placa está vacío', {
+    if (!nombre.trim().length) {
+      toast.error('El campo de nombre está vacío', {
         position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: false,
@@ -30,8 +32,8 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         theme: 'colored',
       });
     }
-    if (!modelo.trim().length) {
-      toast.error('El campo de modelo está vacío', {
+    if (!correo.trim().length) {
+      toast.error('El campo de correo está vacío', {
         position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: false,
@@ -41,8 +43,8 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
         theme: 'colored',
       });
     }
-    if (!capacidad.trim().length) {
-      toast.error('El campo de capacidad está vacío', {
+    if (!contraseña.trim().length) {
+      toast.error('El campo de contraseña está vacío', {
         position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: false,
@@ -65,30 +67,31 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
     }
 
     try {
-      const response = await fetch(`${API_LINK}/autobus/add`, {
+      const response = await fetch(`${API_LINK}/auth/users/add`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          placa,
-          modelo,
-          capacidad: parseInt(capacidad),
-          estado,
-          ubicacionActual: '',
-          idRuta: null,
+          nombre,
+          correo: correo.toLowerCase(),
+          contraseña,
+          userRol: DefaultRol,
+          estadoUsuario: 'Activo',
+          userImage:
+            'https://res.cloudinary.com/dv4wfetu1/image/upload/v1740610245/avatar_qspfc1.svg',
         }),
       });
 
       if (response.ok) {
         if (onBusesAdded) onBusesAdded();
 
-        SetPlaca('');
-        SetModelo('');
-        SetCapacidad('');
+        SetNombre('');
+        SetCorreo('');
+        SetContraseña('');
         SetEstado('');
 
         onClose();
       } else {
-        console.error('Error al registrar el bus');
+        console.error('Error al chofer el bus');
       }
     } catch (error) {
       console.error('Error en la petición:', error);
@@ -99,27 +102,32 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
-      <div className={ `bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
+      <div className={`bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
-            placeholder="Placa"
-            value={placa}
-            onChange={(e) => SetPlaca(e.target.value)}
+            placeholder="Nombre"
+            value={nombre}
+            onChange={(e) => SetNombre(e.target.value)}
             className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
           <input
-            placeholder="Modelo"
-            value={modelo}
-            onChange={(e) => SetModelo(e.target.value)}
+            placeholder="Correo"
+            value={correo}
+            onChange={(e) => SetCorreo(e.target.value)}
             className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
           <input
-            type="number"
-            placeholder="Capacidad"
-            value={capacidad}
-            onChange={(e) => SetCapacidad(e.target.value)}
+            placeholder="Contraseña"
+            value={contraseña}
+            onChange={(e) => SetContraseña(e.target.value)}
             className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
+          />
+          <input
+            type="text"
+            value={DefaultRol}
+            disabled
+            className="w-full h-12 bg-gray-200 rounded-[5px] p-2 font-semibold text-gray-500 cursor-not-allowed"
           />
 
           {/* Dropdown para estado */}
@@ -128,8 +136,8 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
             onChange={(e) => SetEstado(e.target.value)}
             className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}>
             <option value="">Selecciona un estado</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
           </select>
 
           <button type="submit" className="bg-[#6a62dc] text-white rounded-md py-2 mt-2">
@@ -147,4 +155,4 @@ function RegistrarBuses({ isOpen, onClose, onBusesAdded }) {
   );
 }
 
-export default RegistrarBuses;
+export default RegistrarOperador;

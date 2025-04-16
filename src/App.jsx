@@ -11,6 +11,10 @@ import RegisterAuth from './pages/Autenticacion/RegisterAuth';
 import ChoferesView from './pages/Conductores/ChoferesView';
 import ModoViaje from './pages/Conductores/ModoViaje';
 import RegistroBuses from './pages/RegistroBuses';
+import UserView from './pages/userView';
+import GestorChoferes from './pages/GestorChoferes'
+import GestorOperador from './pages/GestorOperador';
+import GestorAdmin from './pages/GestorAdmin';
 import Rutas from './pages/Rutas';
 import Layout from './Layout';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -109,7 +113,7 @@ if (token) {
           <Route
             path="/asignar"
             element={
-              <ProtectedRoute allowedRoles={['Operador']}>
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
                 <Layout title="Asignaciones">
                   <VistaAsignar />
                 </Layout>
@@ -142,6 +146,46 @@ if (token) {
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Layout title="Incidencias">
                   <Incidencias />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/usuarios"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios">
+                  <UserView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/conductoresAdmin"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios - Conductores">
+                  <GestorChoferes />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/operadores"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios - Operadores">
+                  <GestorOperador />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/administradores"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Layout title="Usuarios - Administradores">
+                  <GestorAdmin />
                 </Layout>
               </ProtectedRoute>
             }

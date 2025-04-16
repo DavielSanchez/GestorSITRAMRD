@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TablaAutobuses from '../components/PanelBuses/TablaBus';
-import RegistrarBuses from '../components/PanelBuses/RegistrarBus';
+import TablaUsers from '../components/PanelUsuarios/tablaUsers';
+import RegistrarUser from '../components/PanelUsuarios/RegistrarUser';
 import { useBG, useBGForButtons, useText } from '../ColorClass';
 import { RoutesProvider } from '../components/RoutesContext';
 import { BusesInactivos } from '../components/PanelBuses/BusInactivos';
 import { BusesTotal } from '../components/PanelBuses/Buses';
+import { Users } from '../components/PanelUsuarios/Users';
+import { UsersInactivo } from '../components/PanelUsuarios/UsersInactivos';
 
-function RegistroBuses() {
+function UserView() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('Dashboard');
   const [showModal, setShowModal] = useState(false);
@@ -21,25 +23,23 @@ function RegistroBuses() {
   return (
     <main className=" bg-white flex-1 p-4 md:p-8 transition-all duration-300">
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <BusesTotal />
-        <BusesInactivos />
+      <Users/>
+      <UsersInactivo/>
       </section>
 
-      <button
+      {/* <button
         onClick={() => setShowModal(true)}
         className={`bg-[#6a62dc] text-white font-semibold px-4 py-2 mb-5 rounded-md w-48 hover:opacity-90 transition-colors`}>
-        Registrar Buses
-      </button>
-      <TablaAutobuses />
-      <RoutesProvider>
-        <RegistrarBuses
+        Registrar usuario
+      </button> */}
+      <TablaUsers />
+        {/* <RegistrarUser
           isOpen={showModal}
           onClose={() => setShowModal(false)}
           onBusesAdded={refreshTable}
-        />
-      </RoutesProvider>
+        /> */}
     </main>
   );
 }
 
-export default RegistroBuses;
+export default UserView;
