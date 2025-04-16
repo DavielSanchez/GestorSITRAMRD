@@ -6,10 +6,19 @@ import RutasCard from '../components/Alertas/RutasCard';
 import NewAlerta from '../components/Alertas/NewAlerta';
 import AlertasGenerales from '../components/Alertas/alertasGenerales';
 import AlertasDeRuta from '../components/Alertas/alertasDeRuta';
-
+import socket from '../socket';
+import { jwtDecode } from 'jwt-decode';
 function Alertas() {
+  const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+    const userRol = decodedToken.userRol;
 
   const [refreshKey, setRefreshKey] = useState(0);
+
+  socket.on("alerta-recibida", (alerta) => {
+
+  });
+  
 
   const handleNewAlert = () => {
     setRefreshKey(prevKey => prevKey + 1);
@@ -23,11 +32,14 @@ function Alertas() {
           <GeneralesCard />
           <RutasCard />
         </section>
-        <NewAlerta onNewAlert={handleNewAlert} />
+        {
+          userRol === 'Conductor' ? null : <NewAlerta onNewAlert={handleNewAlert} />
+        }
         <AlertasPersonales refreshKey={refreshKey} />
         <AlertasGenerales refreshKey={refreshKey} />
         <AlertasDeRuta refreshKey={refreshKey} />
       </main>
+        
     </>
   );
 }

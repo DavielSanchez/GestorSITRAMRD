@@ -103,7 +103,7 @@ if (token) {
           <Route
             path="/alertas"
             element={
-              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador', 'Conductor']}>
                 <Layout title="Alertas">
                   <Alertas />
                 </Layout>

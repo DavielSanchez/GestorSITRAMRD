@@ -42,7 +42,6 @@ function AlertasGenerales({ refreshKey }) {
 
       const data = await response.json();
       setUpdate(!update);
-      console.log('✅ Alerta marcada como leída:', data);
     } catch (error) {
       console.error('❌ Error marcando la alerta como leída:', error);
     }
@@ -124,7 +123,7 @@ function AlertasGenerales({ refreshKey }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="mb-2"
-              >
+                onClick={() => markSeen(alerta._id)}>
                 <div
                   className={`p-4 text-md flex justify-between items-center cursor-pointer ${
                     expandedAlert === alerta._id ? 'rounded-t-md' : 'rounded-md'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { io } from 'socket.io-client'; // Importamos socket.io-client
+import { io } from 'socket.io-client';
 
 function ModalNuevaAlerta({ isOpen, onClose, onIncidenciaAdded }) {
   const token = localStorage.getItem('token');
@@ -24,8 +24,14 @@ function ModalNuevaAlerta({ isOpen, onClose, onIncidenciaAdded }) {
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null); 
 
+  // Establecer escucha continua para nuevas alertas
   useEffect(() => {
-    // Cualquier lógica relacionada con el socket si es necesario
+    socket.on("nuevaAlerta", (alerta) => {
+      if (alerta.destinatarios.includes(userId)) {
+        console.log('Alerta nueva recibida:', alerta);
+      }
+    });
+
     return () => {
       socket.disconnect();
     };
@@ -51,7 +57,7 @@ function ModalNuevaAlerta({ isOpen, onClose, onIncidenciaAdded }) {
         userId,
       });
 
-      // Ejecución de lo que ocurre después de enviar la alerta (ejemplo: actualización de la vista)
+      // Ejecución de lo que ocurre después de enviar la alerta
       if (onIncidenciaAdded) onIncidenciaAdded();
 
       // Limpiar el estado de la alerta
@@ -131,6 +137,7 @@ function ModalNuevaAlerta({ isOpen, onClose, onIncidenciaAdded }) {
             <option value="operadores">Operadores</option>
             <option value="conductores">Conductores</option>
             <option value="conductores_ruta">Conductores de una ruta</option>
+            <option value="usuarios_ruta">Todos los usuarios de una ruta</option>
             <option value="usuario">Usuario específico</option>
             <option value="administradores">Administradores</option>
           </select>
@@ -146,7 +153,19 @@ function ModalNuevaAlerta({ isOpen, onClose, onIncidenciaAdded }) {
             />
           )}
 
-          {alerta.tipo_destinatario === 'conductores_ruta' && (
+          {alerta.tipo_destinatario === 'conductores_ruta' || alerta.tipo_destinatario === 'usuarios_ruta' && (
+            <input
+              type="text"
+              placeholder="ID de la ruta"
+              name="ruta_id"
+              value={alerta.ruta_id}
+              onChange={handleChange}
+              className="w-full h-[40px] bg-[#eff3fe] rounded-[5px] px-3 text-black placeholder:text-[#6a62dc]"
+              required
+            />
+          )}
+
+          {alerta.tipo_destinatario === 'usuarios_ruta' && (
             <input
               type="text"
               placeholder="ID de la ruta"
