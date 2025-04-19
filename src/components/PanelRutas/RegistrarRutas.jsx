@@ -33,15 +33,15 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!nombreRuta.trim().length) {
-      toast.error(`El campo de nombre de ruta está vacío`, {
-        position: 'bottom-center',
-        autoClose: 3000,
-      });
-    }
-    if (!tarifa.trim().length) {
-      toast.error(`El campo de tarifa está vacío`, { position: 'bottom-center', autoClose: 3000 });
-    }
+    // if (!nombreRuta.trim().length) {
+    //   toast.error(`El campo de nombre de ruta está vacío`, {
+    //     position: 'bottom-center',
+    //     autoClose: 3000,
+    //   });
+    // }
+    // if (!tarifa.trim().length) {
+    //   toast.error(`El campo de tarifa está vacío`, { position: 'bottom-center', autoClose: 3000 });
+    // }
 
     try {
       const response = await fetch(`${API_LINK}/ruta/add`, {
@@ -87,7 +87,7 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
-      <div className={`bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
+      <div className={`bg-white rounded-md p-8 shadow-lg min-w-xl max-w-sm animate-modal`}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"

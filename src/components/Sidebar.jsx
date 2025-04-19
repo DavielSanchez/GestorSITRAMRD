@@ -111,7 +111,7 @@ const menuConfig = {
     },
     {
       label: 'Usuarios',
-      icon: <PersonIcon/>,
+      icon: <PersonIcon />,
       title: 'Gestor usuarios',
       subMenu: [
         { label: 'Pasajeros', icon: <PersonIcon />, path: '/usuarios' },
@@ -129,22 +129,29 @@ const menuConfig = {
         { label: 'Alertas', icon: <WarningAmber />, path: '/alertas' },
       ],
     },
-    // {
-    //   label: 'Choferes',
-    //   icon: <ConnectWithoutContact />,
-    //   title: 'Panel Choferes',
-    //   subMenu: [
-    //     { label: 'Dashbord', icon: <DashboardIcon />, path: '' },
-    //     { label: 'Chat', icon: <Message />, path: '' },
-    //   ],
-    // },
     {
       label: 'Admin',
       icon: <ConnectWithoutContact />,
-      title: 'Comunicaciones',
+      title: 'Gestores',
       subMenu: [
-        { label: 'Autobus', icon: <DirectionsBusIcon />, path: '/autobus' },
-        { label: 'Rutas', icon: <SignpostIcon />, path: '/rutas' },
+        {
+          label: 'Autobus',
+          icon: <DirectionsBusIcon />,
+          title: 'Gestor Buses',
+          subMenu: [
+            { label: 'Autobuses', icon: <DirectionsBusIcon />, path: '/autobus' },
+            { label: 'Asignar', icon: <Preview />, path: '/asignar' },
+          ],
+        },
+        {
+          label: 'Rutas',
+          icon: <SignpostIcon />,
+          title: 'Gestor Rutas',
+          subMenu: [
+            { label: 'Rutas', icon: <SignpostIcon />, path: '/rutas' },
+            { label: 'Asignar', icon: <Preview />, path: '/asignarB' },
+          ],
+        },
       ],
     },
     {
@@ -191,8 +198,8 @@ function Sidebar({ handleButtonClick, activeButton }) {
   const PrimaryColor = usePrimaryColors(theme);
 
   const menuItems = menuConfig[userRole] || [];
-  console.log(menuItems);
   const [openMenu, setOpenMenu] = useState(null);
+  const [openSubSubMenu, setOpenSubSubMenu] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sideRef = useRef(null);
 
@@ -200,9 +207,10 @@ function Sidebar({ handleButtonClick, activeButton }) {
     function handleClickOutside(event) {
       if (sideRef.current && !sideRef.current.contains(event.target)) {
         setIsSidebarOpen(false);
+        setOpenMenu(null);
+        setOpenSubSubMenu(null);
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -211,11 +219,15 @@ function Sidebar({ handleButtonClick, activeButton }) {
 
   const toggleMenu = (index) => {
     setOpenMenu(openMenu === index ? null : index);
+    setOpenSubSubMenu(null);
+  };
+
+  const toggleSubSubMenu = (subIndex) => {
+    setOpenSubSubMenu(openSubSubMenu === subIndex ? null : subIndex);
   };
 
   return (
     <>
-      {/* Botón de hamburguesa (solo visible en móviles) */}
       <button
         className="fixed top-9 left-4 z-50 p-2 rounded-lg  lg:hidden"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -231,21 +243,13 @@ function Sidebar({ handleButtonClick, activeButton }) {
         className={`box-border ${primaryColorBG} w-30 h-screen flex flex-col items-center py-6 fixed top-0 left-0 z-50 transition-transform duration-300 ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0`}>
-        {/* Botón de cerrar dentro del sidebar en móviles */}
-        {/* <div className="w-full flex justify-end lg:hidden pr-4">
-          <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="cursor-pointer"
-          ></button>
-        </div> */}
-
         <div className="mb-8">
           <SitramIcon />
         </div>
         <div className="flex flex-col gap-6 items-center overflow-auto scrollbar-hide">
           {menuItems.map((item, index) => (
             <div key={index} className="relative">
-              <Link to={item.path} onClick={() => setIsSidebarOpen(true)}>
+              {item.subMenu ? (
                 <div
                   onClick={() => toggleMenu(index)}
                   className="flex flex-col items-center cursor-pointer">
@@ -255,14 +259,24 @@ function Sidebar({ handleButtonClick, activeButton }) {
                   </div>
                   <div className="text-white font-semibold mt-2">{item.label}</div>
                 </div>
-              </Link>
+              ) : (
+                <Link to={item.path} onClick={() => setIsSidebarOpen(false)}>
+                  <div className="flex flex-col items-center cursor-pointer">
+                    <div
+                      className={`w-16 h-16 bg-[#f1f2ff] ${PrimaryColor} rounded-2xl border flex items-center justify-center`}>
+                      {item.icon}
+                    </div>
+                    <div className="text-white font-semibold mt-2">{item.label}</div>
+                  </div>
+                </Link>
+              )}
               {openMenu === index && item.subMenu && (
                 <div
-                  className={`w-50 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-20 transition-transform duration-300 ${
+                  className={`w-50 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-30 transition-transform duration-300 ${
                     isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                   } lg:translate-x-0`}>
                   <div className="flex justify-end">
-                    <button onClick={() => setOpenMenu(false)} className="cursor-pointer">
+                    <button onClick={() => setOpenMenu(null)} className="cursor-pointer">
                       <CloseIcon />
                     </button>
                   </div>
@@ -270,18 +284,73 @@ function Sidebar({ handleButtonClick, activeButton }) {
                     {item.title}
                   </div>
                   <div className="grid grid-cols-2">
-                    {item.subMenu.map((sub, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={sub.path}
-                        className="flex flex-col p-3 items-center gap-2"
-                        onClick={() => setOpenMenu(index)}>
-                        <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
-                          <span className={`${PrimaryColor}`}>{sub.icon}</span>
+                    {item.subMenu.map((sub, subIndex) =>
+                      sub.subMenu ? (
+                        <div key={subIndex} className="flex flex-col items-center relative">
+                          <div
+                            className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleSubSubMenu(`${index}-${subIndex}`);
+                            }}>
+                            <span className={`${PrimaryColor}`}>{sub.icon}</span>
+                          </div>
+                          <div className="text-center font-semibold cursor-pointer">
+                            {sub.label}
+                          </div>
+                          {openSubSubMenu === `${index}-${subIndex}` && (
+                            <div
+                              className={`w-50 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-30 transition-transform duration-300 ${
+                                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                              } lg:translate-x-0`}>
+                              <div className="flex justify-end">
+                                <button
+                                  onClick={() => setOpenSubSubMenu(null)}
+                                  className="cursor-pointer flex justify-end">
+                                  <CloseIcon />
+                                </button>
+                              </div>
+                              <div className="flex flex-wrap ml-5 items-center mb-5">
+                                <div className="text-2xl font-semibold text-white">{sub.title}</div>
+                                <div className="w-8" />
+                              </div>
+                              <div className="grid grid-cols-2">
+                                {sub.subMenu.map((deep, deepIndex) => (
+                                  <Link
+                                    key={deepIndex}
+                                    to={deep.path}
+                                    className="flex flex-col p-3 items-center gap-1"
+                                    onClick={() => {
+                                      setOpenMenu(null);
+                                      setOpenSubSubMenu(null);
+                                      setIsSidebarOpen(false);
+                                    }}>
+                                    <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
+                                      <span className={`${PrimaryColor}`}>{deep.icon}</span>
+                                    </div>
+                                    <div className="text-center font-semibold">{deep.label}</div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                        <div className="text-center font-semibold">{sub.label}</div>
-                      </Link>
-                    ))}
+                      ) : (
+                        <Link
+                          key={subIndex}
+                          to={sub.path}
+                          className="flex flex-col p-3 items-center gap-2"
+                          onClick={() => {
+                            setOpenMenu(null);
+                            setIsSidebarOpen(false);
+                          }}>
+                          <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
+                            <span className={`${PrimaryColor}`}>{sub.icon}</span>
+                          </div>
+                          <div className="text-center font-semibold">{sub.label}</div>
+                        </Link>
+                      ),
+                    )}
                   </div>
                 </div>
               )}

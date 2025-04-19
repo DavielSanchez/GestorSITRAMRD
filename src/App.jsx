@@ -4,6 +4,7 @@ import PanelOperador from './pages/PanelOperador';
 import PanelAdministrador from './pages/PanelAdministrador';
 import Incidencias from './pages/Incidencias';
 import VistaAsignar from './pages/VistaAsignar';
+import VistaAsignarB from './pages/VistaAsignarB';
 import AutobusView from './pages/AutobusView';
 import Unauthorized from './pages/Autenticacion/Unauthorized';
 import Auth from './pages/Autenticacion/Auth';
@@ -120,6 +121,16 @@ function App() {
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Layout title="Usuarios">
                   <UserView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/asignarB"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
+                <Layout title="Asignaciones">
+                  <VistaAsignarB />
                 </Layout>
               </ProtectedRoute>
             }

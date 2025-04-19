@@ -2,29 +2,31 @@ import React, { useState, useEffect } from 'react';
 
 const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
-function SelectRuta({ selectedRuta, setSelectedRuta }) {
-  const [rutas, setRutas] = useState([]);
+function SelectOperador({ selectedOperador, setSelectedOperador }) {
+  const [autobuses, setAutobuses] = useState([]);
 
   useEffect(() => {
-    const fetchRutas = async () => {
+    const fetchOperadores = async () => {
       try {
-        const response = await fetch(`${API_LINK}/ruta/all`);
+        const response = await fetch(`${API_LINK}/auth/users/`);
         if (!response.ok) {
-          console.error('Error al obtener las rutas:', response.statusText);
+          console.error('Error al obtener los autobuses:', response.statusText);
           return;
         }
         const data = await response.json();
-        setRutas(data);
+        const Rol = data.filter((u) => u.userRol === 'Operador');
+        
+        setAutobuses(Rol);
       } catch (error) {
         console.error('Error al conectar con la API:', error);
       }
     };
 
-    fetchRutas();
+    fetchOperadores();
   }, []);
 
   return (
-    <div className=" h-[60px] bg-[#eff3fe] rounded-[5px] relative flex items-center px-4">
+    <div className=" h-[60px] bg-[#eff3fe] rounded-[5px]  relative flex items-center px-4">
       <select
         className="
           appearance-none
@@ -39,16 +41,16 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
           focus:outline-none
           cursor-pointer
         "
-        value={selectedRuta}
-        onChange={(e) => setSelectedRuta(e.target.value)}>
-        <option value="">Seleccione una ruta</option>
-        {rutas.map((ruta) => (
-          <option key={ruta._id} value={ruta._id}>
-            {ruta.nombreRuta ? ruta.nombreRuta : `Ruta ${ruta._id}`}
+        value={selectedOperador}
+        onChange={(e) => setSelectedOperador(e.target.value)}>
+        <option value="">Seleccione un Operador</option>
+        {autobuses.map((user) => (
+          <option key={user._id} value={user._id}>
+            {user.nombre ? user.nombre : `Usuario ${user._id}`}
           </option>
         ))}
       </select>
-      {/* Ícono de triángulo para el selector */}
+      {/* Flecha hacia abajo */}
       <div
         data-svg-wrapper
         className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -69,4 +71,4 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
   );
 }
 
-export default SelectRuta;
+export default SelectOperador;
