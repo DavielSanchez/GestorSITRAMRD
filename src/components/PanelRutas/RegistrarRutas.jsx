@@ -87,8 +87,9 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
-      <div className={`bg-white rounded-md p-8 shadow-lg min-w-xl max-w-sm animate-modal`}>
+      <div className={`bg-white rounded-md p-8 shadow-lg min-w-screen h-screen max-w-sm animate-modal`}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          
           <input
             type="text"
             placeholder="Nombre Ruta"
@@ -101,10 +102,10 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
             placeholder="Tarifa"
             value={tarifa}
             onChange={(e) => SetTarifa(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
+            className={`w-full flex items-center justify-center h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
-          <div className="mt-4 w-full h-60 overflow-hidden rounded-md">
-            <MapView
+          <div className="mt-4 text-black w-screen h-96 overflow-hidden flex justify-center rounded-md">
+          <MapView
               onLocationSelect={(coords) => {
                 const { lat, lng, nombre } = coords;
                 handleMapClick(lat, lng, nombre);
@@ -119,7 +120,7 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
 
         <button
           onClick={onClose}
-          className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2">
+          className="bg-[#FF5353]  cursor-pointer w-full text-white rounded-md py-2 mt-2">
           Cerrar
         </button>
       </div>
