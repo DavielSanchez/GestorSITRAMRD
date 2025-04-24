@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import ModalNuevaAlerta from './ModalNuevaAlerta';
 
-function NewAlerta() {
+function NewAlerta({ onNewAlert }) {
   const [showModal, setShowModal] = useState(false);
 
-  const refreshTable = () => {};
 
   return (
     <>
@@ -16,7 +15,7 @@ function NewAlerta() {
       <ModalNuevaAlerta
         isOpen={showModal}
         onClose={() => setShowModal(false)}
-        onIncidenciaAdded={refreshTable}
+        onIncidenciaAdded={onNewAlert}
       />
     </>
   );

@@ -134,12 +134,13 @@ function Auth() {
 
   return (
     <div className="h-screen w-screen flex overflow-hidden">
+      <title>LOGIN | GESTOR</title>
       {/* Lado izquierdo */}
       <div className={`w-full lg:w-[45%] ${bgColor} flex justify-center items-center transition-all duration-1000 ease-in-out`}>
         <div className="text-center">
           <PersonIcon sx={{ color: getIconColor, fontSize: 200 }}/>
           {/* <img src={usuario} alt="" className="mx-auto size-10" /> */}
-          <h3 className={`${textColor} my-7 font-semibold tracking-widest`}>Bienvenido a SITRAMRD!</h3>
+          <h3 className={`${textColor} my-7 font-semibold tracking-widest`}>Bienvenido al GESTOR SITRAMRD!</h3>
           {/* Formulario */}
           <form onSubmit={handleLogin} autoComplete="off">
             <div className="flex flex-col gap-8 mt-5 mb-10">
@@ -171,9 +172,9 @@ function Auth() {
               }}
             />
             </div>
-            <Button placeholder="Entra" type="submit" icon={arrow} theme={theme} />
+            <Button placeholder="Entrar" type="submit" icon={arrow} theme={theme} />
           </form>
-          <p className={`${textColor} mt-7 font-semibold`}>
+          {/* <p className={`${textColor} mt-7 font-semibold`}>
             Aun no tienes cuenta?{" "}
             <a
               href="/register"
@@ -190,7 +191,7 @@ function Auth() {
             >
               Cambiar
             </a>
-          </p>
+          </p> */}
         </div>
       </div>
 

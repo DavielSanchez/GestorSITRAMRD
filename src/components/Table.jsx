@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import ModalEditar from './ModalEditar';
+import { jwtDecode } from 'jwt-decode';
 
 export default function EnhancedTable() {
   const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
@@ -17,6 +18,10 @@ export default function EnhancedTable() {
   const [rows, setRows] = useState([]);
   const [selectedIncidencia, setSelectedIncidencia] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const token = localStorage.getItem("token");
+      const decodedToken = jwtDecode(token);
+      const userRol = decodedToken.userRol;
 
   const renderEstadoIcon = (estado) => {
     const estadoNormalized = estado?.toLowerCase();
@@ -61,7 +66,6 @@ export default function EnhancedTable() {
         throw new Error('Error al obtener los datos');
       }
       const data = await response.json();
-      console.log('Respuesta de la API:', data);
 
       let incidenciasArray = [];
       if (Array.isArray(data)) {
@@ -174,7 +178,9 @@ export default function EnhancedTable() {
                     </TableCell>
                   ))}
                   <TableCell align="center">
-                    <div className="flex items-center justify-center gap-2">
+                    {
+                      userRol === 'Conductor' ? null : (
+                        <div className="flex items-center justify-center gap-2">
                       {/* Botón de editar */}
                       <div
                         data-svg-wrapper
@@ -205,7 +211,8 @@ export default function EnhancedTable() {
                           />
                         </svg>
                       </div>
-                    </div>
+                    </div>)
+                    }
                   </TableCell>
                 </TableRow>
               ))}

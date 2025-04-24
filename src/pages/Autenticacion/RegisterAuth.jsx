@@ -179,6 +179,7 @@ function RegisterAuth() {
 
     return (
         <div className="h-screen w-screen flex overflow-hidden">
+          <title>REGISTRO | GESTOR</title>
             {/* Lado izquierdo */}
             <div className={`w-full lg:w-[45%] ${bgColor} flex justify-center items-center transition-all duration-1000 ease-in-out`}>
                 <div className="text-center">
