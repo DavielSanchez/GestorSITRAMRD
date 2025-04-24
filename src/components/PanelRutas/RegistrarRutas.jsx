@@ -87,11 +87,11 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
-      <div className={`bg-white text-black rounded-md p-8 shadow-lg min-w-96  flex animate-modal`}>
+      <div className={`bg-white rounded-md p-8 shadow-lg min-w-96  flex animate-modal`}>
         
         {/* Mapa a la izquierda */}
         <div className="w-1/2 pr-4">
-          <div className="w-full h-full overflow-hidden rounded-md">
+          <div className="w-full mt-10 h-full overflow-hidden rounded-md">
             <MapView
               onLocationSelect={(coords) => {
                 const { lat, lng, nombre } = coords;

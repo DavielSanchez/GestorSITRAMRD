@@ -41,24 +41,20 @@ function Row({ row }) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom>
-                Autobuses asignados
+                Operadores asignados a rutas
               </Typography>
               <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell>ID</TableCell>
-                    <TableCell>Placa</TableCell>
-                    <TableCell>Modelo</TableCell>
-                    <TableCell>Capacidad</TableCell>
+                    <TableCell>Operador</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.buses.map((bus) => (
-                    <TableRow key={bus._id}>
-                      <TableCell>{bus._id}</TableCell>
-                      <TableCell>{bus.placa}</TableCell>
-                      <TableCell>{bus.modelo}</TableCell>
-                      <TableCell>{bus.capacidad}</TableCell>
+                  {row.buses.map((items) => (
+                    <TableRow key={items._id}>
+                      <TableCell>{items._id}</TableCell>
+                      <TableCell>{items.nombre}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

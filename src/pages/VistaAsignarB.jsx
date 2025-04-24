@@ -5,7 +5,7 @@ import SelectOperador from '../components/PanelAsignarB/SelectOperador';
 import SelectRuta from '../components/PanelAsignar/SelectRuta';
 import Tabla from '../components/PanelAsignar/Tabla';
 import { useBG, useBGForButtons, useText } from '../ColorClass';
-import TableAsignar from '../components/tableAsignar';
+import TableAsignarB from '../components/PanelAsignarB/tableAsignarB'
 
 const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
@@ -72,7 +72,7 @@ function VistaAsignar() {
       </div>
       {/* La propiedad refresh se utiliza para actualizar la tabla */}
       {/* <Tabla refresh={refreshTable} /> */}
-      <TableAsignar />
+      <TableAsignarB/>
     </main>
   );
 }
