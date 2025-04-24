@@ -20,6 +20,7 @@ function AlertasDeRuta({refreshKey}) {
     const [alertas, setAlertas] = useState([]);
     const [update, setUpdate] = useState(false);
   
+    const noLeidas = alertas.filter((a) => !a.leidaPor.includes(userId)).length;
     const toggleAlertas = () => setIsOpen(!isOpen);
     const toggleExpand = (id) => setExpandedAlert(expandedAlert === id ? null : id);
   
@@ -40,6 +41,9 @@ function AlertasDeRuta({refreshKey}) {
           throw new Error('Error al marcar la alerta como leída');
         }
   
+        const audio = new Audio('/sounds/seen.wav');
+        audio.volume = 0.5;
+        audio.play();
         const data = await response.json();
         setUpdate(!update);
       } catch (error) {
@@ -100,7 +104,14 @@ function AlertasDeRuta({refreshKey}) {
       <div
         className="text-[#6a62dc] mt-10 flex w-full justify-between cursor-pointer select-none"
         onClick={toggleAlertas}>
-        <p className="text-2xl md:text-3xl font-medium">Alertas de rutas</p>
+        <div className="flex items-center gap-4">
+  <p className="text-2xl md:text-3xl font-medium">Alertas de rutas</p>
+  {noLeidas > 0 && (
+    <span className="bg-red-600 text-white text-sm font-semibold px-2 py-0.5 rounded-full">
+      {noLeidas}
+    </span>
+  )}
+</div>
         {isOpen ? <ChevronUp size={35} /> : <ChevronDown size={35} />}
       </div>
       <hr className="text-[#6a62dc] mt-3" />
@@ -113,92 +124,97 @@ function AlertasDeRuta({refreshKey}) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             className="overflow-hidden mt-4">
-            {alertas.map((alerta) => (
-              <motion.div
-                key={alerta.id}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * alerta.id }}
-                className="mb-2"
-                onClick={() => markSeen(alerta._id)}>
-                {/* Alerta Principal */}
-                <div
-                  className={`p-4 text-md flex justify-between items-center cursor-pointer ${
-                    expandedAlert === alerta.id ? 'rounded-t-md' : 'rounded-md'
-                  }  shadow-lg transition-all 
-                  ${
-                    alerta.tipo === 'emergencia'
-                      ? 'bg-[#FF5353]'
-                      : alerta.tipo === 'trafico'
-                      ? 'bg-[#FD713E]'
-                      : alerta.tipo === 'clima'
-                      ? 'bg-[#000DFF]'
-                      : alerta.tipo === 'operativa'
-                      ? 'bg-[#FFCC00]'
-                      : alerta.tipo === 'informativa'
-                      ? 'bg-[#03B7BD]'
-                      : 'bg-gray-200'
-                    }
-                  `}
-                  onClick={() => toggleExpand(alerta.id)}>
-                  <div className="flex gap-5 text-white">
-                    {alerta.tipo === 'emergencia' ? (
-                      <Warning />
-                    ) : alerta.tipo === 'trafico' ? (
-                      <Traffic />
-                    ) : alerta.tipo === 'clima' ? (
-                      <CloudQueue />
-                    ) : alerta.tipo === 'operativa' ? (
-                      <BuildIcon />
-                    ) : alerta.tipo === 'informativa' ? (
-                      <InfoIcon />
-                    ) : null}
-                    <p className="text-lg">{alerta.titulo}</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    {alerta.leidaPor.includes(userId) ? (
-                    <DoneAll className="cursor-pointer text-white hover:text-gray-300 transition" />
-                    ) : (
-                    <Done
-                      className="cursor-pointer text-white hover:text-gray-300 transition"
-                      onClick={() => markSeen(alerta._id)}
-                      />
-                    )}
-                  </div>
-                </div>
+            {alertas.length === 0 ? (
+  <div className="flex items-center justify-center h-40">
+    <p className="text-gray-500 text-lg">No hay alertas disponibles</p>
+  </div>
+) : (
+  alertas.map((alerta) => (
+    <motion.div
+      key={alerta.id}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1 * alerta.id }}
+      className="mb-2"
+      onClick={() => markSeen(alerta._id)}
+    >
+      <div
+        key={alerta._id}
+        className={`p-4 text-md flex justify-between items-center cursor-pointer ${
+          expandedAlert === alerta._id ? 'rounded-t-md' : 'rounded-md'
+        } shadow-lg transition-all ${
+          alerta.tipo === 'emergencia'
+            ? 'bg-[#FF5353]'
+            : alerta.tipo === 'trafico'
+            ? 'bg-[#FD713E]'
+            : alerta.tipo === 'clima'
+            ? 'bg-[#000DFF]'
+            : alerta.tipo === 'operativa'
+            ? 'bg-[#FFCC00]'
+            : alerta.tipo === 'informativa'
+            ? 'bg-[#03B7BD]'
+            : 'bg-gray-200'
+        }`}
+        onClick={() => toggleExpand(alerta._id)}
+      >
+        <div className="flex gap-5 text-white">
+          {alerta.tipo === 'emergencia' ? (
+            <Warning />
+          ) : alerta.tipo === 'trafico' ? (
+            <Traffic />
+          ) : alerta.tipo === 'clima' ? (
+            <CloudQueue />
+          ) : alerta.tipo === 'operativa' ? (
+            <BuildIcon />
+          ) : alerta.tipo === 'informativa' ? (
+            <InfoIcon />
+          ) : null}
+          <p className="text-lg">{alerta.titulo}</p>
+        </div>
+        <div className="flex items-center gap-3">
+          {alerta.leidaPor.includes(userId) ? (
+            <DoneAll className="cursor-pointer text-white hover:text-gray-300 transition" />
+          ) : (
+            <Done
+              className="cursor-pointer text-white hover:text-gray-300 transition"
+              onClick={() => markSeen(alerta._id)}
+            />
+          )}
+        </div>
+      </div>
 
-                {/* Descripción Expandible */}
-                <AnimatePresence>
-                  {expandedAlert === alerta.id && (
-                    <motion.div
-                      initial={{ maxHeight: 0, opacity: 0, padding: 0 }}
-                      animate={{ maxHeight: 150, opacity: 1, padding: '16px' }}
-                      exit={{ maxHeight: 0, opacity: 0, padding: 0 }}
-                      transition={{ duration: 0.4, ease: 'easeInOut' }}
-                      className={`${
-                        alerta.tipo === 'emergencia'
-                        ? 'bg-[#FF5353]'
-                        : alerta.tipo === 'trafico'
-                        ? 'bg-[#FD713E]'
-                        : alerta.tipo === 'clima'
-                        ? 'bg-[#000DFF]'
-                        : alerta.tipo === 'operativa'
-                        ? 'bg-[#FFCC00]'
-                        : alerta.tipo === 'informativa'
-                        ? 'bg-[#03B7BD]'
-                        : 'bg-gray-200'
-                      } rounded-b-md shadow-md overflow-hidden`}>
-                      <p className="text-white mb-5 whitespace-pre-line">
-                        {alerta.descripcion}
-                      </p>
-                      <span className="text-sm text-white">
-                        {new Date(alerta.fecha_creacion).toLocaleString()}
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
+      <AnimatePresence>
+        {expandedAlert === alerta._id && (
+          <motion.div
+            initial={{ maxHeight: 0, opacity: 0, padding: 0 }}
+            animate={{ maxHeight: 150, opacity: 1, padding: '16px' }}
+            exit={{ maxHeight: 0, opacity: 0, padding: 0 }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className={`${
+              alerta.tipo === 'emergencia'
+                ? 'bg-[#FF5353]'
+                : alerta.tipo === 'trafico'
+                ? 'bg-[#FD713E]'
+                : alerta.tipo === 'clima'
+                ? 'bg-[#000DFF]'
+                : alerta.tipo === 'operativa'
+                ? 'bg-[#FFCC00]'
+                : alerta.tipo === 'informativa'
+                ? 'bg-[#03B7BD]'
+                : 'bg-gray-200'
+            } rounded-b-md shadow-md overflow-hidden`}
+          >
+            <p className="text-white mb-5 whitespace-pre-line">{alerta.descripcion}</p>
+            <span className="text-sm text-white">
+              {new Date(alerta.fecha_creacion).toLocaleString()}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  ))
+)}
+
           </motion.div>
         )}
       </AnimatePresence>

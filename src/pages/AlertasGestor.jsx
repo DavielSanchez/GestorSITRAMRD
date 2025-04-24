@@ -27,6 +27,7 @@ function Alertas() {
   return (
     <>
       <main className="lg:mt-8 text-black">
+      <title>ALERTAS | GESTOR</title>
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <PersonalesCard />
           <GeneralesCard />

@@ -20,6 +20,7 @@ function GestorOperador() {
 
   return (
     <main className=" bg-white flex-1 p-4 md:p-8 transition-all duration-300">
+      <title>OPERADORES | GESTOR</title>
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
       <Operadores/>
       <OperadorInactivo/>

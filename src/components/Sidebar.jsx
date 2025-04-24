@@ -172,7 +172,7 @@ const menuConfig = {
       label: 'Modo viaje',
       icon: <CommuteIcon />,
       title: 'Modo viaje',
-      path: 'modo-viaje',
+      path: '/modo-viaje',
     },
   ],
 };
@@ -180,7 +180,8 @@ const menuConfig = {
 function Sidebar({ handleButtonClick, activeButton }) {
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
-  const theme = decodedToken.theme;
+  // const theme = decodedToken.theme;
+  const theme = 'light';
   const userRole = decodedToken.userRol;
   const userId = decodedToken.id;
   const bgColor = useBG(theme);

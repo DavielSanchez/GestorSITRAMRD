@@ -91,7 +91,7 @@ export default function NotificationBell({ primaryHover, iconColor }) {
       socket.off("nueva-alerta", handleNuevaAlerta);
       socket.off("alerta-recibida", handleAlertaRecibida);
     };
-  }, [dispatch, userId]);
+  }, [dispatch, userId, showNotifications]);
   
 
   return (

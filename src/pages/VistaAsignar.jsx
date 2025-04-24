@@ -71,6 +71,7 @@ function VistaAsignar() {
 
   return (
     <main className="flex-1 p-4 md:p-8">
+      <title>ASIGNAR | GESTOR</title>
       <div className=" flex-col gap-6 items-center">
         {/* Se pasan los estados y setters a los componentes de selección */}
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4">

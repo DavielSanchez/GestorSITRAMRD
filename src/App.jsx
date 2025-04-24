@@ -23,6 +23,8 @@ import Alertas from './pages/AlertasGestor';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
+import AccountView from './pages/AccountView';
+import Chat from './pages/Chat';
 // import Alertas from './pages/AlertasGestor';
 
 function App() {
@@ -68,7 +70,6 @@ if (token) {
         <Routes>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/login" element={<Auth />} />
-          <Route path="/register" element={<RegisterAuth />} />
           <Route
             path="/"
             element={
@@ -81,11 +82,31 @@ if (token) {
                   <Layout title="Panel de operador">
                     <PanelOperador />
                   </Layout>
-                ) : userRol === 'Adminstrador' ? (
+                ) : userRol === 'Administrador' ? (
                   <Layout title="Panel de Administrador">
                     <PanelAdministrador />
                   </Layout>
                 ) : null}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador', 'Conductor']}>
+                <Layout title="Mi cuenta">
+                  <AccountView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador', 'Conductor']}>
+                <Layout title="Chat interno">
+                  <Chat />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -124,7 +145,7 @@ if (token) {
             path="/autobus"
             element={
               <ProtectedRoute allowedRoles={['Administrador']}>
-                <Layout title="AutoBuses">
+                <Layout title="Autobuses">
                   <RegistroBuses />
                 </Layout>
               </ProtectedRoute>
