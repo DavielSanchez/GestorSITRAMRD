@@ -8,6 +8,8 @@ import { useBG, useBGForButtons, useText } from '../ColorClass';
 import TableAsignar from '../components/tableAsignar';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import SelectedChoferes from '../components/PanelAsignar/SelectedChoferes';
+import TableAsignarChoferes from '../components/tablaAsignarChoferes';
 
 const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
@@ -20,28 +22,28 @@ function VistaAsignar() {
 
   // Estados para mantener los valores seleccionados en los select
   const [selectedAutobus, setSelectedAutobus] = useState('');
-  const [selectedRuta, setSelectedRuta] = useState('');
+  const [selectedChoferes, setselectedChoferes] = useState('');
   // Estado para refrescar la tabla al asignar
   const [refreshTable, setRefreshTable] = useState(false);
 
   const handleAsignar = async () => {
-    if (!selectedAutobus || !selectedRuta) {
+    if (!selectedAutobus || !selectedChoferes) {
       Swal.fire({
-        title: "Por favor, seleccione un autobús y una ruta.",
+        title: "Por favor, seleccione un autobús y un chofer.",
         icon: "warning"
       });
       return;
     }
     try {
-      console.log('ruta: ' + selectedRuta)
-      console.log('bus: ' + selectedAutobus)
-      const response = await fetch(`${API_LINK}/autobus/asignar`, {
+      console.log('Chofer: ' + selectedChoferes)
+      console.log('Bus: ' + selectedAutobus)
+      const response = await fetch(`${API_LINK}/autobus/chofer/asignar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          rutaId: selectedRuta,
+          idChofer: selectedChoferes,
           autobusId: selectedAutobus,
         }),
       });
@@ -73,15 +75,15 @@ function VistaAsignar() {
     <main className="flex-1 p-4 md:p-8">
       <title>ASIGNAR | GESTOR</title>
       <div className=" flex-col gap-6 items-center">
-        {/* Se pasan los estados y setters a los componentes de selección */}
+      
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
           <SelectAutobus
             selectedAutobus={selectedAutobus}
             setSelectedAutobus={setSelectedAutobus}
           />
-          <SelectRuta 
-          selectedRuta={selectedRuta} 
-          setSelectedRuta={setSelectedRuta} />
+          <SelectedChoferes
+          selectedChoferes={selectedChoferes} 
+          setSelectedChoferes={setselectedChoferes} />
         </div>
         <button
           onClick={handleAsignar}
@@ -89,9 +91,7 @@ function VistaAsignar() {
           Asignar
         </button>
       </div>
-      {/* La propiedad refresh se utiliza para actualizar la tabla */}
-      {/* <Tabla refresh={refreshTable} /> */}
-      <TableAsignar refresh={refreshTable} />
+      <TableAsignarChoferes refresh={refreshTable} />
     </main>
   );
 }

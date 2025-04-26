@@ -41,7 +41,7 @@ function Mapa() {
         try {
           const response = await fetch(`${API_LINK}`);
           const data = await response.json();
-          console.log(data)
+          console.log("Rutas: " + data)
             setRutas(data);
         } catch (error) {
           console.error("Error fetching rutas:", error);
@@ -80,11 +80,6 @@ function Mapa() {
               attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {/* <Marker position={posicionUsuario}>
-              <Popup>
-                Aquí estoy 📍
-              </Popup>
-            </Marker> */}
 
             {rutas.map((ruta, indexRuta) => (
               <React.Fragment key={indexRuta}>
