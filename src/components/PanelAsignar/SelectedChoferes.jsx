@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
-function SelectRuta({ selectedRuta, setSelectedRuta }) {
+function SelectedChoferes({ selectedChoferes, setSelectedChoferes}) {
 
   const token = localStorage.getItem("token");
       let userId = null;
@@ -18,25 +18,25 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
           console.error("Error al decodificar el token:", error);
       }
 
-  const [rutas, setRutas] = useState([]);
+  const [choferes, setChoferes] = useState([]);
 
   useEffect(() => {
-    const fetchRutas = async () => {
+    const fetchChoferes = async () => {
       try {
-        const response = await fetch(`${API_LINK}/ruta/all`);
+        const response = await fetch(`${API_LINK}/autobus/choferes/all`);
         if (!response.ok) {
-          console.error('Error al obtener las rutas:', response.statusText);
+          console.error('Error al obtener las choferes:', response.statusText);
           return;
         }
         const data = await response.json();
         console.log(data)
-        setRutas(data);
+        setChoferes(data);
       } catch (error) {
         console.error('Error al conectar con la API:', error);
       }
     };
 
-    fetchRutas();
+    fetchChoferes();
   }, []);
 
   return (
@@ -54,12 +54,12 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
           focus:outline-none
           cursor-pointer
         "
-        value={selectedRuta}
-        onChange={(e) => setSelectedRuta(e.target.value)}>
-        <option value="">Seleccione una ruta</option>
-        {rutas.map((ruta) => (
-          <option key={ruta._id} value={ruta._id}>
-            {ruta.nombreRuta ? ruta.nombreRuta : `Ruta ${ruta._id}`}
+        value={selectedChoferes}
+        onChange={(e) => setSelectedChoferes(e.target.value)}>
+        <option value="">Seleccione un chofer</option>
+        {choferes.map((chofer) => (
+          <option key={chofer._id} value={chofer._id}>
+            {chofer.nombre ? chofer.nombre : `AutoBus ${chofer._id}`}
           </option>
         ))}
       </select>
@@ -84,4 +84,4 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
   );
 }
 
-export default SelectRuta;
+export default SelectedChoferes;

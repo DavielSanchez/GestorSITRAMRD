@@ -29,6 +29,7 @@ export default function Incidencias() {
 
   return (
     <div className={`flex  ${bgColor}`}>
+      <title>INCIDENCIAS | GESTOR</title>
       <div className="flex flex-col flex-1 overflow-auto">
         <main className="flex-1 p-4 md:p-8 transition-all duration-300">
           <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">

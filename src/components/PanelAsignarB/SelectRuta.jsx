@@ -1,23 +1,8 @@
-import { jwtDecode } from "jwt-decode";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
 function SelectRuta({ selectedRuta, setSelectedRuta }) {
-
-  const token = localStorage.getItem("token");
-      let userId = null;
-      let theme = 'light'
-      try {
-          if (token) {
-              const decodedToken = jwtDecode(token);
-              userId = decodedToken?.id;
-              theme = decodedToken?.theme;
-          }
-      } catch (error) {
-          console.error("Error al decodificar el token:", error);
-      }
-
   const [rutas, setRutas] = useState([]);
 
   useEffect(() => {
@@ -29,7 +14,6 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
           return;
         }
         const data = await response.json();
-        console.log(data)
         setRutas(data);
       } catch (error) {
         console.error('Error al conectar con la API:', error);
@@ -47,8 +31,9 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
           w-full
           h-full
           text-[#211f47]
-          text-xl
+          text-2xl
           font-semibold
+          font-['Inter']
           bg-transparent
           px-4
           focus:outline-none
