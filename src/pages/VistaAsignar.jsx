@@ -6,10 +6,13 @@ import SelectRuta from '../components/PanelAsignar/SelectRuta';
 import Tabla from '../components/PanelAsignar/Tabla';
 import { useBG, useBGForButtons, useText } from '../ColorClass';
 import TableAsignar from '../components/tableAsignar';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const API_LINK = import.meta.env.VITE_API_LINK || 'http://localhost:3001';
 
 function VistaAsignar() {
+  const MySwal = withReactContent(Swal)
   const theme = 'light';
   const bgColor = useBG(theme);
   const ButtonColor = useBGForButtons(theme);
@@ -23,16 +26,20 @@ function VistaAsignar() {
 
   const handleAsignar = async () => {
     if (!selectedAutobus || !selectedRuta) {
-      alert('Por favor, seleccione un autobús y una ruta.');
+      Swal.fire({
+        title: "Por favor, seleccione un autobús y una ruta.",
+        icon: "warning"
+      });
       return;
     }
     try {
+      console.log('ruta: ' + selectedRuta)
+      console.log('bus: ' + selectedAutobus)
       const response = await fetch(`${API_LINK}/autobus/asignar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        // Se envía el ID de la ruta y el ID del autobús
         body: JSON.stringify({
           rutaId: selectedRuta,
           autobusId: selectedAutobus,
@@ -40,21 +47,31 @@ function VistaAsignar() {
       });
       const result = await response.json();
       if (response.ok) {
-        alert(result.message);
-        // Refresca la tabla para mostrar los cambios
+        
+        Swal.fire({
+          title: "Autobus asignado correctamente",
+          icon: "success"
+        });
+
         setRefreshTable(!refreshTable);
       } else {
-        // Puede mostrar el mensaje de error devuelto por la API
-        alert(result.message || 'Error al asignar el autobús.');
+        // alert(result.message || 'Error al asignar el autobús.');
+        Swal.fire({
+          title: result.message,
+          icon: "error"
+        });
       }
     } catch (error) {
-      console.error('Error en la asignación:', error);
-      alert('Error en la asignación, por favor intenta de nuevo.');
+      Swal.fire({
+        title: "Error en la asignación, por favor intenta de nuevo.",
+        icon: "error"
+      });
     }
   };
 
   return (
     <main className="flex-1 p-4 md:p-8">
+      <title>ASIGNAR | GESTOR</title>
       <div className=" flex-col gap-6 items-center">
         {/* Se pasan los estados y setters a los componentes de selección */}
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
@@ -62,7 +79,9 @@ function VistaAsignar() {
             selectedAutobus={selectedAutobus}
             setSelectedAutobus={setSelectedAutobus}
           />
-          <SelectRuta selectedRuta={selectedRuta} setSelectedRuta={setSelectedRuta} />
+          <SelectRuta 
+          selectedRuta={selectedRuta} 
+          setSelectedRuta={setSelectedRuta} />
         </div>
         <button
           onClick={handleAsignar}
@@ -72,7 +91,7 @@ function VistaAsignar() {
       </div>
       {/* La propiedad refresh se utiliza para actualizar la tabla */}
       {/* <Tabla refresh={refreshTable} /> */}
-      <TableAsignar />
+      <TableAsignar refresh={refreshTable} />
     </main>
   );
 }

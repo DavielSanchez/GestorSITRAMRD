@@ -84,22 +84,22 @@ const menuConfig = {
         { label: 'Alertas', icon: <WarningAmber />, path: '/Alertas' },
       ],
     },
-    {
-      label: 'Reportes',
-      path: '',
-      onClick: 'Reportes',
-      icon: (
-        <svg className="w-6 h-6" viewBox="0 0 36 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M11.0031 7.18519H6.50154C5.30766 7.18519 4.16267 7.73148 3.31847 8.70389C2.47427 9.6763 2 10.9952 2 12.3704V43.4815C2 44.8567 2.47427 46.1756 3.31847 47.148C4.16267 48.1204 5.30766 48.6667 6.50154 48.6667H29.0092C30.2031 48.6667 31.3481 48.1204 32.1923 47.148C33.0365 46.1756 33.5108 44.8567 33.5108 43.4815V12.3704C33.5108 10.9952 33.0365 9.6763 32.1923 8.70389C31.3481 7.73148 30.2031 7.18519 29.0092 7.18519H24.5077M11.0031 7.18519C11.0031 5.80999 11.4774 4.49112 12.3216 3.51871C13.1658 2.54629 14.3107 2 15.5046 2H20.0062C21.2 2 22.345 2.54629 23.1892 3.51871C24.0334 4.49112 24.5077 5.80999 24.5077 7.18519M11.0031 7.18519C11.0031 8.56038 11.4774 9.87925 12.3216 10.8517C13.1658 11.8241 14.3107 12.3704 15.5046 12.3704H20.0062C21.2 12.3704 22.345 11.8241 23.1892 10.8517C24.0334 9.87925 24.5077 8.56038 24.5077 7.18519M9.04633 20.8725H14.6834M11.8649 17.4412V24.3039"
-            stroke="#fff"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
-    },
+    // {
+    //   label: 'Reportes',
+    //   path: '',
+    //   onClick: 'Reportes',
+    //   icon: (
+    //     <svg className="w-6 h-6" viewBox="0 0 36 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+    //       <path
+    //         d="M11.0031 7.18519H6.50154C5.30766 7.18519 4.16267 7.73148 3.31847 8.70389C2.47427 9.6763 2 10.9952 2 12.3704V43.4815C2 44.8567 2.47427 46.1756 3.31847 47.148C4.16267 48.1204 5.30766 48.6667 6.50154 48.6667H29.0092C30.2031 48.6667 31.3481 48.1204 32.1923 47.148C33.0365 46.1756 33.5108 44.8567 33.5108 43.4815V12.3704C33.5108 10.9952 33.0365 9.6763 32.1923 8.70389C31.3481 7.73148 30.2031 7.18519 29.0092 7.18519H24.5077M11.0031 7.18519C11.0031 5.80999 11.4774 4.49112 12.3216 3.51871C13.1658 2.54629 14.3107 2 15.5046 2H20.0062C21.2 2 22.345 2.54629 23.1892 3.51871C24.0334 4.49112 24.5077 5.80999 24.5077 7.18519M11.0031 7.18519C11.0031 8.56038 11.4774 9.87925 12.3216 10.8517C13.1658 11.8241 14.3107 12.3704 15.5046 12.3704H20.0062C21.2 12.3704 22.345 11.8241 23.1892 10.8517C24.0334 9.87925 24.5077 8.56038 24.5077 7.18519M9.04633 20.8725H14.6834M11.8649 17.4412V24.3039"
+    //         stroke="#fff"
+    //         strokeWidth="3"
+    //         strokeLinecap="round"
+    //         strokeLinejoin="round"
+    //       />
+    //     </svg>
+    //   ),
+    // },
   ],
 
   Administrador: [
@@ -111,7 +111,7 @@ const menuConfig = {
     },
     {
       label: 'Usuarios',
-      icon: <PersonIcon/>,
+      icon: <PersonIcon />,
       title: 'Gestor usuarios',
       subMenu: [
         { label: 'Pasajeros', icon: <PersonIcon />, path: '/usuarios' },
@@ -129,22 +129,29 @@ const menuConfig = {
         { label: 'Alertas', icon: <WarningAmber />, path: '/alertas' },
       ],
     },
-    // {
-    //   label: 'Choferes',
-    //   icon: <ConnectWithoutContact />,
-    //   title: 'Panel Choferes',
-    //   subMenu: [
-    //     { label: 'Dashbord', icon: <DashboardIcon />, path: '' },
-    //     { label: 'Chat', icon: <Message />, path: '' },
-    //   ],
-    // },
     {
       label: 'Admin',
       icon: <ConnectWithoutContact />,
-      title: 'Comunicaciones',
+      title: 'Gestores',
       subMenu: [
-        { label: 'Autobus', icon: <DirectionsBusIcon />, path: '/autobus' },
-        { label: 'Rutas', icon: <SignpostIcon />, path: '/rutas' },
+        {
+          label: 'Autobus',
+          icon: <DirectionsBusIcon />,
+          title: 'Gestor Buses',
+          subMenu: [
+            { label: 'Autobuses', icon: <DirectionsBusIcon />, path: '/autobus' },
+            { label: 'Asignar', icon: <Preview />, path: '/asignar' },
+          ],
+        },
+        {
+          label: 'Rutas',
+          icon: <SignpostIcon />,
+          title: 'Gestor Rutas',
+          subMenu: [
+            { label: 'Rutas', icon: <SignpostIcon />, path: '/rutas' },
+            { label: 'Asignar', icon: <Preview />, path: '/asignarB' },
+          ],
+        },
       ],
     },
     {
@@ -172,7 +179,7 @@ const menuConfig = {
       label: 'Modo viaje',
       icon: <CommuteIcon />,
       title: 'Modo viaje',
-      path: 'modo-viaje',
+      path: '/modo-viaje',
     },
   ],
 };
@@ -180,7 +187,8 @@ const menuConfig = {
 function Sidebar({ handleButtonClick, activeButton }) {
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
-  const theme = decodedToken.theme;
+  // const theme = decodedToken.theme;
+  const theme = 'light';
   const userRole = decodedToken.userRol;
   const userId = decodedToken.id;
   const bgColor = useBG(theme);
@@ -191,8 +199,8 @@ function Sidebar({ handleButtonClick, activeButton }) {
   const PrimaryColor = usePrimaryColors(theme);
 
   const menuItems = menuConfig[userRole] || [];
-  console.log(menuItems);
   const [openMenu, setOpenMenu] = useState(null);
+  const [openSubSubMenu, setOpenSubSubMenu] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sideRef = useRef(null);
 
@@ -200,9 +208,10 @@ function Sidebar({ handleButtonClick, activeButton }) {
     function handleClickOutside(event) {
       if (sideRef.current && !sideRef.current.contains(event.target)) {
         setIsSidebarOpen(false);
+        setOpenMenu(null);
+        setOpenSubSubMenu(null);
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -211,11 +220,15 @@ function Sidebar({ handleButtonClick, activeButton }) {
 
   const toggleMenu = (index) => {
     setOpenMenu(openMenu === index ? null : index);
+    setOpenSubSubMenu(null);
+  };
+
+  const toggleSubSubMenu = (subIndex) => {
+    setOpenSubSubMenu(openSubSubMenu === subIndex ? null : subIndex);
   };
 
   return (
     <>
-      {/* Botón de hamburguesa (solo visible en móviles) */}
       <button
         className="fixed top-9 left-4 z-50 p-2 rounded-lg  lg:hidden"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -231,21 +244,13 @@ function Sidebar({ handleButtonClick, activeButton }) {
         className={`box-border ${primaryColorBG} w-30 h-screen flex flex-col items-center py-6 fixed top-0 left-0 z-50 transition-transform duration-300 ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0`}>
-        {/* Botón de cerrar dentro del sidebar en móviles */}
-        {/* <div className="w-full flex justify-end lg:hidden pr-4">
-          <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="cursor-pointer"
-          ></button>
-        </div> */}
-
         <div className="mb-8">
           <SitramIcon />
         </div>
         <div className="flex flex-col gap-6 items-center overflow-auto scrollbar-hide">
           {menuItems.map((item, index) => (
             <div key={index} className="relative">
-              <Link to={item.path} onClick={() => setIsSidebarOpen(true)}>
+              {item.subMenu ? (
                 <div
                   onClick={() => toggleMenu(index)}
                   className="flex flex-col items-center cursor-pointer">
@@ -255,14 +260,24 @@ function Sidebar({ handleButtonClick, activeButton }) {
                   </div>
                   <div className="text-white font-semibold mt-2">{item.label}</div>
                 </div>
-              </Link>
+              ) : (
+                <Link to={item.path} onClick={() => setIsSidebarOpen(false)}>
+                  <div className="flex flex-col items-center cursor-pointer">
+                    <div
+                      className={`w-16 h-16 bg-[#f1f2ff] ${PrimaryColor} rounded-2xl border flex items-center justify-center`}>
+                      {item.icon}
+                    </div>
+                    <div className="text-white font-semibold mt-2">{item.label}</div>
+                  </div>
+                </Link>
+              )}
               {openMenu === index && item.subMenu && (
                 <div
-                  className={`w-50 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-20 transition-transform duration-300 ${
+                  className={`w-50 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-30 transition-transform duration-300 ${
                     isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                   } lg:translate-x-0`}>
                   <div className="flex justify-end">
-                    <button onClick={() => setOpenMenu(false)} className="cursor-pointer">
+                    <button onClick={() => setOpenMenu(null)} className="cursor-pointer">
                       <CloseIcon />
                     </button>
                   </div>
@@ -270,18 +285,73 @@ function Sidebar({ handleButtonClick, activeButton }) {
                     {item.title}
                   </div>
                   <div className="grid grid-cols-2">
-                    {item.subMenu.map((sub, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={sub.path}
-                        className="flex flex-col p-3 items-center gap-2"
-                        onClick={() => setOpenMenu(index)}>
-                        <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
-                          <span className={`${PrimaryColor}`}>{sub.icon}</span>
+                    {item.subMenu.map((sub, subIndex) =>
+                      sub.subMenu ? (
+                        <div key={subIndex} className="flex flex-col items-center relative">
+                          <div
+                            className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleSubSubMenu(`${index}-${subIndex}`);
+                            }}>
+                            <span className={`${PrimaryColor}`}>{sub.icon}</span>
+                          </div>
+                          <div className="text-center font-semibold cursor-pointer">
+                            {sub.label}
+                          </div>
+                          {openSubSubMenu === `${index}-${subIndex}` && (
+                            <div
+                              className={`w-50 h-screen fixed left-0 top-0 ${primaryColorBG} text-white shadow-md p-2 z-30 transition-transform duration-300 ${
+                                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                              } lg:translate-x-0`}>
+                              <div className="flex justify-end">
+                                <button
+                                  onClick={() => setOpenSubSubMenu(null)}
+                                  className="cursor-pointer flex justify-end">
+                                  <CloseIcon />
+                                </button>
+                              </div>
+                              <div className="flex flex-wrap ml-5 items-center mb-5">
+                                <div className="text-2xl font-semibold text-white">{sub.title}</div>
+                                <div className="w-8" />
+                              </div>
+                              <div className="grid grid-cols-2">
+                                {sub.subMenu.map((deep, deepIndex) => (
+                                  <Link
+                                    key={deepIndex}
+                                    to={deep.path}
+                                    className="flex flex-col p-3 items-center gap-1"
+                                    onClick={() => {
+                                      setOpenMenu(null);
+                                      setOpenSubSubMenu(null);
+                                      setIsSidebarOpen(false);
+                                    }}>
+                                    <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
+                                      <span className={`${PrimaryColor}`}>{deep.icon}</span>
+                                    </div>
+                                    <div className="text-center font-semibold">{deep.label}</div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                        <div className="text-center font-semibold">{sub.label}</div>
-                      </Link>
-                    ))}
+                      ) : (
+                        <Link
+                          key={subIndex}
+                          to={sub.path}
+                          className="flex flex-col p-3 items-center gap-2"
+                          onClick={() => {
+                            setOpenMenu(null);
+                            setIsSidebarOpen(false);
+                          }}>
+                          <div className="w-16 h-16 bg-[#f1f2ff] rounded-2xl border flex items-center justify-center">
+                            <span className={`${PrimaryColor}`}>{sub.icon}</span>
+                          </div>
+                          <div className="text-center font-semibold">{sub.label}</div>
+                        </Link>
+                      ),
+                    )}
                   </div>
                 </div>
               )}

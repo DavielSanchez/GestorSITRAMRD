@@ -9,17 +9,22 @@ import Mapa from "../components/PanelOperador/Mapa";
 import Rutas from "../components/PanelOperador/Rutas";
 import AutobusesCardCounter from "../components/PanelOperador/AutobusesCard";
 import IncidenciasP from "../components/PanelIncidencias/IncidenciasP";
+import MisIncidenciasPendientes from "../components/PanelIncidencias/misIncidenciasPendientes";
+import MisIncidenciasProceso from "../components/PanelIncidencias/MisIncidenciasProceso";
+import AutobusesNoAsignados from "../components/PanelIncidencias/AutobusesNoAsignados";
 
 export default function PanelOperador() {
   return (
+    <>
+    <title>HOME | OPERADOR</title>
     <main className="flex-1 justify-center p-4 md:p-8 transition-all duration-300">
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {/* <IncidenciasCard />
         <ReporteCard />
         <AutobusACard /> */}
-        <IncidenciasP />
-        <IncidenciasP />
-        <IncidenciasP />
+        <MisIncidenciasPendientes/>
+        <MisIncidenciasProceso/>
+        <AutobusesNoAsignados/>
       </section>
 
       {/* Sección del mapa y contadores separados */}
@@ -31,5 +36,6 @@ export default function PanelOperador() {
         </div>
       </section>
     </main>
+    </>
   );
 }

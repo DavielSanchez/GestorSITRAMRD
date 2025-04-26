@@ -1,5 +1,5 @@
 import React from 'react'
-import { useText, usePrimaryColors, usePrimaryColorsBG } from '../ColorClass'
+import { useText, usePrimaryColors, usePrimaryColorsBG } from '../../ColorClass'
 import { jwtDecode } from 'jwt-decode'
 
 function Viaje() {

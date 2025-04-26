@@ -4,7 +4,11 @@ import PanelOperador from './pages/PanelOperador';
 import PanelAdministrador from './pages/PanelAdministrador';
 import Incidencias from './pages/Incidencias';
 import VistaAsignar from './pages/VistaAsignar';
+
+import VistaAsignarB from './pages/VistaAsignarB';
+
 import AutobusView from './pages/Conductores/AutobusView';
+
 import Unauthorized from './pages/Autenticacion/Unauthorized';
 import Auth from './pages/Autenticacion/Auth';
 import RegisterAuth from './pages/Autenticacion/RegisterAuth';
@@ -23,6 +27,8 @@ import Alertas from './pages/AlertasGestor';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
+import AccountView from './pages/AccountView';
+import Chat from './pages/Chat';
 // import Alertas from './pages/AlertasGestor';
 
 function App() {
@@ -42,24 +48,24 @@ if (token) {
   }
 }
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    Socket.emit("join-alert-room", { userId });
+  // useEffect(() => {
+  //   Socket.emit("join-alert-room", { userId });
 
-    socket.on("alerta-recibida", (alerta) => {
-      dispatch(addAlert(alerta));
-      dispatch(updateAlertCount(1));
-    });
+  //   Socket.on("alerta-recibida", (alerta) => {
+  //     dispatch(addAlert(alerta));
+  //     dispatch(updateAlertCount(1));
+  //   });
 
-    socket.on("contador-alertas-no-leidas", (count) => {
-      dispatch(updateAlertCount(count)); 
-    });
-    return () => {
-      socket.off("alerta-recibida");
-      socket.off("contador-alertas-no-leidas");
-    };
-  }, [dispatch]);
+  //   Socket.on("contador-alertas-no-leidas", (count) => {
+  //     dispatch(updateAlertCount(count)); 
+  //   });
+  //   return () => {
+  //     Socket.off("alerta-recibida");
+  //     Socket.off("contador-alertas-no-leidas");
+  //   };
+  // }, [dispatch]);
 
   return (
     <>
@@ -68,7 +74,6 @@ if (token) {
         <Routes>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/login" element={<Auth />} />
-          <Route path="/register" element={<RegisterAuth />} />
           <Route
             path="/"
             element={
@@ -81,11 +86,31 @@ if (token) {
                   <Layout title="Panel de operador">
                     <PanelOperador />
                   </Layout>
-                ) : userRol === 'Adminstrador' ? (
+                ) : userRol === 'Administrador' ? (
                   <Layout title="Panel de Administrador">
                     <PanelAdministrador />
                   </Layout>
                 ) : null}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador', 'Conductor']}>
+                <Layout title="Mi cuenta">
+                  <AccountView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador', 'Conductor']}>
+                <Layout title="Chat interno">
+                  <Chat />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -103,7 +128,7 @@ if (token) {
           <Route
             path="/alertas"
             element={
-              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador', 'Conductor']}>
                 <Layout title="Alertas">
                   <Alertas />
                 </Layout>
@@ -124,7 +149,7 @@ if (token) {
             path="/autobus"
             element={
               <ProtectedRoute allowedRoles={['Administrador']}>
-                <Layout title="AutoBuses">
+                <Layout title="Autobuses">
                   <RegistroBuses />
                 </Layout>
               </ProtectedRoute>
@@ -156,6 +181,16 @@ if (token) {
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Layout title="Usuarios">
                   <UserView />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/asignarB"
+            element={
+              <ProtectedRoute allowedRoles={['Operador', 'Administrador']}>
+                <Layout title="Asignaciones">
+                  <VistaAsignarB />
                 </Layout>
               </ProtectedRoute>
             }

@@ -1,21 +1,24 @@
-import { Navigate  } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const token = localStorage.getItem('token');
-  
+
   if (!token) {
     return <Navigate to="/login" />;
   }
-  
+
   try {
     const decodedToken = jwtDecode(token);
-    console.log(decodedToken)
-    const userRol = decodedToken.userRol 
-    console.log(userRol)
+    const userRol = decodedToken.userRol;
+    const userStatus = decodedToken.estadoUsuario;
 
     if (!allowedRoles.includes(userRol)) {
+      return <Navigate to="/unauthorized" />;
+    }
+
+    if (userStatus !== 'activo') {
       return <Navigate to="/unauthorized" />;
     }
 

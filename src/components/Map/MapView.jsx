@@ -124,13 +124,13 @@ function MapView() {
 
   return (
     <div>
-      <button onClick={handleLocateMe} style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 80 }}>
+      <button onClick={handleLocateMe} style={{ backgroundColor:'#6a62dc',borderRadius:'5px', padding:'5px',  position: 'absolute', top: '50px', left: '120px', zIndex: 80 }}>
         Localízame
       </button>
 
-      <button style={{ position: 'absolute', top: '10px', left: '150px', zIndex: 80 }}>Mostrar rutas de autobús</button>
+      <button style={{ backgroundColor:'#6a62dc',borderRadius:'5px', padding:'5px', position: 'absolute', top: '50px', left: '260px', zIndex: 80 }}>Mostrar rutas de autobús</button>
 
-      <button style={{ position: 'absolute', top: '10px', left: '400px', zIndex: 80 }}>Mostrar rutas de metro</button>
+      <button style={{ backgroundColor:'#6a62dc',borderRadius:'5px', padding:'5px', position: 'absolute', top: '50px', left: '500px', zIndex: 80 }}>Mostrar rutas de metro</button>
 
       <DirectionModal directions={direcciones} />
 

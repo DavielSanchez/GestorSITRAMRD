@@ -4,6 +4,7 @@ import { useBG, usePrimaryColors } from '../../ColorClass';
 
 function EditarOperador({ isOpen, onClose, users, onUserUpdated, API_LINK }) {
   const [nombre, setNombre] = useState(users?.nombre || '');
+  const [userRol, setUserRol] = useState(users?.userRol || '');
   const [estado, setEstado] = useState(users?.estadoUsuario || '');
 
   const token = localStorage.getItem('token');
@@ -15,6 +16,7 @@ function EditarOperador({ isOpen, onClose, users, onUserUpdated, API_LINK }) {
   useEffect(() => {
     if (users) {
       setNombre(users.nombre);
+      setUserRol(users.userRol);
       setEstado(users.estadoUsuario);
     }
   }, [users]);
@@ -30,6 +32,7 @@ function EditarOperador({ isOpen, onClose, users, onUserUpdated, API_LINK }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nombre,
+          userRol,
           estadoUsuario: estado,
         }),
       });
@@ -58,6 +61,15 @@ function EditarOperador({ isOpen, onClose, users, onUserUpdated, API_LINK }) {
             onChange={(e) => setNombre(e.target.value)}
             className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
           />
+          <select
+            value={userRol}
+            onChange={(e) => setUserRol(e.target.value)}
+            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}>
+            <option value="">Selecciona un estado</option>
+            <option value="Conductor">Conductor</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Operador">Operador</option>
+          </select>
           {/* Dropdown para estado */}
           <select
             value={estado}

@@ -31,9 +31,8 @@ function SelectAutobus({ selectedAutobus, setSelectedAutobus }) {
           w-full
           h-full
           text-[#211f47]
-          text-2xl
+          text-xl
           font-semibold
-          font-['Inter']
           bg-transparent
           px-4
           focus:outline-none

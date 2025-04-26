@@ -33,15 +33,15 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!nombreRuta.trim().length) {
-      toast.error(`El campo de nombre de ruta está vacío`, {
-        position: 'bottom-center',
-        autoClose: 3000,
-      });
-    }
-    if (!tarifa.trim().length) {
-      toast.error(`El campo de tarifa está vacío`, { position: 'bottom-center', autoClose: 3000 });
-    }
+    // if (!nombreRuta.trim().length) {
+    //   toast.error(`El campo de nombre de ruta está vacío`, {
+    //     position: 'bottom-center',
+    //     autoClose: 3000,
+    //   });
+    // }
+    // if (!tarifa.trim().length) {
+    //   toast.error(`El campo de tarifa está vacío`, { position: 'bottom-center', autoClose: 3000 });
+    // }
 
     try {
       const response = await fetch(`${API_LINK}/ruta/add`, {
@@ -87,23 +87,11 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm">
-      <div className={`bg-white rounded-md p-8 shadow-lg min-w-98 max-w-sm animate-modal`}>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Nombre Ruta"
-            value={nombreRuta}
-            onChange={(e) => SetNombreRuta(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
-          />
-          <input
-            type="number"
-            placeholder="Tarifa"
-            value={tarifa}
-            onChange={(e) => SetTarifa(e.target.value)}
-            className={`w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]`}
-          />
-          <div className="mt-4 w-full h-60 overflow-hidden rounded-md">
+      <div className={`bg-white rounded-md p-8 shadow-lg min-w-96  flex animate-modal`}>
+        
+        {/* Mapa a la izquierda */}
+        <div className="w-1/2 pr-4">
+          <div className="w-full mt-10 h-full overflow-hidden rounded-md">
             <MapView
               onLocationSelect={(coords) => {
                 const { lat, lng, nombre } = coords;
@@ -111,17 +99,38 @@ function RegistrarRutas({ isOpen, onClose, onBusesAdded }) {
               }}
             />
           </div>
-
-          <button type="submit" className="bg-[#6a62dc] text-white rounded-md py-2 mt-2">
-            Registrar Ruta
+        </div>
+  
+        {/* Inputs a la derecha */}
+        <div className="w-1/2 pl-4 flex flex-col justify-between">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <input
+              type="text"
+              placeholder="Nombre Ruta"
+              value={nombreRuta}
+              onChange={(e) => SetNombreRuta(e.target.value)}
+              className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
+            />
+            <input
+              type="number"
+              placeholder="Tarifa"
+              value={tarifa}
+              onChange={(e) => SetTarifa(e.target.value)}
+              className="w-full h-12 bg-[#eff3fe] rounded-[5px] p-2 font-semibold text-[#6a62dc]"
+            />
+            <button type="submit" className="bg-[#6a62dc]  text-white rounded-md py-2 mt-2">
+              Registrar Ruta
+            </button>
+            <button
+            onClick={onClose}
+            className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-4">
+            Cerrar
           </button>
-        </form>
-
-        <button
-          onClick={onClose}
-          className="bg-[#FF5353] cursor-pointer w-full text-white rounded-md py-2 mt-2">
-          Cerrar
-        </button>
+          </form>
+  
+          
+        </div>
+  
       </div>
     </div>
   );
