@@ -92,8 +92,8 @@ export default function BarcodeScanner({ onScanSuccess, active }) {
     Html5Qrcode.getCameras().then(devices => {
       if (devices && devices.length) {
         setCameras(devices); 
-        // console.log("Cámaras disponibles:", devices);
-        setSelectedCamera(devices[2].id); // Seleccionar la primera cámara por defecto
+        console.log("Cámaras disponibles:", devices);
+        setSelectedCamera(devices[0].id); // Seleccionar la primera cámara por defecto
       } else {
         console.error("No cameras found");
       }

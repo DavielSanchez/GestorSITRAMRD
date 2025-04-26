@@ -23,14 +23,14 @@ function SelectRuta({ selectedRuta, setSelectedRuta }) {
   useEffect(() => {
     const fetchRutas = async () => {
       try {
-        const response = await fetch(`${API_LINK}/ruta/get/asignadas/${userId}`);
+        const response = await fetch(`${API_LINK}/ruta/all`);
         if (!response.ok) {
           console.error('Error al obtener las rutas:', response.statusText);
           return;
         }
         const data = await response.json();
         console.log(data)
-        setRutas(data.rutasAsignadas);
+        setRutas(data);
       } catch (error) {
         console.error('Error al conectar con la API:', error);
       }

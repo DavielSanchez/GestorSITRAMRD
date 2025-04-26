@@ -13,12 +13,37 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useBG, usePrimaryColors, useText } from "../../ColorClass";
+import { jwtDecode } from 'jwt-decode';
 
 const API_URL = import.meta.env.VITE_API_LINK || "http://localhost:3001";// Reemplaza con la URL real
 
 function Row({ row }) {
   const [open, setOpen] = React.useState(false);
+
+  const handleDelete = async (operadorId, rutaId) => {
+    try {
+      const response = await fetch(`${API_URL}/usuario/ruta/quitar/${operadorId}/${rutaId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert("Ruta quitada del operador exitosamente.");
+        // Aquí podrías actualizar el estado para refrescar la tabla
+      } else {
+        alert(result.message || "Error al quitar la ruta.");
+      }
+    } catch (error) {
+      console.error("Error en handleDelete:", error);
+      alert("Error al hacer la solicitud.");
+    }
+  };
 
   return (
     <>
@@ -46,15 +71,21 @@ function Row({ row }) {
               <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell>Operador</TableCell>
+                    <TableCell>Nombre</TableCell>
+                    <TableCell>Rol</TableCell>
+                    <TableCell align="right">Acciones</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.buses.map((items) => (
                     <TableRow key={items._id}>
-                      <TableCell>{items._id}</TableCell>
                       <TableCell>{items.nombre}</TableCell>
+                      <TableCell>{items.userRol}</TableCell>
+                      <TableCell align='right'> 
+                      <IconButton  color='error' onClick={() => handleDelete(items._id, row._id)}>
+                        <DeleteIcon/>
+                      </IconButton>
+                    </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -105,22 +136,32 @@ export default function TableAsignar() {
     const textColor = useText(theme);
     const primaryColor = usePrimaryColors()
 
-  React.useEffect(() => {
-    // Obtener rutas
-    fetch(`${API_URL}/ruta/all`)
-      .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((err) => console.error("Error cargando rutas:", err));
-
-    // Obtener autobuses
-    fetch(`${API_URL}/auth/users/`)
-      .then((res) => res.json())
-      .then((data) => {
-        const rol = data.filter((u) => u.userRol === "Operador");
-        setBuses(rol);
-      })
-      .catch((err) => console.error("Error cargando autobuses:", err));
-  }, []);
+    React.useEffect(() => {
+      // Obtener rutas
+      fetch(`${API_URL}/ruta/all`)
+        .then((res) => res.json())
+        .then((rutas) => {
+          setUsers(rutas); // O tal vez deberías usar setRutas(rutas);
+          
+          // Obtener usuarios después de que se hayan cargado las rutas
+          fetch(`${API_URL}/auth/users/`)
+            .then((res) => res.json())
+            .then((usuarios) => {
+              const operadoresConRuta = usuarios.filter((usuario) => {
+                return (
+                  usuario.userRol === "Operador" &&
+                  usuario.rutasAsignadas?.some(rutaId =>
+                    rutas.some(r => r._id === rutaId)
+                  )
+                );
+              });
+              setBuses(operadoresConRuta);
+            })
+            .catch((err) => console.error("Error cargando autobuses:", err));
+        })
+        .catch((err) => console.error("Error cargando rutas:", err));
+    }, []);
+    
 
   // Relacionar autobuses con sus rutas
   const enhancedUsers = users.map((route) => ({
