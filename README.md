@@ -1,6 +1,6 @@
 # 🎨 Frontend de **SITRAMRD**  
 
-¡Bienvenido al frontend de **[Nombre del Proyecto]**! 🎉 Esta aplicación está construida con **React.js**, ofreciendo una experiencia rápida, moderna y atractiva para los usuarios.  
+¡Bienvenido al frontend del **GestorSITRAMRD**! 🎉 Esta aplicación está construida con **React.js**, ofreciendo una experiencia rápida, moderna y atractiva para los usuarios.  
 
 ---
 
